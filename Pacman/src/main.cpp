@@ -9,7 +9,7 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-	cout << "Hej Pacman!";
+	cout << "Hej Pacman!!!";
 
 	return 0;
 }
