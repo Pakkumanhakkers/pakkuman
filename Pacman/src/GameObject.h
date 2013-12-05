@@ -8,9 +8,9 @@
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_
 class GameEngine;
+class Sprite;
 
-// TODO: Ta bort senare
-struct Sprite {};
+#include "Drawable.h"
 
 /**
  * Representerar ett object på spelplanen.
@@ -19,20 +19,22 @@ class GameObject : public Drawable
 {
 public:
   virtual ~GameObject() {}
-  GameObject() : x_(0), y_(0) {}
+  GameObject() : x_(0), y_(0), sprite_(nullptr) {}
 
-  virtual void update(GameEngine&);
+  virtual void update(GameEngine&) = 0;
 
-  double getX();
-  void setX(double x);
-  double getY();
-  void setY(double y);
+  double getX() {return x_;}
+  void setX(double x) {x_ = x;}
+  double getY() {return y_;}
+  void setY(double y) {y_ = y;}
+  Sprite* getSprite() {return sprite_;}
+  void setSprite(Sprite* sprite) {sprite_ = sprite;}
 
 private:
   double x_;
   double y_;
 
-  Sprite* current_sprite_;
+  Sprite* sprite_;
 };
 
 

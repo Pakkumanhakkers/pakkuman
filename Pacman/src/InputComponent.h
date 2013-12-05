@@ -16,7 +16,7 @@ class InputComponent
 {
 public:
   virtual ~InputComponent();
-  virtual void update(GameObject&);
+  virtual void update(GameObject&, GameEngine&);
 };
 
 #endif /* INPUTCOMPONENT_H_ */

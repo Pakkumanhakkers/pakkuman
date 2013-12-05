@@ -10,10 +10,10 @@
 
 #include <vector>
 
-#include "GameObject.h"
+#include "Moveable.h"
 
 /**
- * En händelse som ska utföras
+ * Ett kommando som ska utföras
  */
 class Command
 {
@@ -23,35 +23,83 @@ public:
   virtual void undo() = 0;
 };
 
+/**
+ * Kedjar flera kommandon
+ */
 class MultiCommand : public Command
 {
 public:
-  virtual MultiCommand(std::vector<Command>& events) : events_(events) {}
+  MultiCommand(std::vector<Command*>& commands) : commands_(commands) {}
 
   void execute();
   void undo();
 private:
-  std::vector<Command> events_;
+  std::vector<Command*> commands_;
 };
 
-class MoveObjectCommand : public Command
+/**
+ * Flyttar ett objekt
+ */
+class MoveCommand : public Command
 {
 public:
-  MoveObjectCommand(GameObject object, double x, double y) :
-    object_(object), x_(x), y_(y) {}
+  MoveCommand(GameObject& object, double x, double y) :
+    object_(&object), x_(x), y_(y) {}
 
   void execute();
   void undo();
+
 private:
-  GameObject object_;
+  GameObject* object_;
+  double preX_;
+  double preY_;
   double x_;
   double y_;
 };
 
-class EatObjectCommand : public Command
+/**
+ * Byter riktning på ett rörligt objekt
+ */
+class DirectCommand : public Command
 {
 public:
-  EatObjectCommand();
+  DirectCommand(Moveable& moveable, Moveable::Direction direction) :
+    object_(&moveable), direction_(direction) {}
+
+  void execute();
+  void undo();
+
+private:
+  Moveable* object_;
+  Moveable::Direction preDirection_;
+  Moveable::Direction direction_;
+};
+
+/**
+ * Byter fart på ett rörligt objekt
+ */
+class SpeedCommand : public Command
+{
+public:
+  SpeedCommand(Moveable& moveable, double speed) :
+    object_(&moveable), speed_(speed) {}
+
+  void execute();
+  void undo();
+
+private:
+  Moveable* object_;
+  double preSpeed_;
+  double speed_;
+};
+
+/**
+ * Äter upp något ätbart
+ */
+class EatCommand : public Command
+{
+public:
+  EatCommand();
 };
 
 #endif /* COMMAND_H_ */

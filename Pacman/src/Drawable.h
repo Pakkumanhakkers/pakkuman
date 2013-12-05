@@ -14,8 +14,9 @@ class Graphics;
  */
 class Drawable
 {
-  virtual void ~Drawable() {}
-  virtual void draw(Graphics&);
+public:
+  virtual ~Drawable() {}
+  virtual void draw(Graphics&) = 0;
 };
 
 

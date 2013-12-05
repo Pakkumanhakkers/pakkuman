@@ -7,6 +7,8 @@
 
 #ifndef MOVEABLEPHYSICSCOMPONENT_H_
 #define MOVEABLEPHYSICSCOMPONENT_H_
+class GameEngine;
+class Moveable;
 
 /**
  * Hanterar fysiken för rörliga objekt
@@ -14,8 +16,7 @@
 class MoveablePhysicsComponent
 {
 public:
-  virtual ~MoveablePhysicsComponent();
-  virtual void update(Moveable&, GameEngine&);
+  void update(Moveable&, GameEngine&);
 };
 
 

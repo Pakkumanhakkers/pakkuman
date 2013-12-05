@@ -7,6 +7,11 @@
 
 #ifndef MOVEABLE_H_
 #define MOVEABLE_H_
+class GameEngine;
+class MoveableGraphicsComponent;
+class MoveableInputComponent;
+class MoveablePhysicsComponent;
+
 class GraphicsComponent;
 class InputComponent;
 class PhysicsComponent;
@@ -19,22 +24,24 @@ class PhysicsComponent;
 class Moveable : public GameObject
 {
 public:
-  enum Direction {
+  enum Direction
+  {
     LEFT, RIGHT, UP, DOWN
   };
 
   virtual ~Moveable() {};
-  Moveable(InputComponent* input, PhysicsComponent* physics,
-      GraphicsComponent* graphics) :
-    graphics_(graphics), input_(input), physics_(physics),
+  Moveable(MoveableInputComponent* input, MoveablePhysicsComponent* physics,
+      MoveableGraphicsComponent* graphics) :
+    input_(input), physics_(physics), graphics_(graphics),
     speed_(0), direction_(Direction::LEFT) {}
 
   virtual void update(GameEngine&);
+  virtual void draw(Graphics&);
 
-  virtual Direction getDirection();
-  virtual void setDirection(Direction);
-  virtual double getSpeed();
-  virtual void setSpeed(double);
+  virtual Direction getDirection() {return direction_;}
+  virtual void setDirection(Direction direction) {direction_ = direction;}
+  virtual double getSpeed() {return speed_;}
+  virtual void setSpeed(double speed) {speed_ = speed;}
 
 protected:
   MoveableInputComponent* input_;
