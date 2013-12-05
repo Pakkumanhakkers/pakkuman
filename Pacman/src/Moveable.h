@@ -19,14 +19,30 @@ class PhysicsComponent;
 class Moveable : public GameObject
 {
 public:
+  enum Direction {
+    LEFT, RIGHT, UP, DOWN
+  };
+
   virtual ~Moveable() {};
   Moveable(InputComponent* input, PhysicsComponent* physics,
       GraphicsComponent* graphics) :
-    GameObject(graphics), input_(input), physics_(physics) {}
+    graphics_(graphics), input_(input), physics_(physics),
+    speed_(0), direction_(Direction::LEFT) {}
+
+  virtual void update(GameEngine&);
+
+  virtual Direction getDirection();
+  virtual void setDirection(Direction);
+  virtual double getSpeed();
+  virtual void setSpeed(double);
 
 protected:
-  InputComponent* input_;
-  PhysicsComponent* physics_;
+  MoveableInputComponent* input_;
+  MoveablePhysicsComponent* physics_;
+  MoveableGraphicsComponent* graphics_;
+
+  double speed_;
+  Direction direction_;
 };
 
 

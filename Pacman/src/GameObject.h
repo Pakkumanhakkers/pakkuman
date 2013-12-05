@@ -7,8 +7,10 @@
 
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_
+class GameEngine;
 
-#include "Point.h"
+// TODO: Ta bort senare
+struct Sprite {};
 
 /**
  * Representerar ett object på spelplanen.
@@ -16,12 +18,21 @@
 class GameObject : public Drawable
 {
 public:
-  Point position_;
+  virtual ~GameObject() {}
+  GameObject() : x_(0), y_(0) {}
 
-  GameObject(GraphicsComponent* graphics) : graphics_(graphics) {}
+  virtual void update(GameEngine&);
 
-protected:
-  GraphicsComponent* graphics_;
+  double getX();
+  void setX(double x);
+  double getY();
+  void setY(double y);
+
+private:
+  double x_;
+  double y_;
+
+  Sprite* current_sprite_;
 };
 
 

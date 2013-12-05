@@ -7,12 +7,15 @@
 
 #ifndef DRAWABLE_H_
 #define DRAWABLE_H_
+class Graphics;
 
 /**
  * Kan ritas ut
  */
 class Drawable
 {
+  virtual void ~Drawable() {}
+  virtual void draw(Graphics&);
 };
 
 
