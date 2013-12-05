@@ -8,16 +8,15 @@
 #ifndef GRAPHICSCOMPONENT_H_
 #define GRAPHICSCOMPONENT_H_
 class GameObject;
-class Graphics;
 
 /**
- * Hanterar det grafiska
+ * Väljer ut rätt grafik. Ritar ej.
  */
 class GraphicsComponent
 {
 public:
   virtual ~GraphicsComponent();
-  virtual void update(GameObject&, Graphics&);
+  virtual void update(GameObject&);
 };
 
 
