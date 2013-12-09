@@ -8,8 +8,22 @@
 #include "Command.h"
 
 #include <iterator>
+#include <list>
 
 using namespace std;
+
+MultiCommand::~MultiCommand()
+{
+  for (auto i : commands_)
+  {
+    delete i;
+  }
+}
+
+void MultiCommand::add(Command* command)
+{
+  commands_.push_back(command);
+}
 
 void MultiCommand::execute()
 {
@@ -21,9 +35,9 @@ void MultiCommand::execute()
 
 void MultiCommand::undo()
 {
-  for (auto i = commands_.end(); i != commands_.begin();)
+  for (auto i = commands_.rbegin(); i != commands_.rend(); ++i)
   {
-    (*(--i))->undo();
+    (*i)->undo();
   }
 }
 
