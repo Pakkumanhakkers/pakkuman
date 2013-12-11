@@ -16,6 +16,13 @@ class Sprite
 public:
   // Stegar till nästa bild, implementera denna! :)
   void next();
+  void prev();
+  int getLength();
+  // Behöver funktion för att rita ut
+
+private:
+  int length_;
+  // Bilddata här lämpligtvis
 };
 
 

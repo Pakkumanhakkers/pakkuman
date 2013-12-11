@@ -16,7 +16,8 @@ class Moveable;
 class MoveablePhysicsComponent
 {
 public:
-  void update(Moveable&, GameEngine&);
+  virtual ~MoveablePhysicsComponent() {};
+  virtual void update(Moveable&, GameEngine&) = 0;
 };
 
 

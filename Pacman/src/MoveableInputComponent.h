@@ -15,7 +15,7 @@ class MoveableInputComponent
 {
 public:
   virtual ~MoveableInputComponent();
-  virtual void update(Moveable&, GameEngine&);
+  virtual void update(Moveable&, GameEngine&) = 0;
 };
 
 

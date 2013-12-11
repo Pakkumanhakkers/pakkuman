@@ -1,8 +1,8 @@
-/*
- * Command.h
+/**
+ * @file Command.h
  *
  *  Created on: 4 dec 2013
- *      Author: tor
+ * @author tor
  */
 
 #ifndef COMMAND_H_
@@ -18,9 +18,17 @@
 class Command
 {
 public:
+  Command() : timestamp_{0} {}
   virtual ~Command() {}
+
   virtual void execute() = 0;
   virtual void undo() = 0;
+
+  void setTimestamp();
+  int getTimestamp() {return timestamp_;};
+
+private:
+  virtual int timestamp_;
 };
 
 /**
