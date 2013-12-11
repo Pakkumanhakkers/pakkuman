@@ -11,14 +11,12 @@
 /**
  * Sprite representerar en sekvens av bilder. Används för bildloopar.
  */
-class cSprite {
+class Sprite {
 public:
-	//Input arguments are a renderer, a filepath, x and y is the point to initialize, w and h is width and height of the sprite.
-
-	cSprite(SDL_Renderer* sent_renderer, std::string FilePath, int x, int y, int w, int h);
+	Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int x, int y, int w, int h);
 	virtual ~cSprite();
 
-	//Function to draw sprite
+	//Function to update which part will be rendered
 	void Draw();
 
 	//Functions to set positions
@@ -31,10 +29,35 @@ public:
 	int GetXpos();
 	int GetYpos();
 
+	//Choose which part of the sprite to crop out
+	void PlayAnimation(int BeginFrame, int EndFrame, int Row, float Speed);
+
+	/**
+	 *  I think next/prev is covered by PlayAnimation? Not sure what is supposed getLength to do? length
+	 * of a frame?
+	 * void next();
+	 * void prev();
+	 * int getLength() */
+
+
 private:
 
 	SDL_Texture* image;
+
+	//rect is destination rectangle
 	SDL_Rect rect;
 
+	//crop is source rectangle(temp rectangle) which will be copied to rect
+	SDL_Rect crop;
+
 	SDL_Renderer* renderer;
+
+	int img_width;
+	int img_height;
+
+	//Used by PlayAnimation
+	int current_frame;
+	int animation_delayspeed;
 };
+
+#endif /* SPRITE_H_ */

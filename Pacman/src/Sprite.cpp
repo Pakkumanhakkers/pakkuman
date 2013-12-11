@@ -5,9 +5,9 @@
  *      Author: Akdas
  */
 
-#include "Headerfiles/Sprite.h"
+#include "Sprite.h"
 
-cSprite::cSprite(SDL_Renderer* sent_renderer, std::string FilePath, int x, int y, int w, int h) {
+cSprite::Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int x, int y, int w, int h) {
 
 	renderer = sent_renderer;
 
@@ -43,48 +43,60 @@ cSprite::cSprite(SDL_Renderer* sent_renderer, std::string FilePath, int x, int y
 
 
 
-cSprite::~cSprite() {
+Sprite::~Sprite() {
 
 	SDL_DestroyTexture(image);
 
 }
 
 
-void cSprite::Draw()
+
+/**
+ * Copies the specified crop to the destination rectangle.
+ *Destination rectangle is the one to be rendered.*/
+
+void Sprite::Draw()
 {
 	SDL_RenderCopy(renderer, image, &crop, &rect);
 }
 
 
-void cSprite::SetX(int Xpos)
+void Sprite::SetX(int Xpos)
 {
 	rect.x = Xpos;
 }
 
-void cSprite::SetY(int Ypos)
+void Sprite::SetY(int Ypos)
 {
 	rect.y = Ypos;
 }
 
-void cSprite::SetPosition(int Xpos, int Ypos)
+void Sprite::SetPosition(int Xpos, int Ypos)
 {
 	rect.x = Xpos;
 	rect.y = Ypos;
 }
 
-int cSprite::GetXpos()
+int Sprite::GetXpos()
 {
 	return rect.x;
 }
 
 
-int cSprite::GetYpos()
+int Sprite::GetYpos()
 {
 	return rect.y;
 }
 
 
-void cSprite::PlayAnimation(int begin_frame, int end_frame, int row, float speed)
+
+/**
+ * Updates which part to be cropped from the sprite, can be used as follows;
+ * pacman -> PlayAnimation(0,1,2,200);
+ * This will check which frame of pacman.png we're cropping and crop the next one or reset to the first one.
+ * pacman.png is uploaded to google drive for reference.
+*/
+void Sprite::PlayAnimation(int begin_frame, int end_frame, int row, float speed)
 {
 
 	if (animation_delayspeed + speed < SDL_GetTicks())
