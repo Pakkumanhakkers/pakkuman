@@ -77,5 +77,3 @@ void SpeedCommand::undo()
   object_->setSpeed(preSpeed_);
 }
 
-
-

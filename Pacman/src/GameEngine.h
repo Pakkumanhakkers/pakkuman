@@ -10,6 +10,9 @@
 
 #include "GameInstance.h"
 
+class Map;
+class Sound;
+
 /**
  * Är samordnare för spelvärlden och menyn.
  */
@@ -17,11 +20,22 @@ class GameEngine
 {
 public:
   void loop();
-  void get();
+
+  void publishCommand(Command*);
+  void publishTimer(Timer*);
+  //void publishSound(Sound*);
+  //void publishSFX(Effect*);
+
+  Map getMap();
+  GameInstance getGame();
+
 private:
   void update();
   void draw();
+
+  CommandManager command_manager_;
   GameInstance game_instance_;
+  Map map_;
 };
 
 #endif /* GAMEENGINE_H */

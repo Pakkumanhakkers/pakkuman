@@ -32,8 +32,8 @@ public:
   virtual ~Moveable() {};
   Moveable(MoveableInputComponent* input, MoveablePhysicsComponent* physics,
       MoveableGraphicsComponent* graphics) :
-    input_(input), physics_(physics), graphics_(graphics),
-    speed_(0), direction_(Direction::LEFT) {}
+    input_{input}, physics_{physics}, graphics_{graphics},
+    speed_{0}, direction_{Direction::LEFT} {}
 
   virtual void update(GameEngine&);
   virtual void draw(Graphics&);
@@ -48,6 +48,7 @@ protected:
   MoveablePhysicsComponent* physics_;
   MoveableGraphicsComponent* graphics_;
 
+private:
   double speed_;
   Direction direction_;
 };

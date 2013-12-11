@@ -8,15 +8,20 @@
 #ifndef KEYBOARDINPUTCOMPONENT_H_
 #define KEYBOARDINPUTCOMPONENT_H_
 class GameEngine;
-class Moveable;
+
+#include "Moveable.h"
 
 /**
  * Styr rörliga objekt med tangentbordet
  */
-class KeyboardInputComponent
+class KeyboardInputComponent : public MoveableInputComponent
 {
 public:
+  KeyboardInputComponent() : next_direction_{Moveable::Direction::LEFT} {};
   void update(Moveable&, GameEngine&);
+
+private:
+  Moveable::Direction next_direction_;
 };
 
 

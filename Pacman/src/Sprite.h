@@ -39,7 +39,6 @@ public:
 	 * void prev();
 	 * int getLength() */
 
-
 private:
 
 	SDL_Texture* image;
