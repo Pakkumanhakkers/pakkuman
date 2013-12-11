@@ -1,33 +1,35 @@
 /**
- * @file PathFinder.h
+ * @file Ghost.h
  *
- *  Created on: 6 dec 2013
- * @author Erik N inte philip iallafall
+ *  Created on: 10 dec 2013
+ * @author ivar
  */
 
 #ifndef GHOST_H_
 #define GHOST_H_
 
+class AiInputComponent;
 
-#include "Moveable.h"
-
-
-
-class Ghost
+class Ghost : public Moveable, public Eatable
 {
 public:
-Ghost(int aiType, int speed);
-void FindPath();
-void Die();
-void ToggleEatable(bool);
-int eatable;
-int speed;
-int aiType;
-string ghost_name;
+  ~Ghost() {}
+  Ghost(MoveableInputComponent* input, MoveablePhysicsComponent* physics,
+        MoveableGraphicsComponent* graphics) :
+      Moveable{input, physics, graphics}, health_state_{0} {}
 
+  void eat();
+
+  void enterChase();
+  void enterScatter();
+  void wound();
+  void blink();
+  void heal();
+
+private:
+  int health_state_;
 };
 
 
 
-
-#endif /* PATHFINDER_H_ */
+#endif /* GHOST_H_ */
