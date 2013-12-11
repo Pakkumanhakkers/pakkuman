@@ -7,20 +7,20 @@
 
 #ifndef TIMER_H_
 #define TIMER_H_
-
-#include "Event.h"
+class Command;
 
 
 class Timer
 {
 public:
-  Timer(Event& event, int tics) : trigger_event_(event), tics_(tics) {}
+  Timer(Command* command, int tics) : trigger_command_(command), tics_(tics) {}
   void tic();
-  void trigger();
+  bool hasElapsed();
+  Command* getCommand();
 
 private:
   int tics_;
-  Event* trigger_event_;
+  Command* trigger_command_;
 };
 
 

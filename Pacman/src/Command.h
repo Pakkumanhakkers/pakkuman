@@ -29,12 +29,14 @@ public:
 class MultiCommand : public Command
 {
 public:
-  MultiCommand(std::vector<Command*>& commands) : commands_(commands) {}
+  ~MultiCommand();
+  MultiCommand() {};
 
+  void add(Command* command);
   void execute();
   void undo();
 private:
-  std::vector<Command*> commands_;
+  std::list<Command*> commands_;
 };
 
 /**
@@ -51,8 +53,8 @@ public:
 
 private:
   GameObject* object_;
-  double preX_;
-  double preY_;
+  double preX_{0};
+  double preY_{0};
   double x_;
   double y_;
 };
@@ -71,7 +73,7 @@ public:
 
 private:
   Moveable* object_;
-  Moveable::Direction preDirection_;
+  Moveable::Direction preDirection_{0};
   Moveable::Direction direction_;
 };
 
@@ -89,7 +91,7 @@ public:
 
 private:
   Moveable* object_;
-  double preSpeed_;
+  double preSpeed_{0};
   double speed_;
 };
 

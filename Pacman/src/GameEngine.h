@@ -10,9 +10,6 @@
 
 #include "GameInstance.h"
 
-class Event;
-
-
 /**
  * Är samordnare för spelvärlden och menyn.
  */
@@ -20,8 +17,10 @@ class GameEngine
 {
 public:
   void loop();
-  void publishEvent(Event&);
+  void get();
 private:
+  void update();
+  void draw();
   GameInstance game_instance_;
 };
 

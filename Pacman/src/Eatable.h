@@ -23,8 +23,7 @@ public:
   FoodType getFoodType() {return foodType_;}
 
 private:
-  FoodType foodType_;
+  FoodType foodType_{DOT};
 };
-
 
 #endif /* EATABLE_H_ */
