@@ -9,7 +9,7 @@
 #define PACMAN_H_
 
 /**
- * Antagonisten Pacman som äter allt.
+ * Pacman som äter allt.
  */
 class Pacman : public Moveable
 {

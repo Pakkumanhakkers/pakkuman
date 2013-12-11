@@ -7,6 +7,8 @@
 
 #ifndef MOVEABLE_H_
 #define MOVEABLE_H_
+class Graphics;
+
 class GameEngine;
 class MoveableGraphicsComponent;
 class MoveableInputComponent;
@@ -29,19 +31,24 @@ public:
     LEFT, RIGHT, UP, DOWN
   };
 
-  virtual ~Moveable() {};
+  virtual
+  ~Moveable();
   Moveable(MoveableInputComponent* input, MoveablePhysicsComponent* physics,
-      MoveableGraphicsComponent* graphics) :
-    input_{input}, physics_{physics}, graphics_{graphics},
-    speed_{0}, direction_{Direction::LEFT} {}
+      MoveableGraphicsComponent* graphics);
 
-  virtual void update(GameEngine&);
-  virtual void draw(Graphics&);
+  virtual void
+  update(GameEngine&);
+  virtual void
+  draw(Graphics&);
 
-  virtual Direction getDirection() {return direction_;}
-  virtual void setDirection(Direction direction) {direction_ = direction;}
-  virtual double getSpeed() {return speed_;}
-  virtual void setSpeed(double speed) {speed_ = speed;}
+  Direction
+  getDirection();
+  void
+  setDirection(Direction direction);
+  double
+  getSpeed();
+  void
+  setSpeed(double speed);
 
 protected:
   MoveableInputComponent* input_;
