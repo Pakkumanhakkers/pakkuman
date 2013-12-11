@@ -8,6 +8,12 @@
 /** Should include the mainfile I think */
 
 
+#ifndef SDLSetup_H_
+#define SDLSetup_H_
+
+
+/* Bad name, my bad. */
+
 class cSDL_Setup {
 public:
 	//Initializer
@@ -32,3 +38,4 @@ SDL_Renderer* renderer;
 SDL_Event* mainEvent;
 };
 
+#endif /* SDLSetup_H_ */
