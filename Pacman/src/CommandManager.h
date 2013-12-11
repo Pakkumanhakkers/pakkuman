@@ -1,33 +1,38 @@
+
 /**
  * @file CommandManager.h
  *
- *  Created on: 11 dec 2013
- * @author ivar
+ *  Created on: 9 dec 2013
+ * @author tor
  */
 
-#ifndef COMMANDER_H_
-#define COMMANDER_H_
+#ifndef COMMANDMANAGER_H_
+#define COMMANDMANAGER_H_
+
+#include <list>
+
+#include "Command.h"
 
 /**
- * Hanterar Command och Event för spelning och stegning längs tidsaxeln.
+ * Hanterar återkallerliga kommandon i sekvens
  */
 class CommandManager
 {
 public:
-  void addCommand(Command*);
-  void addTimer(Timer*);
-
-  bool next();
-  bool prev();
-
+  ~CommandManager();
+  CommandManager();
+  void add(Command* command);
+  void clear();
+  bool canRedo();
+  bool canUndo();
+  void undo();
+  void redo();
 private:
-  int time_;
+  void remove(std::list<Command*>::iterator start,
+      std::list<Command*>::iterator end);
+  std::list<Command*>::iterator current_command_;
   std::list<Command*> commands_;
-  std::list<Timer*> active_timers_;
-  std::list<Timer*> elapsed_timers_;
-
 };
 
 
-
-#endif /* COMMANDER_H_ */
+#endif /* COMMANDMANAGER_H_ */
