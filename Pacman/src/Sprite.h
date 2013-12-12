@@ -8,46 +8,33 @@
 #ifndef SPRITE_H_
 #define SPRITE_H_
 
-#include <SDL.h>
-#include <string>
-
 /**
  * Sprite representerar en sekvens av bilder. Används för bildloopar.
  */
 class Sprite {
 public:
-	Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int x, int y, int w, int h);
-	virtual ~Sprite();
-
-	//Function to update which part will be rendered
-	void Draw();
-
-	//Functions to set positions
-	void SetX(int Xpos);
-	void SetY(int Ypos);
-	void SetPosition(int Xpos, int Ypos);
+	Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h);
+	virtual ~cSprite();
 
 
-	//Functions to find positions
-	int GetXpos();
-	int GetYpos();
+
+	//Functions to find information about sprite.
+	int GetWidth();
+	int GetWidth();
+
+	SDL_Renderer* GetRenderer();
+
+	SDL_Rect GetCrop(int ticks);
+
+	SDL_Rect FinalRectangle();
 
 	//Choose which part of the sprite to crop out
 	void PlayAnimation(int BeginFrame, int EndFrame, int Row, float Speed);
 
-	/**
-	 *  I think next/prev is covered by PlayAnimation? Not sure what is supposed getLength to do? length
-	 * of a frame?
-	 * void next();
-	 * void prev();
-	 * int getLength() */
 
 private:
 
 	SDL_Texture* image;
-
-	//rect is destination rectangle
-	SDL_Rect rect;
 
 	//crop is source rectangle(temp rectangle) which will be copied to rect
 	SDL_Rect crop;

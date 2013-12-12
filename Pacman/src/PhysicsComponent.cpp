@@ -13,15 +13,14 @@ PhysicsComponent::~PhysicsComponent()
 }
 
 bool
-PhysicsComponent::isWallAhead(Map* map, double x, double y,
+PhysicsComponent::isWallAhead(Map* map, GameObject* object,
     Moveable::Direction direction)
 {
   int p = Moveable::isPositiveDirection(direction);
   int h = Moveable::isHorizontalDirection(direction);
 
-  return map->isWall(int{x + 0.5 * double{!h}} + h * p,
-    int{y + 0.5 * double{h}} + !h * p);
-  }
+  return map->isWall(int{object->getX() + 0.5 * double{!h}} + h * p,
+    int{object->getY() + 0.5 * double{h}} + !h * p);
 }
 
 bool
@@ -29,5 +28,5 @@ PhysicsComponent::canTurn(Map* map, Moveable* moveable,
     Moveable::Direction direction)
 {
   return moveable->isCentered() && !isWallAhead(map,
-      moveable->getX(), moveable->getY(), direction);
+      moveable, direction);
 }

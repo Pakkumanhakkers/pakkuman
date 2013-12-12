@@ -23,7 +23,7 @@ public:
   update(Moveable*, GameEngine*) = 0;
 
   static bool
-  isWallAhead(Map*, double x, double y, Moveable::Direction);
+  isWallAhead(Map*, GameObject*, Moveable::Direction);
   static bool
   canTurn(Map*, Moveable*, Moveable::Direction);
 

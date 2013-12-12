@@ -7,7 +7,7 @@
 
 #include "Sprite.h"
 
-cSprite::Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int x, int y, int w, int h) {
+Sprite::Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h) {
 
 	renderer = sent_renderer;
 
@@ -20,10 +20,6 @@ cSprite::Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int x, int y,
 			{
 				std::cout << "Couldn't load " << FilePath.c_str() << std::endl;
 			}
-		rect.x = x;
-		rect.y = y;
-		rect.w = w;
-		rect.h = h;
 
 		//Sets img_width and img_height to the dimensions of the image.
 		SDL_QueryTexture(image, NULL,NULL, &img_width, &img_height);
@@ -55,38 +51,28 @@ Sprite::~Sprite() {
  * Copies the specified crop to the destination rectangle.
  *Destination rectangle is the one to be rendered.*/
 
-void Sprite::Draw()
-{
-	SDL_RenderCopy(renderer, image, &crop, &rect);
+
+
+void Sprite::GetWidth(){
+	return w;
+}
+
+void Sprite::GetHeight() {
+	return h;
 }
 
 
-void Sprite::SetX(int Xpos)
-{
-	rect.x = Xpos;
+SDL_Rect Sprite::GetCrop(ticks){
+
+	return crop;
 }
 
-void Sprite::SetY(int Ypos)
+SDL_Renderer* Sprite::GetRenderer()
 {
-	rect.y = Ypos;
+
+	return renderer;
 }
 
-void Sprite::SetPosition(int Xpos, int Ypos)
-{
-	rect.x = Xpos;
-	rect.y = Ypos;
-}
-
-int Sprite::GetXpos()
-{
-	return rect.x;
-}
-
-
-int Sprite::GetYpos()
-{
-	return rect.y;
-}
 
 
 
@@ -113,7 +99,7 @@ void Sprite::PlayAnimation(int begin_frame, int end_frame, int row, float speed)
 	crop.w = img_width/2;
 	crop.h = img_height/4;
 
-	animation_delayspeed = SDL_GetTicks();
+	animation_delayspeed + speed;
 	}
 
 }
