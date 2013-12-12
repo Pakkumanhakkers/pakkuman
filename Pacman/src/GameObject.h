@@ -37,8 +37,8 @@ public:
   void
   setSprite(Sprite* sprite);
 
-  void
-  draw(Graphics&);
+  virtual void
+  draw(Graphics*);
 
 private:
   double x_;

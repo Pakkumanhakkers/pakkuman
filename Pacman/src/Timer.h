@@ -13,13 +13,12 @@ class Command;
 class Timer
 {
 public:
-  Timer(Command* command, int duration) :
-    timestamp_{0}, trigger_command_{command}, duration_{duration} {}
+  Timer(Command*, int);
 
-  void setTimestamp();
-  int getTimestamp() {return timestamp_;};
-  bool hasElapsed(int time);
-  Command* getCommand() {return trigger_command_;};
+  void setTimestamp(int);
+  int getTimestamp();
+  bool hasElapsed(int);
+  Command* getCommand();
 
 private:
   int timestamp_;

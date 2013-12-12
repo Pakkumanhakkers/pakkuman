@@ -12,35 +12,6 @@
 
 using namespace std;
 
-MultiCommand::~MultiCommand()
-{
-  for (auto i : commands_)
-  {
-    delete i;
-  }
-}
-
-void MultiCommand::add(Command* command)
-{
-  commands_.push_back(command);
-}
-
-void MultiCommand::execute()
-{
-  for (Command* command : commands_)
-  {
-    command->execute();
-  }
-}
-
-void MultiCommand::undo()
-{
-  for (auto i = commands_.rbegin(); i != commands_.rend(); ++i)
-  {
-    (*i)->undo();
-  }
-}
-
 void MoveCommand::execute()
 {
   preX_ = object_->getX();
@@ -53,6 +24,17 @@ void MoveCommand::undo()
 {
   object_->setX(preX_);
   object_->setY(preY_);
+}
+
+void SpriteCommand::execute()
+{
+  preSprite_ = object_->getSprite();
+  object_->setSprite(sprite_);
+}
+
+void SpriteCommand::undo()
+{
+  object_->setSprite(preSprite_);
 }
 
 void DirectCommand::execute()
@@ -75,5 +57,25 @@ void SpeedCommand::execute()
 void SpeedCommand::undo()
 {
   object_->setSpeed(preSpeed_);
+}
+
+void ScoreCommand::execute()
+{
+  game_->score += score_;
+}
+
+void ScoreCommand::undo()
+{
+  game_->score -= score_;
+}
+
+void LifeCommand::execute()
+{
+  game_->lives += life_;
+}
+
+void LifeCommand::undo()
+{
+  game_->lives -= life_;
 }
 

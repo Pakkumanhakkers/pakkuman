@@ -114,28 +114,6 @@ private:
 };
 
 /*
- * Eatable Command
- */
-
-/**
- * Äter upp något ätbart
- */
-class FoodTypeCommand : public Command
-{
-public:
-  FoodTypeCommand(Eatable* eatable, Eatable::FoodType foodType) :
-    object_{eatable}, foodType_{foodType} {}
-
-  void execute();
-  void undo();
-
-private:
-  Eatable* object_;
-  Eatable::FoodType preFoodType_{Eatable::FoodType::DOT};
-  Eatable::FoodType foodType_;
-};
-
-/*
  * GameInstance Command
  */
 
@@ -154,6 +132,23 @@ public:
 private:
   GameInstance* game_;
   int score_;
+};
+
+/**
+ * Tappar livspoäng.
+ */
+class LifeCommand : public Command
+{
+public:
+  LifeCommand(GameInstance* game, int life) :
+    game_{game}, life_{life} {}
+
+  void execute();
+  void undo();
+
+private:
+  GameInstance* game_;
+  int life_;
 };
 
 #endif /* COMMAND_H_ */

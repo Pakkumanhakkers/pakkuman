@@ -37,7 +37,7 @@ public:
   virtual void
   update(GameEngine*);
   virtual void
-  draw(Graphics&);
+  draw(Graphics*);
 
   Direction
   getDirection();

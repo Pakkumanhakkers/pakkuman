@@ -18,7 +18,7 @@ public:
         GraphicsComponent* graphics) :
       Moveable{input, physics, graphics}, health_state_{0} {}
 
-  void eat();
+  void eat(GameEngine*);
 
   void enterChase();
   void enterScatter();

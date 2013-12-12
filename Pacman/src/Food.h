@@ -11,7 +11,11 @@
 class Food : public GameObject, public Eatable
 {
 public:
-  virtual void update(GameEngine&);
+  Food(double x, double y, Sprite* sprite, int score);
+  virtual void eat(GameEngine*);
+
+private:
+  int score_;
 };
 
 

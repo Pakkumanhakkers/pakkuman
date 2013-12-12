@@ -13,11 +13,14 @@
  */
 struct Settings
 {
-  int sound_level;
-  bool sound_mute;
-  int score_dot;
-  int score_fruit;
-  int score_ghost;
+  int soundLevel;
+  bool soundMute;
+
+  int scoreDot;
+  int scoreFruit;
+  int scoreGhost;
+
+  int frameTime;
 };
 
 

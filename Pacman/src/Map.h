@@ -11,7 +11,7 @@
 /**
  * Beskriver en karta. Är statisk efter att data lästs in. Beskrivs med rutnät.
  */
-class Map
+class Map : public Drawable
 {
 public:
   enum TileType
@@ -22,6 +22,9 @@ public:
   Map();
   virtual
   ~Map();
+
+  virtual void
+  draw(Graphics*);
 
   int
   getWidth();

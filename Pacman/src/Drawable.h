@@ -20,7 +20,7 @@ public:
   Drawable();
 
   virtual void
-  draw(Graphics&) = 0;
+  draw(Graphics*) = 0;
 };
 
 

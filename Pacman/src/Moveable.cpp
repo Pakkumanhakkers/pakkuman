@@ -37,7 +37,7 @@ Moveable::update(GameEngine* gameEngine)
  * @param graphics grafikmotor
  */
 void
-Moveable::draw(Graphics& graphics)
+Moveable::draw(Graphics* graphics)
 {
 }
 

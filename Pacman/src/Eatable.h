@@ -19,7 +19,7 @@ public:
   Eatable();
 
   virtual void
-  eat() = 0;
+  eat(GameEngine*) = 0;
 };
 
 #endif /* EATABLE_H_ */
