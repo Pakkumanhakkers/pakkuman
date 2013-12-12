@@ -26,8 +26,8 @@ public:
   //void publishSound(Sound*);
   //void publishSFX(Effect*);
 
-  Map getMap();
-  GameInstance getGame();
+  Map* getMap();
+  GameInstance* getGame();
 
 private:
   void update();

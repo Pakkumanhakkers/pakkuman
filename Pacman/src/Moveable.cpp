@@ -7,16 +7,16 @@
 
 #include "Moveable.h"
 
-#include "MoveableGraphicsComponent.h"
-#include "MoveableInputComponent.h"
-#include "MoveablePhysicsComponent.h"
+#include "GraphicsComponent.h"
+#include "InputComponent.h"
+#include "PhysicsComponent.h"
 
 Moveable::~Moveable()
 {
 }
 
-Moveable::Moveable(MoveableInputComponent* input, MoveablePhysicsComponent* physics,
-      MoveableGraphicsComponent* graphics) :
+Moveable::Moveable(InputComponent* input, PhysicsComponent* physics,
+      GraphicsComponent* graphics) :
     input_{input}, physics_{physics}, graphics_{graphics},
     speed_{0}, direction_{Direction::LEFT} {}
 
@@ -25,11 +25,11 @@ Moveable::Moveable(MoveableInputComponent* input, MoveablePhysicsComponent* phys
  * @param gameEngine spelmotorn
  */
 void
-Moveable::update(GameEngine& gameEngine)
+Moveable::update(GameEngine* gameEngine)
 {
-  input_->update(*this, gameEngine);
-  physics_->update(*this, gameEngine);
-  graphics_->update(*this);
+  input_->update(this, gameEngine);
+  physics_->update(this, gameEngine);
+  graphics_->update(this);
 }
 
 /**
@@ -79,4 +79,39 @@ void
 Moveable::setSpeed(double speed)
 {
   speed_ = speed;
+}
+
+/**
+ * Sant om objektet är mitt på en ruta.
+ * @return
+ */
+bool
+Moveable::isCentered()
+{
+  double h = isHorizontalDirection(direction_);
+
+  return (abs(x_ - round(x_))*(1.0 - h) <= speed_ &&
+      abs(y_ - round(y_))*h <= speed_);
+}
+
+/**
+ * Sant om riktningen är horisontell.
+ * @param direction riktning
+ * @return horisontell
+ */
+static bool
+Moveable::isHorizontalDirection(Moveable::Direction direction)
+{
+  return direction % 2 == 0;
+}
+
+/**
+ * Sant om riktningen är i positiv led.
+ * @param direction riktning
+ * @return positiv
+ */
+static bool
+Moveable::isPositiveDirection(Moveable::Direction direction)
+{
+  return direction / 2 == 0;
 }

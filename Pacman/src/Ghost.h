@@ -14,8 +14,8 @@ class Ghost : public Moveable, public Eatable
 {
 public:
   ~Ghost() {}
-  Ghost(MoveableInputComponent* input, MoveablePhysicsComponent* physics,
-        MoveableGraphicsComponent* graphics) :
+  Ghost(InputComponent* input, PhysicsComponent* physics,
+        GraphicsComponent* graphics) :
       Moveable{input, physics, graphics}, health_state_{0} {}
 
   void eat();

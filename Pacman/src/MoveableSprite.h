@@ -20,7 +20,6 @@ public:
 
 private:
   Moveable::Direction direction_;
-  int length_;
 };
 
 
