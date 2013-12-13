@@ -12,7 +12,7 @@
  * Beskriver en karta. Är statisk efter att data lästs in. Beskrivs med rutnät.
  */
  
-class Map : public Drawable
+class Map : public Drawable, public Sprite
 {
 public:
 	Map(SDL_Renderer* sent_renderer);
