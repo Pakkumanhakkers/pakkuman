@@ -14,6 +14,7 @@
 class Map : public Drawable
 {
 public:
+	Map(SDL_Renderer* sent_renderer);
   enum TileType
   {
     FREE, WALL, DOT, STRAWBERRY, PACMAN_SPAWN, GHOST_SPAWN // mer?
