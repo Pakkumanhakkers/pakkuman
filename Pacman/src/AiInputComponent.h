@@ -7,16 +7,20 @@
 
 #ifndef AIINPUTCOMPONENT_H_
 #define AIINPUTCOMPONENT_H_
-class GameEngine;
-class Moveable;
+
 
 /**
  * Styr rörliga objekt med AI
  */
-class AiInputComponent
+class AiInputComponent : Moveable, GameEngine
 {
 public:
   void update(Moveable&, GameEngine&);
+  Direction updateDirection(Aitype Ai, int ghost_x, int ghost_y, int target_x, target_y);
+
+private:
+    bool Valid(int ghost_x, int ghost_y,int direction);
+	Direction getRandom(int ghost_x, int ghost_y);
 };
 
 
