@@ -14,7 +14,7 @@ class Moveable;
 
 void AiInputComponent::update(Moveable& moveable, GameEngine& gameengine)
 {
-	Ai = moveable->Aitype
+	Ai = moveable->Aitype(); //erik är bäst
 	ghost_x = moveable->getX();
 	ghost_y = moveable->getY();
 	target_x = gameengine->Wherespacman_x();
@@ -25,9 +25,9 @@ void AiInputComponent::update(Moveable& moveable, GameEngine& gameengine)
 Direction AiInputComponent::updateDirection(Aitype Ai, int ghost_x, int ghost_y, int target_x, target_y)
 {
 	if (Ai == CHASE)
-	pathfinder->getDirection(ghost_x,ghost_y,target_x,target_y);
+	return pathfinder->getDirection(ghost_x,ghost_y,target_x,target_y);
 	else if (Ai == RANDOM)
-	getRandom(ghost_x, ghost_y)
+	return getRandom(ghost_x, ghost_y)
 }
 	
 
