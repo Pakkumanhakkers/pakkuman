@@ -16,7 +16,7 @@ Sprite::Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h) 
 
 
 
-		if(image ==NULL)
+		if(image == NULL)
 			{
 				std::cout << "Couldn't load " << FilePath.c_str() << std::endl;
 			}
@@ -62,7 +62,15 @@ void Sprite::GetHeight() {
 }
 
 
-SDL_Rect Sprite::GetCrop(ticks){
+SDL_Rect Sprite::GetCrop(ticks,direction){
+	if(direction== "Right")
+	{PlayAnimation(0,1,1,ticks);}
+	else if(direction == "Left")
+	{PlayAnimation(0,1,0,ticks);}
+	else if (direction == "Up")
+	{PlayAnimation(0,1,2,ticks);}
+	else
+	{PlayAnimation(0,1,3,ticks);}
 
 	return crop;
 }
@@ -73,6 +81,10 @@ SDL_Renderer* Sprite::GetRenderer()
 	return renderer;
 }
 
+SDL_Texture* Sprite::GetImage()
+{
+	return image;
+}
 
 
 

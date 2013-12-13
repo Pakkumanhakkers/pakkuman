@@ -24,7 +24,9 @@ public:
 
 	SDL_Renderer* GetRenderer();
 
-	SDL_Rect GetCrop(int ticks);
+	SDL_Texture* Sprite::GetImage();
+
+	SDL_Rect GetCrop(int ticks,direction);
 
 	SDL_Rect FinalRectangle();
 

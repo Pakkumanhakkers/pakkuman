@@ -9,10 +9,11 @@
 
 GraphicEngine::GraphicEngine() {
 
-	rect.x = x;
-	rect.y = y;
-	rect.w = w;
-	rect.h = h;
+	rect.x = 0;
+	rect.y = 0;
+	rect.w = 0;
+	rect.h = 0;
+	offset_map = 128;
 
 }
 
@@ -23,14 +24,13 @@ GraphicEngine::~GraphicEngine() {
 
 void GraphicEngine::DrawSprite(sprite_, xpos_, ypos_, current_ticks){
 
-	SDL_RenderCopy(Sprite->GetRenderer, Sprite->getImage(), &(Sprite->GetCrop(current_ticks)), &(OutputRectangle(Xpos,Ypos,Sprite->w, Sprite->h)));
+	SDL_RenderCopy(Sprite->GetRenderer(), Sprite->GetImage(), &(Sprite->GetCrop(current_ticks)), &(OutputRectangle(Xpos,Ypos,Sprite->w, Sprite->h)));
 
 }
 
-
 SDL_Rect* GraphicEngine::OutputRectangle(Xpos, Ypos, SpriteWidth, SpriteHeight){
 
-	rect.x = Xpos + 128 + Xpos*128;
+	rect.x = Xpos + offset_map;
 	rect.y = Ypos;
 	rect.w = SpriteWidth;
 	rect.h = SpriteHeight;

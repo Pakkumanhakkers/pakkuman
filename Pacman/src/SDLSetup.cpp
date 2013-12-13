@@ -37,9 +37,9 @@ cSDL_Setup::~cSDL_Setup() {
 
 SDL_Renderer* cSDL_Setup::GetRenderer()
 {
-
 	return renderer;
 }
+
 
 SDL_Event* cSDL_Setup::GetMainEvent()
 {
