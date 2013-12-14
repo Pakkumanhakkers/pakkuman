@@ -16,7 +16,7 @@ class AiInputComponent : Moveable, GameEngine
 {
 public:
   void update(Moveable&, GameEngine&);
-  Direction updateDirection(Aitype Ai, int ghost_x, int ghost_y, int target_x, target_y);
+  Direction updateDirection(AiType Ai, int ghost_x, int ghost_y, int target_x, int target_y);
 
 private:
     bool Valid(int ghost_x, int ghost_y,int direction);

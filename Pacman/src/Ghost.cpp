@@ -32,7 +32,7 @@ void Ghost::heal()
 	health_state_ = NORMAL;
 }
 
-void Ghost::Wound()
+void Ghost::wound()
 {
 	health_state_ = EATABLE;
 }
