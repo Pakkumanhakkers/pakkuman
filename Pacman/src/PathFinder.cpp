@@ -90,24 +90,3 @@ if (direction_x <= direction_y && direction_y > 0)
 	}
 	
 }
-
-
-/* TILL AICOMPONENT, PRONTO!
-int intDirection;
-random_device rd;
-mt19937 gen(rd());
-uniform_int_distribution<> dis(0, 3);
-Direction direction_;
-intDirection = dis(gen)
-switch(int_direction)
-{
-case(0):
-return direction_= LEFT;
-case(1)
-return direction_ = RIGHT;
-case(2)
-return direction_ = UP;
-case(3)
-return direction_ = DOWN;
-}
-*/

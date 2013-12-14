@@ -8,6 +8,7 @@
 #ifndef AIINPUTCOMPONENT_H_
 #define AIINPUTCOMPONENT_H_
 #include "Ghost.h"
+#include "Map.h"
 #include "Moveable.h"
 
 

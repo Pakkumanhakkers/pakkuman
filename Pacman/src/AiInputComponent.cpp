@@ -14,7 +14,7 @@ class Moveable;
 
 void AiInputComponent::update(Moveable& moveable, GameEngine& gameengine)
 {
-	Ai = moveable->AiType(); //erik är bäst
+	AiType Ai = moveable->getAiType(); //erik är bäst
 	ghost_x = moveable->getX();
 	ghost_y = moveable->getY();
 	target_x = gameengine->Wherespacman_x();
@@ -31,9 +31,9 @@ Direction AiInputComponent::updateDirection(AiType Ai, int ghost_x, int ghost_y,
 }
 	
 
-bool AiInputComponent::Valid(int ghost_x, int ghost_y,int direction)
+bool AiInputComponent::Valid(int ghost_x, int ghost_y, int direction) // isWall måste kallas med ett mapobjekt??
 {
-	if (direction == 0 && isWall(ghost_x - 1,ghost_y))
+	if (direction == 0 && isWall(ghost_x - 1, ghost_y))
 		return false;
 	else if (direction == 1 && isWall(ghost_x + 1, ghost_y))
 		return false;
@@ -47,7 +47,7 @@ bool AiInputComponent::Valid(int ghost_x, int ghost_y,int direction)
 
 Direction AiInputComponent::getRandom(int ghost_x, int ghost_y)
 {
-	int direction
+	int direction;
 	srand (time(NULL));
 	while (!Valid(ghost_x,ghost_y,direction))
 	{
@@ -57,11 +57,11 @@ Direction AiInputComponent::getRandom(int ghost_x, int ghost_y)
 		{
 			case(0):
 			return LEFT;
-			case(1)
+			case(1):
 			return RIGHT;
-			case(2)
+			case(2):
 			return UP;
-			case(3)
+			case(3):
 			return DOWN;
 		}
 }

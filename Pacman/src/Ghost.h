@@ -26,17 +26,19 @@ public:
   void wound();  //Denna sätter health_state_ till EATABLE, korrektomundo?
   void blink(); // Hur ska denna implementeras?
   void heal();  // Just nu sätter denna health_state_ till NORMAL, funkar det för er andra?
-
+  AiType getAiType();
 private:
   enum health_state_
   {
 	NORMAL, EATABLE, EATEN
   }
+  health_state_ CurrentHealthState = NORMAL;
   
   enum AiType 
   {
 	CHASE, RANDOM, SCATTER, HOME
   };
+  AiType CurrentAi = CHASE;
 
 };
 

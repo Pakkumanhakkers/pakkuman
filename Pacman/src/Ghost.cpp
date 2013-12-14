@@ -9,37 +9,42 @@ using namespace std;
 
 void Ghost::enterChase()
 {
-	AiType = CHASE;
+	CurrentAi = CHASE;
 }
 
 void Ghost::enterScatter()
 {
-	AiType = SCATTER;
+	CurrentAi = SCATTER;
 }
 
 void Ghost::enterRandom()
 {
-	AiType = RANDOM;
+	CurrentAi = RANDOM;
 }
 
 void Ghost::enterHome()
 {
-	AiType = HOME;
+	CurrentAi = HOME;
 }
 
 void Ghost::heal()
 {
-	health_state_ = NORMAL;
+	CurrentHealthState = NORMAL;
 }
 
 void Ghost::wound()
 {
-	health_state_ = EATABLE;
+	CurrentHealthState = EATABLE;
 }
 
 void Ghost::blink() // Vad ska hända här?
 {
 		
+}
+
+AiType Ghost::getAiType()
+{
+return CurrentAi;
 }
 
 
