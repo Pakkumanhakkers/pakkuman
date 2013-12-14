@@ -7,10 +7,14 @@
 
 #ifndef AIINPUTCOMPONENT_H_
 #define AIINPUTCOMPONENT_H_
+#include "Ghost.h"
+#include "Moveable.h"
 
 
 /**
  * Styr rÃ¶rliga objekt med AI
+ * Måste includea AiType:s och Directions på något vis!!
+ * Finns i ghost och i moveable
  */
 class AiInputComponent : Moveable, GameEngine
 {

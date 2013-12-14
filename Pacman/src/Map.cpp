@@ -26,35 +26,34 @@ int Map::getWidth()
 	return 20;
 }
 
-bool isWall(int x, int y)
+bool Map::isWall(int x, int y)
 {
 	return (MapArray[x][y] == WALL);
 }
 
-TileType getTileType(int x, int y)
+TileType Map::getTileType(int x, int y)
 {
 	return MapArray[x][y];
 }
 void drawMapArray()
 {
-	for(cor_y=0;cor_y<20;++cor_y)
+	for(int cor_y = 0;cor_y<20;++cor_y)
 	{
-		for(cor_x=0;cor_x<15;cor_x++) 
+		for(int cor_x = 0;cor_x<15;cor_x++)
 		{
-			Map >> TempChar;
-			switch (TempChar)
+			switch (MapArray{cor_x][cor_y])
 			case "#":
 			GraphicEngine->DrawSprite(WallSprite,cor_x,cor_y,0);
 			case ".":
-			MapArray[cor_x][cor_y] = DOT;
+			GraphicEngine->DrawSprite(FloorSprite,cor_x,cor_y,0);
 			case "p":
-			MapArray[cor_x][cor_y] = PACMAN_SPAWN;
+			GraphicEngine->DrawSprite(FloorSprite,cor_x,cor_y,0);
 			case "g":
-			MapArray[cor_x][cor_y] = GHOST_SPAWN;
+			GraphicEngine->DrawSprite(FloorSprite,cor_x,cor_y,0);
 			case "c":
-			MapArray[cor_x][cor_y] = CHERRY;
+			GraphicEngine->DrawSprite(FloorSprite,cor_x,cor_y,0);
 			case "0":
-			MapArray[cor_x][cor_y] = FLOOR;
+			GraphicEngine->DrawSprite(FloorSprite,cor_x,cor_y,0);
 		}
 	}
 }
@@ -63,13 +62,13 @@ void initMapArray() 	//Fyller på en array utifrån Map.txt
 	int cor_x;
 	int cor_y;
 	char TempChar;
-	ifstream Map;
-	Map.open("Map.txt");
+	ifstream inputMap;
+	inputMap.open("Map.txt");
 	 for(cor_y=0;cor_y<20;++cor_y)
 	{
 		for(cor_x=0;cor_x<15;cor_x++) 
 		{
-			Map >> TempChar;
+			inputMap >> TempChar;
 			switch (TempChar)
 			case "#":
 			MapArray[cor_x][cor_y] = WALL;
