@@ -18,14 +18,13 @@ public:
 	Map(SDL_Renderer* sent_renderer);
   enum TileType
   {
-    FREE, WALL, DOT, CHERRY, PACMAN_SPAWN, GHOST_SPAWN
+    FLOOR, WALL, DOT, CHERRY, PACMAN_SPAWN, GHOST_SPAWN
   };
 
   Map();
   virtual ~Map();
 
-  virtual void
-  draw(Graphics*);
+  virtual void draw(Graphics*);
 
   int getWidth();
   int getHeight();
@@ -35,8 +34,11 @@ public:
   private:
   SDL_Renderer* MapRenderer;
   TileType MapArray[15][20];
-  WallSprite = Sprite(SDL_Renderer* sent_renderer, Wall.png, int 32, int 32);
-  FloorSpirte = Sprite(SDL_Renderer* sent_renderer, Floor.png, int 32, int 32);
+  Sprite WallSprite = Sprite(SDL_Renderer* sent_renderer, Wall.png, int 32, int 32);
+  Sprite FloorSpirte = Sprite(SDL_Renderer* sent_renderer, Floor.png, int 32, int 32);
+  DotSprite = Sprite(SDL_Renderer* sent_renderer, Dot.png, int 32, int 32);
+  CherrySprite = Sprite(SDL_Renderer* sent_renderer, Cherry.png, int 32, int 32);
+  
 
 };
 

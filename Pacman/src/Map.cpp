@@ -1,5 +1,5 @@
 /**
- * @file PathFinder.h
+ * @file Map.cpp
  *
  *  Created on: 12 dec 2013
  * @author Erik N inte philip iallafall
@@ -7,6 +7,7 @@
  
 #include <ifstream>
 #inluce <iostream>
+#include <Map.h>
 using namespace std;
  
 //Konstruktor
@@ -34,8 +35,29 @@ TileType getTileType(int x, int y)
 {
 	return MapArray[x][y];
 }
-
-
+void drawMapArray()
+{
+	for(cor_y=0;cor_y<20;++cor_y)
+	{
+		for(cor_x=0;cor_x<15;cor_x++) 
+		{
+			Map >> TempChar;
+			switch (TempChar)
+			case "#":
+			GraphicEngine->DrawSprite(WallSprite,cor_x,cor_y,0);
+			case ".":
+			MapArray[cor_x][cor_y] = DOT;
+			case "p":
+			MapArray[cor_x][cor_y] = PACMAN_SPAWN;
+			case "g":
+			MapArray[cor_x][cor_y] = GHOST_SPAWN;
+			case "c":
+			MapArray[cor_x][cor_y] = CHERRY;
+			case "0":
+			MapArray[cor_x][cor_y] = FLOOR;
+		}
+	}
+}
 void initMapArray() 	//Fyller på en array utifrån Map.txt
 {
 	int cor_x;
@@ -60,7 +82,7 @@ void initMapArray() 	//Fyller på en array utifrån Map.txt
 			case "c":
 			MapArray[cor_x][cor_y] = CHERRY;
 			case "0":
-			MapArray[cor_x][cor_y] = FREE;
+			MapArray[cor_x][cor_y] = FLOOR;
 		}
 	}
 }
