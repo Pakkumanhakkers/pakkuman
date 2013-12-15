@@ -69,6 +69,16 @@ void ScoreCommand::undo()
   game_->score -= score_;
 }
 
+void FoodEatenCommand::execute()
+{
+  food_->setEaten(true);
+}
+
+void FoodEatenCommand::undo()
+{
+  food_->setEaten(false);
+}
+
 void LifeCommand::execute()
 {
   game_->lives += life_;

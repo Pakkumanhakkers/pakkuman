@@ -5,35 +5,30 @@
  * @author tor
  */
 
+#include "GameEngine.h"
+
+#include <vector>
+
+#include "Command.h"
+#include "CommandManager.h"
+#include "Food.h"
+#include "Ghost.h"
+#include "Map.h"
+#include "Pacman.h"
+#include "Settings.h"
+
+class Timer;
+
 void
 GameEngine::initGame()
 {
-  int width = map_.getWidth();
-  int height = map_.getHeight();
+  int px = map_.getPacmanX();
+  int py = map_.getPacmanY();
+  int gx = map_.getPacmanX();
+  int gy = map_.getGhostY();
 
-  for (int i = 0; i < width; ++i)
-  {
-    for (int j = 0; j < height; ++j)
-    {
-      switch (map_.getTileType(i, j))
-      {
-        case Map::TileType::DOT:
-          gameInstance_.food.push_back(new Food{i, j, &spriteDot,
-            settings_.scoreDot});
-          break;
-        case Map::TileType::STRAWBERRY:
-          gameInstance_.food.push_back(new Food{i, j, &spriteDot,
-            settings_.scoreFruit});
-          break;
-        case Map::TileType::PACMAN_SPAWN:
-          gameInstance_.pacman = new Pacman{i, j, &spriteDot};
-          break;
-        case Map::TileType::GHOST_SPAWN:
-          gameInstance_.ghosts.push_back(new Ghost{i, j, &spriteDot});
-          break;
-      }
-    }
-  }
+  gameInstance_.pacman = new Pacman{px, py, &spriteDot};
+  gameInstance_.ghosts.push_back(new Ghost{gx, gy, &spriteDot});
 }
 
 void
@@ -58,11 +53,6 @@ GameEngine::updateGame()
   {
     moveable->update(this);
   }
-
-  if (gameInstance_.lives <= 0)
-  {
-    gameOver();
-  }
 }
 
 void
@@ -81,6 +71,25 @@ GameEngine::drawGame()
   {
     object->draw(&graphics_);
   }
+}
+
+void
+GameEngine::lifeLost()
+{
+  if (gameInstance_.lives <= 0)
+  {
+    gameOver();
+  }
+  else
+  {
+
+  }
+}
+
+void
+GameEngine::gameOver()
+{
+
 }
 
 void

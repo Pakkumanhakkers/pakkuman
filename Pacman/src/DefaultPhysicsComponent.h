@@ -14,8 +14,6 @@ class DefaultPhysicsComponent : public PhysicsComponent
 {
 public:
   DefaultPhysicsComponent();
-  virtual
-  ~DefaultPhysicsComponent();
 
   virtual void
   update(Moveable*, GameEngine*);

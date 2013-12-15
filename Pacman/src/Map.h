@@ -8,38 +8,70 @@
 #ifndef MAP_H_
 #define MAP_H_
 
+#include <vector>
+
+#include "Drawable.h"
+#include "Sprite.h"
+class Graphics;
+
 /**
  * Beskriver en karta. Är statisk efter att data lästs in. Beskrivs med rutnät.
  */
- 
+
 class Map : public Drawable, public Sprite
 {
 public:
-	Map(SDL_Renderer* sent_renderer);
   enum TileType
   {
     FLOOR, WALL, DOT, CHERRY, PACMAN_SPAWN, GHOST_SPAWN
   };
 
-  Map();
+  struct FoodInfo
+  {
+    int x;
+    int y;
+    TileType type;
+  };
+
+  Map(Sprite* wall, Sprite* floor);
   virtual ~Map();
 
-  virtual void draw(Graphics*);
+  void
+  loadFile(std::string filename);
+
+  virtual void
+  draw(Graphics*);
 
   int getWidth();
   int getHeight();
   bool isWall(int x, int y);
   TileType getTileType(int x, int y);
   
-  private:
-  SDL_Renderer* MapRenderer;
-  TileType MapArray[15][20];
-  Sprite WallSprite = Sprite(SDL_Renderer* sent_renderer, Wall.png, int 32, int 32);
-  Sprite FloorSpirte = Sprite(SDL_Renderer* sent_renderer, Floor.png, int 32, int 32);
-  DotSprite = Sprite(SDL_Renderer* sent_renderer, Dot.png, int 32, int 32);
-  CherrySprite = Sprite(SDL_Renderer* sent_renderer, Cherry.png, int 32, int 32);
-  
+  int
+  getPacmanX();
+  int
+  getPacmanY();
+  int
+  getGhostX();
+  int
+  getGhostY();
+  std::vector<FoodInfo>*
+  getFoodInfo();
 
+private:
+  void
+  initMapExtras();
+
+  TileType MapArray[15][20];
+
+  Sprite* wallSprite_;
+  Sprite* floorSprite_;
+
+  int pacmanX_;
+  int pacmanY_;
+  int ghostX_;
+  int ghostY_;
+  std::vector<FoodInfo> foodInfo_;
 };
 
 #endif /* MAP_H_ */

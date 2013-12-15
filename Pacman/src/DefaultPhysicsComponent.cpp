@@ -16,11 +16,7 @@ DefaultPhysicsComponent::DefaultPhysicsComponent()
 {
 }
 
-DefaultPhysicsComponent::~DefaultPhysicsComponent()
-{
-}
-
-void
+virtual void
 DefaultPhysicsComponent::update(Moveable* moveable, GameEngine* gameEngine)
 {
   Moveable::Direction direction = moveable->getDirection();
