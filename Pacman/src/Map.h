@@ -17,24 +17,9 @@ class Graphics;
 /**
  * Beskriver en karta. Är statisk efter att data lästs in. Beskrivs med rutnät.
  */
-<<<<<<< HEAD
-
 class Map : public Drawable, public Sprite
-=======
-class Drawable;
-class Sprite;
-
-
-class Map
->>>>>>> branch 'master' of https://github.com/Pakkumanhakkers/pakkuman.git
 {
 public:
-<<<<<<< HEAD
-=======
-	Map(GraphicEngine* gre, Sprite* Wall, Sprite* Floor) : WallSprite{Wall}, FloorSprite{Floor}, graphicengine{gre} {}
-	void drawMapArray();
-
->>>>>>> branch 'master' of https://github.com/Pakkumanhakkers/pakkuman.git
   enum TileType
   {
     FLOOR, WALL, DOT, CHERRY, PACMAN_SPAWN, GHOST_SPAWN
@@ -60,8 +45,7 @@ public:
   int getHeight();
   bool isWall(int x, int y);
   TileType getTileType(int x, int y);
-  
-<<<<<<< HEAD
+
   int
   getPacmanX();
   int
@@ -72,15 +56,6 @@ public:
   getGhostY();
   std::vector<FoodInfo>*
   getFoodInfo();
-=======
-  private:
-  GraphicEngine* graphicengine;
-  Sprite* WallSprite;
-  Sprite* FloorSprite;
-  TileType MapArray[15][20];
-
-  
->>>>>>> branch 'master' of https://github.com/Pakkumanhakkers/pakkuman.git
 
 private:
   void

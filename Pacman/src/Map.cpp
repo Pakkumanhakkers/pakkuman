@@ -13,9 +13,6 @@ using namespace std;
 Map::Map(Sprite* wall, Sprite* floor) :
   wallSprite_{wall}, floorSprite_{floor}, ghostX_{0}, ghostY_{0},
   pacmanX_{0}, pacmanY_{0}
- 
-//Konstruktor
-Map::Map()
 {
 }
 
