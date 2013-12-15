@@ -13,9 +13,12 @@ class Food : public GameObject, public Eatable
 public:
   Food(double x, double y, Sprite* sprite, int score);
   virtual void eat(GameEngine*);
+  void setEaten(bool);
+  bool getEaten();
 
 private:
   int score_;
+  bool eaten_;
 };
 
 

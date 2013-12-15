@@ -10,83 +10,90 @@
 #include <iostream>
 using namespace std;
 
-//Pathfinder tar in ghosts position och en target-position och retunerar en giltlig direction
-Direction PathFinder::getDirection(ghost_x,ghost_y, target_x, target_y)
+PathFinder::PathFinder(Map* map): internalMap{map}
 {
-Direction prevDirection = getDirection();
+}
+
+//PathFinder tar in en ghost och en target-position och retunerar en giltlig direction
+Moveable::Direction PathFinder::getDirection(Moveable* gh, int target_x, int target_y)
+{
+Moveable::Direction prevDirection = gh->getDirection();
 int direction_x;
 int direction_y;
+int ghost_x = gh->getX();
+int ghost_y = gh->getY();
+
 direction_x = ghost_x - target_x;
 direction_y = ghost_y - target_y;
 
 if (direction_x >= direction_y && direction_x > 0)
 	{
-		if(prevDirection != LEFT && isWall(ghost_x -1, ghost_y)
+		if (prevDirection != Moveable::LEFT && internalMap->isWall(ghost_x -1, ghost_y))
 		{
-			setDirection(LEFT);
+			return (Moveable::LEFT);
 		}
-		else if(direction_y > 0 && isWall(ghost_x, ghost_y -1) && prevDirection != DOWN)
+		else if(direction_y > 0 && internalMap->isWall(ghost_x, ghost_y -1) && prevDirection != Moveable::DOWN)
 		{
-			setDirection(DOWN);
+			return (Moveable::DOWN);
 		}
-		else if(isWall(ghost_x, ghost_y +1) && prevDirection != UP)
+		else if(internalMap->isWall(ghost_x, ghost_y +1) && prevDirection != Moveable::UP)
 		{
-			setDirection(UP);
+			return (Moveable::UP);
 		}
 		else 
-		setDirection(RIGHT );
+		return (Moveable::RIGHT );
 	}
 if (direction_x >= direction_y && direction_x < 0)
 	{
-		if(prevDirection != RIGHT && isWall(ghost_x +1, ghost_y)
+		if(prevDirection != Moveable::RIGHT && internalMap->isWall(ghost_x +1, ghost_y))
 		{
-			setDirection(prefDirection);
+			return (prevDirection);
 		}
-		else if(direction_y > 0 && isWall(ghost_x, ghost_y -1) && prevDirection != DOWN)
+		else if(direction_y > 0 && internalMap->isWall(ghost_x, ghost_y -1) && prevDirection != Moveable::DOWN)
 		{
-			setDirection(DOWN);
+			return (Moveable::DOWN);
 		}
-		else if(isWall(ghost_x, ghost_y +1) && prevDirection != UP)
+		else if(internalMap->isWall(ghost_x, ghost_y +1) && prevDirection != Moveable::UP)
 		{
-			setDirection(UP);
+			return (Moveable::UP);
 		}
 		else 
-		setDirection(LEFT);
+		return (Moveable::LEFT);
 	}
 	
 if (direction_x <= direction_y && direction_y < 0)
 	{
-		if(prevDirection != UP && isWall(ghost_x, ghost_y + 1)
+		if(prevDirection != Moveable::UP && internalMap->isWall(ghost_x, ghost_y + 1))
 		{
-			setDirection(UP);
+			return (Moveable::UP);
 		}
-		else if(direction_x > 0 && isWall(ghost_x-1, ghost_y) && prevDirection != LEFT)
+		else if(direction_x > 0 && internalMap->isWall(ghost_x-1, ghost_y) && prevDirection != Moveable::LEFT)
 		{
-			setDirection(LEFT);
+			return (Moveable::LEFT);
 		}
-		else if(isWall(ghost_x + 1, ghost_y) && prevDirection != RIGHT)
+		else if(internalMap->isWall(ghost_x + 1, ghost_y) && prevDirection != Moveable::RIGHT)
 		{
-			setDirection(RIGHT);
+			return (Moveable::RIGHT);
 		}
 		else 
-		setDirection(DOWN);
+		return (Moveable::DOWN);
 	}
 if (direction_x <= direction_y && direction_y > 0)
 	{
-		if(prevDirection != DOWN && isWall(ghost_x, ghost_y + 1)
+		if(prevDirection != Moveable::DOWN && internalMap->isWall(ghost_x, ghost_y + 1))
 		{
-			setDirection(DOWN);
+			return (Moveable::DOWN);
 		}
-		else if(direction_x > 0 && isWall(ghost_x-1, ghost_y) && prevDirection != LEFT)
+		else if(direction_x > 0 && internalMap->isWall(ghost_x-1, ghost_y) && prevDirection != Moveable::LEFT)
 		{
-			setDirection(LEFT);
+			return (Moveable::LEFT);
 		}
-		else if(isWall(ghost_x + 1, ghost_y) && prevDirection != RIGHT)
+		else if(internalMap->isWall(ghost_x + 1, ghost_y) && prevDirection != Moveable::RIGHT)
 		{
-			setDirection(RIGHT);
+			return (Moveable::RIGHT);
 		}
 		else 
-		setDirection(UP);
+		return (Moveable::UP);
 	}
 	
 }

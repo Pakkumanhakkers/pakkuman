@@ -9,22 +9,22 @@ using namespace std;
 
 void Ghost::enterChase()
 {
-	CurrentAi = CHASE;
+	AiComponent->setAi(AiInputComponent::CHASE);
 }
 
 void Ghost::enterScatter()
 {
-	CurrentAi = SCATTER;
+	AiComponent->setAi(AiInputComponent::SCATTER);
 }
 
 void Ghost::enterRandom()
 {
-	CurrentAi = RANDOM;
+	AiComponent->setAi(AiInputComponent::RANDOM);
 }
 
 void Ghost::enterHome()
 {
-	CurrentAi = HOME;
+	AiComponent->setAi(AiInputComponent::HOME);
 }
 
 void Ghost::heal()
@@ -42,9 +42,6 @@ void Ghost::blink() // Vad ska hända här?
 		
 }
 
-AiType Ghost::getAiType()
-{
-return CurrentAi;
-}
+
 
 

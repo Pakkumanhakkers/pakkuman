@@ -35,6 +35,7 @@ public:
 private:
   void updateGame();
   void drawGame();
+  void lifeLost();
   void gameOver();
 
   Settings settings_;

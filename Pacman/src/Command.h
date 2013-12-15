@@ -135,6 +135,22 @@ private:
 };
 
 /**
+ * Byter status på uppäten mat
+ */
+class FoodEatenCommand : public Command
+{
+public:
+  FoodEatenCommand(Food* food) :
+    food_{food} {}
+
+  void execute();
+  void undo();
+
+private:
+  Food* food_;
+};
+
+/**
  * Tappar livspoäng.
  */
 class LifeCommand : public Command
