@@ -4,48 +4,67 @@
  *  Created on: 5 dec 2013
  * @author tor
  */
-#include <stdio.h>
+
+#include "AiInputComponent.h"
+
+//#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "AiInputComponent.h"
+
+#include "Pathfinder.h"
 
 class GameEngine;
 class Moveable;
 
-void AiInputComponent::update(Moveable& moveable, GameEngine& gameengine)
+//konstruktor
+AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder)
 {
-	AiType Ai = moveable->getAiType(); //erik är bäst
-	ghost_x = moveable->getX();
-	ghost_y = moveable->getY();
-	target_x = gameengine->Wherespacman_x();
-	taget_y = gameengine->Wherespacman_y();	//Det vi egentligen vill gÃ¶ra Ã¤r att fÃ¥ koordinaterna till pacman
-	updateDirection(Ai)
+	internalMap = map;
+	pathfinder = inpathfinder;
 }
 
-Direction AiInputComponent::updateDirection(AiType Ai, int ghost_x, int ghost_y, int target_x, int target_y)
+void AiInputComponent::update(Moveable* moveable, GameEngine* gameengine)
 {
-	if (Ai == CHASE)
-	return pathfinder->getDirection(ghost_x,ghost_y,target_x,target_y);
-	else if (Ai == RANDOM)
-	return getRandom(ghost_x, ghost_y);
+	AiInputComponent::AiType Ai = CurrentAi; //erik är bäst
+	int target_x = gameengine->getGame()->pacman->getX();
+	int target_y = gameengine->getGame()->pacman->getY();	//Det vi egentligen vill gÃ¶ra Ã¤r att fÃ¥ koordinaterna till pacman
+	updateDirection(Ai,moveable,target_x,target_y);
+}
+
+AiInputComponent::AiType AiInputComponent::getAi()
+{
+	return CurrentAi;
+}
+
+void AiInputComponent::setAi(AiType ai)
+{
+	CurrentAi = ai;
+}
+
+Moveable::Direction AiInputComponent::updateDirection(AiInputComponent::AiType Ai, Moveable* ghost, int target_x, int target_y)
+{
+	if (Ai == AiInputComponent::AiType::CHASE)
+	return pathfinder->getDirection(ghost,target_x,target_y);
+	else if (Ai == AiInputComponent::AiType::RANDOM)
+	return getRandom(ghost->getX(), ghost->getY());
 }
 	
 
 bool AiInputComponent::Valid(int ghost_x, int ghost_y, int direction) // isWall måste kallas med ett mapobjekt??
 {
-	if (direction == 0 && isWall(ghost_x - 1, ghost_y))
+	if (direction == 0 && internalMap->isWall(ghost_x - 1, ghost_y))
 		return false;
-	else if (direction == 1 && isWall(ghost_x + 1, ghost_y))
+	else if (direction == 1 && internalMap->isWall(ghost_x + 1, ghost_y))
 		return false;
-	else if (direction == 2 && isWall(ghost_x, ghost_y +1)
+	else if (direction == 2 && internalMap->isWall(ghost_x, ghost_y +1))
 		return false;
-	else if (direction == 3 && isWall(ghost_x, ghost_y -1)
+	else if (direction == 3 && internalMap->isWall(ghost_x, ghost_y -1))
 		return false;
 	else
 	return true;
 }
 
-Direction AiInputComponent::getRandom(int ghost_x, int ghost_y)
+Moveable::Direction AiInputComponent::getRandom(int ghost_x, int ghost_y)
 {
 	int direction;
 	srand (time(NULL));

@@ -11,11 +11,16 @@
 /**
  * Beskriver en karta. Är statisk efter att data lästs in. Beskrivs med rutnät.
  */
- 
-class Map : public Drawable, public Sprite
+class Drawable;
+class Sprite;
+
+
+class Map
 {
 public:
-	Map(SDL_Renderer* sent_renderer);
+	Map(GraphicEngine* gre, Sprite* Wall, Sprite* Floor) : WallSprite{Wall}, FloorSprite{Floor}, graphicengine{gre} {}
+	void drawMapArray();
+
   enum TileType
   {
     FLOOR, WALL, DOT, CHERRY, PACMAN_SPAWN, GHOST_SPAWN
@@ -32,12 +37,11 @@ public:
   TileType getTileType(int x, int y);
   
   private:
-  SDL_Renderer* MapRenderer;
+  GraphicEngine* graphicengine;
+  Sprite* WallSprite;
+  Sprite* FloorSprite;
   TileType MapArray[15][20];
-  Sprite WallSprite = Sprite(SDL_Renderer* sent_renderer, Wall.png, int 32, int 32);
-  Sprite FloorSpirte = Sprite(SDL_Renderer* sent_renderer, Floor.png, int 32, int 32);
-  DotSprite = Sprite(SDL_Renderer* sent_renderer, Dot.png, int 32, int 32);
-  CherrySprite = Sprite(SDL_Renderer* sent_renderer, Cherry.png, int 32, int 32);
+
   
 
 };

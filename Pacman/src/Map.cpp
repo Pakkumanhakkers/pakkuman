@@ -5,15 +5,14 @@
  * @author Erik N inte philip iallafall
  */
  
-#include <ifstream>
-#inluce <iostream>
+#include <fstream>
+#include <iostream>
 #include <Map.h>
 using namespace std;
  
 //Konstruktor
-Map::Map(SDL_Renderer* sent_renderer)
+Map::Map()
 {
-	MapRenderer = sent_renderer;
 }
 
 int Map::getWidth()
@@ -31,29 +30,29 @@ bool Map::isWall(int x, int y)
 	return (MapArray[x][y] == WALL);
 }
 
-TileType Map::getTileType(int x, int y)
+Map::TileType Map::getTileType(int x, int y)
 {
 	return MapArray[x][y];
 }
-void drawMapArray()
+void Map::drawMapArray()
 {
 	for(int cor_y = 0;cor_y<20;++cor_y)
 	{
 		for(int cor_x = 0;cor_x<15;cor_x++)
 		{
-			switch (MapArray{cor_x][cor_y])
-			case "#":
-			GraphicEngine->DrawSprite(WallSprite,cor_x,cor_y,0);
-			case ".":
-			GraphicEngine->DrawSprite(FloorSprite,cor_x,cor_y,0);
-			case "p":
-			GraphicEngine->DrawSprite(FloorSprite,cor_x,cor_y,0);
-			case "g":
-			GraphicEngine->DrawSprite(FloorSprite,cor_x,cor_y,0);
-			case "c":
-			GraphicEngine->DrawSprite(FloorSprite,cor_x,cor_y,0);
-			case "0":
-			GraphicEngine->DrawSprite(FloorSprite,cor_x,cor_y,0);
+			switch (Map::MapArray[cor_x][cor_y])
+			case Map::WALL:
+				graphicengine->DrawSprite(*WallSprite, (double) cor_x, (double) cor_y,0);
+			case Map::FLOOR:
+				graphicengine->DrawSprite(*FloorSprite, (double) cor_x, (double) cor_y,0);
+			case Map::DOT:
+				graphicengine->DrawSprite(*FloorSprite, (double) cor_x, (double) cor_y,0);
+			case Map::GHOST_SPAWN:
+				graphicengine->DrawSprite(*FloorSprite, (double) cor_x, (double) cor_y,0);
+			case Map::CHERRY:
+				graphicengine->DrawSprite(*FloorSprite, (double) cor_x, (double) cor_y,0);
+			case Map::PACMAN_SPAWN:
+				graphicengine->DrawSprite(*FloorSprite, (double) cor_x, (double) cor_y,0);
 		}
 	}
 }
@@ -63,7 +62,7 @@ void initMapArray() 	//Fyller på en array utifrån Map.txt
 	int cor_y;
 	char TempChar;
 	ifstream inputMap;
-	inputMap.open("Map.txt");
+	inputMap.open("Map.txt", ifstream::in);
 	 for(cor_y=0;cor_y<20;++cor_y)
 	{
 		for(cor_x=0;cor_x<15;cor_x++) 
@@ -71,17 +70,17 @@ void initMapArray() 	//Fyller på en array utifrån Map.txt
 			inputMap >> TempChar;
 			switch (TempChar)
 			case "#":
-			MapArray[cor_x][cor_y] = WALL;
+				Map::MapArray[cor_x][cor_y] = Map::WALL;
 			case ".":
-			MapArray[cor_x][cor_y] = DOT;
+				Map::MapArray[cor_x][cor_y] = Map::DOT;
 			case "p":
-			MapArray[cor_x][cor_y] = PACMAN_SPAWN;
+				Map::MapArray[cor_x][cor_y] = Map::PACMAN_SPAWN;
 			case "g":
-			MapArray[cor_x][cor_y] = GHOST_SPAWN;
+				Map::MapArray[cor_x][cor_y] = Map::GHOST_SPAWN;
 			case "c":
-			MapArray[cor_x][cor_y] = CHERRY;
+				Map::MapArray[cor_x][cor_y] = Map::CHERRY;
 			case "0":
-			MapArray[cor_x][cor_y] = FLOOR;
+				Map::MapArray[cor_x][cor_y] = Map::FLOOR;
 		}
 	}
 }
