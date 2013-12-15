@@ -18,19 +18,27 @@ class Sprite;
 class GameObject : public Drawable
 {
 public:
-  virtual ~GameObject() {}
-  GameObject() : x_(0), y_(0), sprite_(nullptr) {}
+  virtual
+  ~GameObject() = 0;
+  GameObject();
+  GameObject(double x, double y, Sprite* sprite);
 
-  virtual void update(GameEngine&) = 0;
-  void draw();
+  double
+  getX();
+  void
+  setX(double x);
+  double
+  getY();
+  void
+  setY(double y);
 
-  double getX() {return x_;}
-  void setX(double x) {x_ = x;}
-  double getY() {return y_;}
-  void setY(double y) {y_ = y;}
+  Sprite*
+  getSprite();
+  void
+  setSprite(Sprite* sprite);
 
-  Sprite* getSprite() {return sprite_;}
-  void setSprite(Sprite* sprite) {sprite_ = sprite;}
+  virtual void
+  draw(Graphics*);
 
 private:
   double x_;

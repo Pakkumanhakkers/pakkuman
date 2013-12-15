@@ -21,7 +21,10 @@ class CommandManager
 public:
   ~CommandManager();
   CommandManager();
-  void add(Command* command);
+  void add(Command*);
+  void add(Timer*);
+  void setCurrentTime(int);
+
   void clear();
   bool canRedo();
   bool canUndo();
@@ -30,8 +33,13 @@ public:
 private:
   void remove(std::list<Command*>::iterator start,
       std::list<Command*>::iterator end);
-  std::list<Command*>::iterator current_command_;
+
+  int currentTime_{0};
+
+  std::list<Command*>::iterator currentCommand_;
   std::list<Command*> commands_;
+  std::list<Timer*> activeTimers_;
+  std::list<Timer*> elapsedTimers;
 };
 
 

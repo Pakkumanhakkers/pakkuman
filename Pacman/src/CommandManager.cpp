@@ -14,19 +14,36 @@ CommandManager::~CommandManager()
 
 CommandManager::CommandManager()
 {
-  current_command_ = commands_.begin();
+  currentCommand_ = commands_.begin();
 }
 
 void CommandManager::add(Command* command)
 {
-  if (current_command_ != commands_.end())
+  if (currentCommand_ != commands_.end())
   {
-      remove(current_command_, commands_.end());
-      current_command_ = commands_.end();
+      remove(currentCommand_, commands_.end());
+      currentCommand_ = commands_.end();
   }
 
-  command->execute();
+  command->setTimestamp(currentTime_);
   commands_.push_back(command);
+}
+
+void CommandManager::add(Timer* timer)
+{
+  if (currentCommand_ != commands_.end())
+  {
+      remove(currentCommand_, commands_.end());
+      currentCommand_ = commands_.end();
+  }
+
+  timer->setTimestamp(currentTime_);
+  activeTimers_.push_back(timer);
+}
+
+void CommandManager::setCurrentTime(int time)
+{
+  currentTime_ = time;
 }
 
 void CommandManager::clear()
@@ -36,12 +53,12 @@ void CommandManager::clear()
 
 bool CommandManager::canRedo()
 {
-  return current_command_ != commands_.end();
+  return currentCommand_ != commands_.end();
 }
 
 bool CommandManager::canUndo()
 {
-  return current_command_ != commands_.begin();
+  return currentCommand_ != commands_.begin();
 }
 
 void CommandManager::redo()
@@ -49,8 +66,8 @@ void CommandManager::redo()
   if (!canRedo())
     return;
 
-  (*current_command_)->execute();
-  ++current_command_;
+  (*currentCommand_)->execute();
+  ++currentCommand_;
 }
 
 void CommandManager::undo()
@@ -58,8 +75,8 @@ void CommandManager::undo()
   if (!canUndo())
     return;
 
-  --current_command_;
-  (*current_command_)->undo();
+  --currentCommand_;
+  (*currentCommand_)->undo();
 }
 
 void CommandManager::remove(std::list<Command*>::iterator start,

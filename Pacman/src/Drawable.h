@@ -10,13 +10,17 @@
 class Graphics;
 
 /**
- * Kan ritas ut
+ * Kan ritas ut.
  */
 class Drawable
 {
 public:
-  virtual ~Drawable() {}
-  virtual void draw(Graphics&) = 0;
+  virtual
+  ~Drawable();
+  Drawable();
+
+  virtual void
+  draw(Graphics*) = 0;
 };
 
 

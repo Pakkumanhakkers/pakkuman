@@ -8,27 +8,18 @@
 #ifndef EATABLE_H_
 #define EATABLE_H_
 
-
+/**
+ * Kan ätas.
+ */
 class Eatable
 {
 public:
-  enum FoodType
-  {
-    EATEN, DOT, CHERRY, STRAWBERRY, KEY, GHOST, SICK_GHOST
-  };
+  virtual
+  ~Eatable();
+  Eatable();
 
-  ~Eatable() {}
-  Eatable(FoodType foodtype) : foodType_{foodtype}, eaten_{false} {}
-
-  void eat();
-  void spawn();
-
-  void setFoodType(FoodType foodType) {foodType_ = foodType;}
-  FoodType getFoodType() {if (eaten_) return EATEN; else return foodType_;}
-
-private:
-  FoodType foodType_;
-  bool eaten_;
+  virtual void
+  eat(GameEngine*) = 0;
 };
 
 #endif /* EATABLE_H_ */

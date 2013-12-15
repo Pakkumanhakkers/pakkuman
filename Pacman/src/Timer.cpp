@@ -7,20 +7,29 @@
 
 #include "Timer.h"
 
+Timer::Timer(Command* command, int duration) :
+    timestamp_{0}, trigger_command_{command}, duration_{duration} {}
 
-void Timer::tic()
+void
+Timer::setTimestamp(int time)
 {
-  if (!hasElapsed())
-    --tic;
+  timestamp_ = time;
 }
 
-bool Timer::hasElapsed()
+int
+Timer::getTimestamp()
 {
-  return tic == 0;
+  return timestamp_;
 }
 
+bool
+Timer::hasElapsed(int time)
+{
+  return timestamp_ + duration_ <= time;
+}
 
-Command* Timer::getCommand()
+Command*
+Timer::getCommand()
 {
   return trigger_command_;
 }

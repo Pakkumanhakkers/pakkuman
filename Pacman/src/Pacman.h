@@ -9,14 +9,14 @@
 #define PACMAN_H_
 
 /**
- * Antagonisten Pacman som äter allt.
+ * Pacman som äter allt.
  */
 class Pacman : public Moveable
 {
 public:
   ~Pacman() {};
-  Pacman(MoveableInputComponent* input, MoveablePhysicsComponent* physics,
-        MoveableGraphicsComponent* graphics) :
+  Pacman(InputComponent* input, PhysicsComponent* physics,
+        GraphicsComponent* graphics) :
       Moveable{input, physics, graphics} {}
 
   void die();

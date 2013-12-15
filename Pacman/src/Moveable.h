@@ -7,10 +7,9 @@
 
 #ifndef MOVEABLE_H_
 #define MOVEABLE_H_
+class Graphics;
+
 class GameEngine;
-class MoveableGraphicsComponent;
-class MoveableInputComponent;
-class MoveablePhysicsComponent;
 
 class GraphicsComponent;
 class InputComponent;
@@ -26,27 +25,41 @@ class Moveable : public GameObject
 public:
   enum Direction
   {
-    LEFT, RIGHT, UP, DOWN
+    // ordningen är viktig!
+    RIGHT, DOWN, LEFT, UP
   };
 
-  virtual ~Moveable() {};
-  Moveable(MoveableInputComponent* input, MoveablePhysicsComponent* physics,
-      MoveableGraphicsComponent* graphics) :
-    input_{input}, physics_{physics}, graphics_{graphics},
-    speed_{0}, direction_{Direction::LEFT} {}
+  virtual
+  ~Moveable();
+  Moveable(InputComponent* input, PhysicsComponent* physics,
+      GraphicsComponent* graphics);
 
-  virtual void update(GameEngine&);
-  virtual void draw(Graphics&);
+  virtual void
+  update(GameEngine*);
+  virtual void
+  draw(Graphics*);
 
-  virtual Direction getDirection() {return direction_;}
-  virtual void setDirection(Direction direction) {direction_ = direction;}
-  virtual double getSpeed() {return speed_;}
-  virtual void setSpeed(double speed) {speed_ = speed;}
+  Direction
+  getDirection();
+  void
+  setDirection(Direction direction);
+  double
+  getSpeed();
+  void
+  setSpeed(double speed);
+
+  bool
+  isCentered();
+
+  static bool
+  isHorizontalDirection(Direction);
+  static bool
+  isPositiveDirection(Direction);
 
 protected:
-  MoveableInputComponent* input_;
-  MoveablePhysicsComponent* physics_;
-  MoveableGraphicsComponent* graphics_;
+  InputComponent* input_;
+  PhysicsComponent* physics_;
+  GraphicsComponent* graphics_;
 
 private:
   double speed_;
