@@ -6,6 +6,7 @@
  */
 
 #include "GraphicEngine.h"
+#include <string>
 
 GraphicEngine::GraphicEngine() {
 
@@ -22,19 +23,24 @@ GraphicEngine::~GraphicEngine() {
 }
 
 
-void GraphicEngine::DrawSprite(sprite_, xpos_, ypos_, current_ticks){
+void GraphicEngine::DrawSprite(Sprite sprite_, double xpos_, double ypos_, current_ticks)
+{
+	SDL_RenderCopy(sprite_->GetRenderer(), sprite_->GetImage(),
+			&(sprite_->GetCrop(current_ticks)),
+			&(OutputRectangle(Xpos,Ypos,sprite_->w, sprite_->h)));
+}
 
-	SDL_RenderCopy(Sprite->GetRenderer(), Sprite->GetImage(), &(Sprite->GetCrop(current_ticks)), &(OutputRectangle(Xpos,Ypos,Sprite->w, Sprite->h)));
+void GraphicEngine::Draw(SDL_Renderer* renderer, string output_, double Xpos_, double Ypos_)
+{
 
 }
 
-SDL_Rect* GraphicEngine::OutputRectangle(Xpos, Ypos, SpriteWidth, SpriteHeight){
-
+SDL_Rect* GraphicEngine::OutputRectangle(double Xpos, double Ypos, SpriteWidth, SpriteHeight)
+{
 	rect.x = Xpos + offset_map;
 	rect.y = Ypos;
 	rect.w = SpriteWidth;
 	rect.h = SpriteHeight;
 
 	return rect;
-
 }
