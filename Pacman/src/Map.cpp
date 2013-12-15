@@ -13,6 +13,9 @@ using namespace std;
 Map::Map(Sprite* wall, Sprite* floor) :
   wallSprite_{wall}, floorSprite_{floor}, ghostX_{0}, ghostY_{0},
   pacmanX_{0}, pacmanY_{0}
+ 
+//Konstruktor
+Map::Map()
 {
 }
 
@@ -61,7 +64,7 @@ void Map::loadFile(string fileName) 	//Fyller på en array utifrån Map.txt
   int cor_y;
   char TempChar;
   ifstream inputMap;
-  inputMap.open(fileName.c_str());
+  inputMap.open(fileName.c_str(), ifstream::in);
   for(cor_y=0;cor_y<20;++cor_y)
   {
     for(cor_x=0;cor_x<15;cor_x++)
