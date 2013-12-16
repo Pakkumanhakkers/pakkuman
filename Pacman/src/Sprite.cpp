@@ -75,7 +75,7 @@ SDL_Rect* Sprite::GetCrop(float ticks, std::string direction){
 	else
 	{PlayAnimation(0,1,3,ticks);}
 
-	SDL_Rect* temp;
+	SDL_Rect* temp = nullptr;
 
 	temp = crop;
 	return temp;
@@ -117,7 +117,6 @@ void  void Sprite::PlayAnimation(int BeginFrame, int EndFrame, int Row, float ti
 	crop.w = img_width/2;
 	crop.h = img_height/4;
 
-	animation_delayspeed + 10;
 	}
 
 }

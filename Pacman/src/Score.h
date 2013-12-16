@@ -12,11 +12,10 @@ public:
 	Score() = default;
 
 	void UpdateScore(int added_score);
-	void Draw();
+	void Draw(GraphicEngine* graphic);
 
 private:
 	int score_ = 0;
 	double xpos_ = 40;
 	double ypos_ = 80;
-	SDL_Renderer* renderer;
 };

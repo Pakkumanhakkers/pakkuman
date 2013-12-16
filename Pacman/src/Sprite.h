@@ -17,7 +17,7 @@ class Sprite {
 public:
 
 	Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h);
-	virtual ~cSprite();
+	virtual ~Sprite();
 
 
 
