@@ -11,6 +11,7 @@ Sprite::Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h) 
 
 	renderer = sent_renderer;
 
+
 	image = NULL;
 	image = IMG_LoadTexture(renderer, FilePath.c_str());
 
@@ -53,16 +54,18 @@ Sprite::~Sprite() {
 
 
 
-void Sprite::GetWidth(){
-	return w;
+int Sprite::GetWidth()
+{
+	return img_width;
 }
 
-void Sprite::GetHeight() {
-	return h;
+int Sprite::GetHeight()
+{
+	return img_height;
 }
 
 
-SDL_Rect Sprite::GetCrop(ticks,direction){
+SDL_Rect* Sprite::GetCrop(float ticks, std::string direction){
 	if(direction== "Right")
 	{PlayAnimation(0,1,1,ticks);}
 	else if(direction == "Left")
@@ -72,7 +75,10 @@ SDL_Rect Sprite::GetCrop(ticks,direction){
 	else
 	{PlayAnimation(0,1,3,ticks);}
 
-	return crop;
+	SDL_Rect* temp;
+
+	temp = crop;
+	return temp;
 }
 
 SDL_Renderer* Sprite::GetRenderer()
@@ -94,24 +100,24 @@ SDL_Texture* Sprite::GetImage()
  * This will check which frame of pacman.png we're cropping and crop the next one or reset to the first one.
  * pacman.png is uploaded to google drive for reference.
 */
-void Sprite::PlayAnimation(int begin_frame, int end_frame, int row, float speed)
+void  void Sprite::PlayAnimation(int BeginFrame, int EndFrame, int Row, float ticks)
 {
 
-	if (animation_delayspeed + speed < SDL_GetTicks())
+	if (animation_delayspeed + 10 < ticks())
 	{
 
 
-	if (end_frame <= current_frame)
-		current_frame = begin_frame;
+	if (EndFrame <= current_frame)
+		current_frame = BeginFrame;
 	else
 		current_frame++;
 
 	crop.x = current_frame * img_width/2;
-	crop.y = row * (img_height/4);
+	crop.y = Row * (img_height/4);
 	crop.w = img_width/2;
 	crop.h = img_height/4;
 
-	animation_delayspeed + speed;
+	animation_delayspeed + 10;
 	}
 
 }

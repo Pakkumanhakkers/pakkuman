@@ -19,23 +19,24 @@ GraphicEngine::GraphicEngine() {
 }
 
 GraphicEngine::~GraphicEngine() {
-	// TODO Auto-generated destructor stub
+	delete GraphicEngine;
 }
 
 
-void GraphicEngine::DrawSprite(Sprite sprite_, double xpos_, double ypos_, current_ticks)
+void GraphicEngine::DrawSprite(Sprite sprite_, double xpos_, double ypos_, int current_ticks, std::string direction)
 {
 	SDL_RenderCopy(sprite_->GetRenderer(), sprite_->GetImage(),
-			&(sprite_->GetCrop(current_ticks)),
-			&(OutputRectangle(Xpos,Ypos,sprite_->w, sprite_->h)));
+			sprite_->GetCrop(current_ticks, direction),
+			OutputRectangle(xpos_,ypos_,sprite_->GetWidth(), sprite_->GetHeight()));
+
 }
 
-void GraphicEngine::Draw(SDL_Renderer* renderer, string output_, double Xpos_, double Ypos_)
+void GraphicEngine::Draw(SDL_Renderer* renderer, std::string output_, double Xpos_, double Ypos_)
 {
 
 }
 
-SDL_Rect* GraphicEngine::OutputRectangle(double Xpos, double Ypos, SpriteWidth, SpriteHeight)
+SDL_Rect* GraphicEngine::OutputRectangle(double Xpos, double Ypos, int SpriteWidth, int SpriteHeight)
 {
 	rect.x = Xpos + offset_map;
 	rect.y = Ypos;

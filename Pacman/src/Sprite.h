@@ -8,11 +8,14 @@
 #ifndef SPRITE_H_
 #define SPRITE_H_
 
+#include "SDLSetup.h"
+
 /**
  * Sprite representerar en sekvens av bilder. Används för bildloopar.
  */
 class Sprite {
 public:
+
 	Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h);
 	virtual ~cSprite();
 
@@ -20,21 +23,23 @@ public:
 
 	//Functions to find information about sprite.
 	int GetWidth();
-	int GetWidth();
+	int GetHeight();
 
 	SDL_Renderer* GetRenderer();
 
-	SDL_Texture* Sprite::GetImage();
+	SDL_Texture* GetImage();
 
-	SDL_Rect GetCrop(int ticks,direction);
+	SDL_Rect* GetCrop(float ticks, std::string direction);
 
-	SDL_Rect FinalRectangle();
 
-	//Choose which part of the sprite to crop out
-	void PlayAnimation(int BeginFrame, int EndFrame, int Row, float Speed);
+
 
 
 private:
+
+
+	//choose which part to crop
+	void PlayAnimation(int BeginFrame, int EndFrame, int Row, float ticks);
 
 	SDL_Texture* image;
 
