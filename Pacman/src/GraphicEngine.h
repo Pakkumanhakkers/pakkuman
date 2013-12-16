@@ -20,6 +20,8 @@ public:
 	//DrawSprite takes care of movable, needs a direction as input argument to know which row of the image to crop.
 	void DrawSprite(Sprite sprite_, double xpos_, double ypos_, int current_ticks, std::string direction);
 
+	void Draw(StaticSprite sprite_, double xpos_, double ypos_);
+
 	//Draw is used by objects with no direction.
 	void Draw(std::string output_, double xpos_, double ypos_);
 
