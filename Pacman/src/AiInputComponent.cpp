@@ -75,12 +75,12 @@ Moveable::Direction AiInputComponent::getRandom(int ghost_x, int ghost_y)
 		switch(direction)
 		{
 			case(0):
-			return LEFT;
+			return Moveable::LEFT;
 			case(1):
-			return RIGHT;
+			return Moveable::RIGHT;
 			case(2):
-			return UP;
+			return Moveable::UP;
 			case(3):
-			return DOWN;
+			return Moveable::DOWN;
 		}
 }

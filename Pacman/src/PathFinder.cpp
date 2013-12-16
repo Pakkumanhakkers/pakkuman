@@ -26,7 +26,7 @@ int ghost_y = gh->getY();
 direction_x = ghost_x - target_x;
 direction_y = ghost_y - target_y;
 
-if (direction_x >= direction_y && direction_x > 0)
+if (abs(direction_x) >= abs(direction_y) && direction_x > 0)
 	{
 		if (prevDirection != Moveable::LEFT && internalMap->isWall(ghost_x -1, ghost_y))
 		{
@@ -43,11 +43,11 @@ if (direction_x >= direction_y && direction_x > 0)
 		else 
 		return (Moveable::RIGHT );
 	}
-if (direction_x >= direction_y && direction_x < 0)
+if (abs(direction_x) > abs(direction_y) && direction_x <= 0)
 	{
 		if(prevDirection != Moveable::RIGHT && internalMap->isWall(ghost_x +1, ghost_y))
 		{
-			return (prevDirection);
+			return (Moveable::RIGHT);
 		}
 		else if(direction_y > 0 && internalMap->isWall(ghost_x, ghost_y -1) && prevDirection != Moveable::DOWN)
 		{
@@ -61,7 +61,7 @@ if (direction_x >= direction_y && direction_x < 0)
 		return (Moveable::LEFT);
 	}
 	
-if (direction_x <= direction_y && direction_y < 0)
+if (abs(direction_x) < abs(direction_y) && direction_y < 0)
 	{
 		if(prevDirection != Moveable::UP && internalMap->isWall(ghost_x, ghost_y + 1))
 		{
@@ -78,8 +78,8 @@ if (direction_x <= direction_y && direction_y < 0)
 		else 
 		return (Moveable::DOWN);
 	}
-if (direction_x <= direction_y && direction_y > 0)
-	{
+//if (direction_x < direction_y && direction_y => 0) BORDE INTE BEHÖVAS VÄL?
+//	{
 		if(prevDirection != Moveable::DOWN && internalMap->isWall(ghost_x, ghost_y + 1))
 		{
 			return (Moveable::DOWN);
@@ -94,6 +94,7 @@ if (direction_x <= direction_y && direction_y > 0)
 		}
 		else 
 		return (Moveable::UP);
-	}
+	//}
+
 	
 }
