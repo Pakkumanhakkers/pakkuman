@@ -26,7 +26,7 @@ public:
 		CHASE, RANDOM, SCATTER, HOME
 	};
 	void update(Moveable*, GameEngine*);
-	Moveable::Direction updateDirection(AiInputComponent::AiType Ai, Moveable* ghost, int target_x, int target_y);
+	Moveable::Direction updateDirection(AiInputComponent::AiType Ai, Moveable* ghost, GameEngine* gameengine);
 	void setAi(AiType);
 	AiType getAi();
 	AiInputComponent(Map*, PathFinder*);
@@ -34,7 +34,7 @@ public:
 private:
     bool Valid(int ghost_x, int ghost_y,int direction);
 	Moveable::Direction getRandom(int ghost_x, int ghost_y);
-	PathFinder *pathfinder;
+	PathFinder* pathfinder;
 	AiType CurrentAi = CHASE;
 	Map* internalMap;
 

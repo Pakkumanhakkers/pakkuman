@@ -15,43 +15,51 @@ GraphicEngine::GraphicEngine() {
 	rect.w = 0;
 	rect.h = 0;
 	offset_map = 128;
-	globalFont = TTF_OpenFont( "PAC-FONT.TTF", 28 );
-	textColor = { FF, FF, 00 };
-	sdlSetup = cSDL_Setup(false, 1084 /*bredd*/, 640 /*ho¨jd*/);
-	//Vilken storlek skulle fo¨nstret ha?
+	globalFont =  TTF_OpenFont( "PAC-FONT.TTF", 28 );
+	textColor = { 0, 0, 0 };
+	sdlSetup = cSDL_Setup(false, 1024 /*bredd*/, 640 /*height*/);
+
 }
 
 GraphicEngine::~GraphicEngine() {
-	// TODO Auto-generated destructor stub
+	delete GraphicEngine;
 }
 
 
-void GraphicEngine::DrawSprite(Sprite sprite_, double xpos_, double ypos_, current_ticks)
+void GraphicEngine::DrawSprite(Sprite sprite_, double xpos_, double ypos_, int current_ticks, std::string direction)
 {
-	SDL_RenderCopy(sprite_->GetRenderer(), sprite_->GetImage(),
-			&(sprite_->GetCrop(current_ticks)),
-			&(OutputRectangle(Xpos,Ypos,sprite_->w, sprite_->h)));
+	SDL_RenderCopy(sprite_.GetRenderer(), sprite_.GetImage(),
+			sprite_.GetCrop(current_ticks, direction),
+			OutputRectangle(xpos_,ypos_,sprite_.GetWidth(), sprite_.GetHeight()));
 }
 
 
-void GraphicEngine::Draw(string output_, int xpos_, int ypos_)
+void GraphicEngine::Draw(StaticSprite statSprite_, double xpos_, double ypos_)
+{
+	SDL_RenderCopy(statSprite_.GetRenderer(),
+			statSprite_.GetImage(), NULL,
+			OutputRectangle(xpos_, ypos_, statSprite_.GetWidth(), statSprite_.GetHeight()));
+}
+
+
+void GraphicEngine::Draw(std::string output_, double xpos_, double ypos_)
 {
 	//Render text surface
-	SDL_Surface* textSurface = TTF_RenderText_Solid( globalFont, output_, textColor );
+	SDL_Surface* textSurface = TTF_RenderText_Solid( globalFont, output_.c_str(), textColor );
 
 	if( textSurface == NULL )
 	{
-		cout << "Unable to render text surface! SDL_ttf Error: " << TTF_GetError() << endl;
+		std::cout << "Unable to render text surface! SDL_ttf Error: " << TTF_GetError() << std::endl;
 	}
 	else
 	{
 		SDL_Texture* mTexture = NULL;
 		//Create texture from surface pixels
-        mTexture = SDL_CreateTextureFromSurface( SDLSetup->GetRenderer(), textSurface );
+        mTexture = SDL_CreateTextureFromSurface( sdlSetup.GetRenderer(), textSurface );
 		if( mTexture == NULL )
 		{
-			cout << "Unable to create texture from rendered text! SDL Error: "
-					<< SDL_GetError() << endl;
+			std::cout << "Unable to create texture from rendered text! SDL Error: "
+					<< SDL_GetError() << std::endl;
 		}
 		else
 		{
@@ -66,7 +74,7 @@ void GraphicEngine::Draw(string output_, int xpos_, int ypos_)
 			SDL_RendererFlip flip = SDL_FLIP_NONE;
 
 			//Render to screen
-			SDL_RenderCopyEx( SDLSetup->GetRenderer(), mTexture,
+			SDL_RenderCopyEx( sdlSetup.GetRenderer(), mTexture,
 					NULL/* eller ska detta vara sdlSetup->GetWindow()? */,
 					OutputRectangle(xpos_ - offset_map, ypos_, mWidth, mHeight),
 					0.0 /* The angel on which the text is drawn in degrees */,

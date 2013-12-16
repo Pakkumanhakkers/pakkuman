@@ -12,7 +12,7 @@ public:
 	Score() = default;
 
 	void UpdateScore(int added_score);
-	void Draw();
+	void Draw(GraphicEngine* graphic);
 
 private:
 	int score_ = 0;

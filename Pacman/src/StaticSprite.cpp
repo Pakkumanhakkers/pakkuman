@@ -1,21 +1,18 @@
 /*
- * Sprite.cpp
+ * StaticSprite.cpp
  *
  *  Created on: 10 dec 2013
  *      Author: Akdas
  */
 
-#include "Sprite.h"
+#include "StaticSprite.h"
 
-Sprite::Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h) {
-
+StaticSprite::StaticSprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h)
+{
 	renderer = sent_renderer;
-
 
 	image = NULL;
 	image = IMG_LoadTexture(renderer, FilePath.c_str());
-
-
 
 		if(image == NULL)
 			{
@@ -25,6 +22,7 @@ Sprite::Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h) 
 		//Sets img_width and img_height to the dimensions of the image.
 		SDL_QueryTexture(image, NULL,NULL, &img_width, &img_height);
 
+		/*
 		crop.x = 0;
 		crop.y = 0;
 
@@ -34,38 +32,35 @@ Sprite::Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h) 
 
 		current_frame = 0;
 		animation_delayspeed = 0;
-
-
+		*/
 }
 
 
 
-Sprite::~Sprite() {
-
+StaticSprite::~StaticSprite()
+{
 	SDL_DestroyTexture(image);
-
 }
 
 
 
-/**
- * Copies the specified crop to the destination rectangle.
- *Destination rectangle is the one to be rendered.*/
-
-
-
-int Sprite::GetWidth()
+int StaticSprite::GetWidth()
 {
 	return img_width;
 }
 
-int Sprite::GetHeight()
+int StaticSprite::GetHeight()
 {
 	return img_height;
 }
 
 
-SDL_Rect* Sprite::GetCrop(float ticks, std::string direction){
+/**
+ * Copies the specified crop to the destination rectangle.
+ *Destination rectangle is the one to be rendered.*/
+/*
+SDL_Rect* StaticSprite::GetCrop(float ticks, std::string direction)
+{
 	if(direction== "Right")
 	{PlayAnimation(0,1,1,ticks);}
 	else if(direction == "Left")
@@ -80,14 +75,15 @@ SDL_Rect* Sprite::GetCrop(float ticks, std::string direction){
 	temp = crop;
 	return temp;
 }
+*/
 
-SDL_Renderer* Sprite::GetRenderer()
+SDL_Renderer* StaticSprite::GetRenderer()
 {
 
 	return renderer;
 }
 
-SDL_Texture* Sprite::GetImage()
+SDL_Texture* StaticSprite::GetImage()
 {
 	return image;
 }
@@ -100,12 +96,11 @@ SDL_Texture* Sprite::GetImage()
  * This will check which frame of pacman.png we're cropping and crop the next one or reset to the first one.
  * pacman.png is uploaded to google drive for reference.
 */
-void  void Sprite::PlayAnimation(int BeginFrame, int EndFrame, int Row, float ticks)
+/*
+void  void StaticSprite::PlayAnimation(int BeginFrame, int EndFrame, int Row, float ticks)
 {
-
 	if (animation_delayspeed + 10 < ticks())
 	{
-
 
 	if (EndFrame <= current_frame)
 		current_frame = BeginFrame;
@@ -116,9 +111,6 @@ void  void Sprite::PlayAnimation(int BeginFrame, int EndFrame, int Row, float ti
 	crop.y = Row * (img_height/4);
 	crop.w = img_width/2;
 	crop.h = img_height/4;
-
 	}
-
 }
-
-
+*/

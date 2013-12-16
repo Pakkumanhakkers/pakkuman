@@ -10,13 +10,13 @@ void Score::UpdateScore(int added_score)
 	score_ = score_ + added_score;
 }
 
-void Score::Draw()
+void Score::Draw(GraphicEngine* graphic)
 {
 	// convert score_ to a string
-	string Result;
-	ostringstream convert;
+	std::string Result;
+	std::ostringstream convert;
 	convert << score_;      // insert the textual representation of score_ in the characters in the stream
 	Result = convert.str(); // set 'Result' to the contents of the stream
 
-	GraphicEngine->Draw(Result, xpos_, ypos_);
+	graphic->Draw(Result, xpos_, ypos_);
 }

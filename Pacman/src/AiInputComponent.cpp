@@ -26,9 +26,8 @@ AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder)
 void AiInputComponent::update(Moveable* moveable, GameEngine* gameengine)
 {
 	AiInputComponent::AiType Ai = CurrentAi; //erik �r b�st
-	int target_x = gameengine->getGame()->pacman->getX();
-	int target_y = gameengine->getGame()->pacman->getY();	//Det vi egentligen vill göra är att få koordinaterna till pacman
-	updateDirection(Ai,moveable,target_x,target_y);
+	//Det vi egentligen vill göra är att få koordinaterna till pacman
+	updateDirection(Ai,moveable, gameengine);
 }
 
 AiInputComponent::AiType AiInputComponent::getAi()
@@ -41,12 +40,39 @@ void AiInputComponent::setAi(AiType ai)
 	CurrentAi = ai;
 }
 
-Moveable::Direction AiInputComponent::updateDirection(AiInputComponent::AiType Ai, Moveable* ghost, int target_x, int target_y)
+Moveable::Direction AiInputComponent::updateDirection(AiInputComponent::AiType Ai, Moveable* ghost, GameEngine* gameengine)
 {
+	int target_x{0};
+	int target_y{0};
+	int slump;
 	if (Ai == AiInputComponent::AiType::CHASE)
-	return pathfinder->getDirection(ghost,target_x,target_y);
+	{
+		target_x = gameengine->getGame()->pacman->getX();
+		target_y = gameengine->getGame()->pacman->getY();
+		return (pathfinder->getDirection(ghost,target_x,target_y));
+	}
 	else if (Ai == AiInputComponent::AiType::RANDOM)
-	return getRandom(ghost->getX(), ghost->getY());
+		return getRandom(ghost->getX(), ghost->getY());
+	else if (Ai == AiInputComponent::AiType::HOME)
+	{
+		target_x = internalMap->getGhostX();
+		target_y = internalMap->getGhostY();
+		return (pathfinder->getDirection(ghost,target_x,target_y));
+	}
+	else //if (Ai == AiInputComponent::AiType::SCATTER)
+		//slumpar mellan RANDOM och 5*(pacmans position)
+	{
+		srand (time(NULL));
+		slump = rand() % 1;
+		if (slump == 0)
+			return getRandom(ghost->getX(), ghost->getY());
+		else
+		{
+			target_x = 5*gameengine->getGame()->pacman->getX();
+			target_y = 5*gameengine->getGame()->pacman->getY();
+			return (pathfinder->getDirection(ghost,target_x,target_y));
+		}
+	}
 }
 	
 
@@ -75,12 +101,12 @@ Moveable::Direction AiInputComponent::getRandom(int ghost_x, int ghost_y)
 		switch(direction)
 		{
 			case(0):
-			return LEFT;
+			return Moveable::LEFT;
 			case(1):
-			return RIGHT;
+			return Moveable::RIGHT;
 			case(2):
-			return UP;
+			return Moveable::UP;
 			case(3):
-			return DOWN;
+			return Moveable::DOWN;
 		}
 }
