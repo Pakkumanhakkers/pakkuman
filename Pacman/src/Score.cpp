@@ -18,5 +18,5 @@ void Score::Draw()
 	convert << score_;      // insert the textual representation of score_ in the characters in the stream
 	Result = convert.str(); // set 'Result' to the contents of the stream
 
-	GraphicEngine->Draw(renderer, Result, xpos_, ypos_);
+	GraphicEngine->Draw(Result, xpos_, ypos_);
 }
