@@ -19,6 +19,10 @@ class Sound;
 class GameEngine
 {
 public:
+  enum GameState
+  {
+    PLAY, PAUSE, GAME_OVER
+  };
   Sprite spriteDot = Sprite(nullptr, "", 0, 0);
 
   void initGame();
@@ -31,20 +35,25 @@ public:
 
   Map* getMap();
   GameInstance* getGame();
+  PathFinder* getPathFinder();
+  Settings* getSettings();
 
 private:
   void updateGame();
   void drawGame();
   void lifeLost();
   void gameOver();
+  void nextLife();
 
   Settings settings_;
-  Graphics graphics_;
+  GraphicEngine graphics_;
   CommandManager commandManager_;
   GameInstance gameInstance_;
   Map map_;
+  PathFinder pathFinder_;
 
   int currentTime_;
+  int game_state_;
 };
 
 #endif /* GAMEENGINE_H */

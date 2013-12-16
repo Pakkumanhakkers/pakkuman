@@ -7,6 +7,8 @@
 
 #ifndef MOVEABLE_H_
 #define MOVEABLE_H_
+class GraphicEngine;
+
 class Graphics;
 
 class GameEngine;
@@ -25,19 +27,19 @@ class Moveable : public GameObject
 public:
   enum Direction
   {
-    // ordningen är viktig!
+    // ordningen är viktig för hjälpfunktionerna
     RIGHT, DOWN, LEFT, UP
   };
 
   virtual
   ~Moveable();
-  Moveable(InputComponent* input, PhysicsComponent* physics,
-      GraphicsComponent* graphics);
+  Moveable();
+
+  void
+  addComponent(Component*);
 
   virtual void
   update(GameEngine*);
-  virtual void
-  draw(Graphics*);
 
   Direction
   getDirection();
@@ -57,9 +59,7 @@ public:
   isPositiveDirection(Direction);
 
 protected:
-  InputComponent* input_;
-  PhysicsComponent* physics_;
-  GraphicsComponent* graphics_;
+  std::list<Component*> components_;
 
 private:
   double speed_;

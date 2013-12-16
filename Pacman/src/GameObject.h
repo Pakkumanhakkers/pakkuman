@@ -7,6 +7,8 @@
 
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_
+class GraphicEngine;
+
 class GameEngine;
 class Sprite;
 
@@ -32,13 +34,18 @@ public:
   void
   setY(double y);
 
+  virtual int
+  getState();
+  virtual void
+  setState(int);
+
   Sprite*
   getSprite();
   void
   setSprite(Sprite* sprite);
 
   virtual void
-  draw(Graphics*);
+  draw(GraphicEngine*);
 
 private:
   double x_;

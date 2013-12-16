@@ -58,6 +58,25 @@ GameObject::setY(double y)
 }
 
 /**
+ * Ger state för objekt, nullvariant.
+ * @return
+ */
+int
+GameObject::getState()
+{
+  return 0;
+}
+
+/**
+ * Sätter state, nullvariant.
+ * @param state
+ */
+void
+GameObject::setState(int)
+{
+}
+
+/**
  * Ger grafik för objektet.
  * @return sprite grafik
  */
@@ -75,4 +94,10 @@ void
 GameObject::setSprite(Sprite* sprite)
 {
   sprite_ = sprite;
+}
+
+void
+GameObject::draw(GraphicEngine* graphics)
+{
+  graphics->DrawSprite(sprite_, x_, y_);
 }

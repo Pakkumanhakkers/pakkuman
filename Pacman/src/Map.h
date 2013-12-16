@@ -8,16 +8,20 @@
 #ifndef MAP_H_
 #define MAP_H_
 
+#include <string>
 #include <vector>
 
 #include "Drawable.h"
-#include "Sprite.h"
-class Graphics;
+
+class Sprite;
+
+class GraphicEngine;
+
 
 /**
  * Beskriver en karta. Är statisk efter att data lästs in. Beskrivs med rutnät.
  */
-class Map : public Drawable, public Sprite
+class Map : public Drawable
 {
 public:
   enum TileType
@@ -39,7 +43,7 @@ public:
   loadFile(std::string filename);
 
   virtual void
-  draw(Graphics*);
+  draw(GraphicEngine*);
 
   int getWidth();
   int getHeight();

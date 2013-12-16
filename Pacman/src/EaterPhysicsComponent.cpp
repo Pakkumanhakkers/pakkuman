@@ -7,9 +7,14 @@
 
 #include "EaterPhysicsComponent.h"
 
-#include <vector>
+#include <cmath>
 
-#include "Eatable.h"
+#include "Food.h"
+#include "GameEngine.h"
+#include "GameInstance.h"
+#include "Ghost.h"
+#include "Moveable.h"
+#include "Pacman.h"
 
 class GameEngine;
 class Moveable;
@@ -21,25 +26,30 @@ EaterPhysicsComponent::EaterPhysicsComponent()
 }
 
 virtual void
-EaterPhysicsComponent::update(Moveable* moveable, GameEngine* gameEngine)
+EaterPhysicsComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
-  DefaultPhysicsComponent::update(moveable, gameEngine);
-
   for (Food* e : gameEngine->getGame()->food)
   {
-    processEatable(moveable, e, e, gameEngine);
+    processEatable(gameEngine, moveable, e, e);
   }
 
   for (Ghost* e : gameEngine->getGame()->ghosts)
   {
-    processEatable(moveable, e, e, gameEngine);
+    if (moveable->getState != Pacman::Health::ALIVE)
+    {
+      break;
+    }
+
+    processEatable(gameEngine, moveable, e, e);
   }
 }
 
 void
-EaterPhysicsComponent::processEatable(Moveable* moveable, GameObject* pos, Eatable* eat, GameEngine* gameEngine)
+EaterPhysicsComponent::processEatable(GameEngine* gameEngine,
+    Moveable* moveable, GameObject* pos, Eatable* eat)
 {
-  if (abs(moveable->getX() - pos->getX()) < 0.5 && abs(moveable->getY() - pos->getY()))
+  if (abs(moveable->getX() - pos->getX()) < 0.5 &&
+      abs(moveable->getY() - pos->getY()))
   {
     eat->eat(gameEngine);
   }

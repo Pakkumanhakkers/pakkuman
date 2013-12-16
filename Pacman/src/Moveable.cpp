@@ -7,18 +7,25 @@
 
 #include "Moveable.h"
 
-#include "GraphicsComponent.h"
-#include "InputComponent.h"
-#include "PhysicsComponent.h"
+#include <cmath>
+#include <cstdlib>
 
 Moveable::~Moveable()
 {
 }
 
-Moveable::Moveable(InputComponent* input, PhysicsComponent* physics,
-      GraphicsComponent* graphics) :
-    input_{input}, physics_{physics}, graphics_{graphics},
+Moveable::Moveable() :
     speed_{0}, direction_{Direction::LEFT} {}
+
+/**
+ * Lägger till en komponent för uppdatering av objektet.
+ * @param component
+ */
+void
+Moveable::addComponent(Component* component)
+{
+  components_.push_back(component);
+}
 
 /**
  * Uppdaterar internt tillstånd genom kommandon.
@@ -27,18 +34,10 @@ Moveable::Moveable(InputComponent* input, PhysicsComponent* physics,
 void
 Moveable::update(GameEngine* gameEngine)
 {
-  input_->update(this, gameEngine);
-  physics_->update(this, gameEngine);
-  graphics_->update(this);
-}
-
-/**
- * Ritar ut objektet.
- * @param graphics grafikmotor
- */
-void
-Moveable::draw(Graphics* graphics)
-{
+  for (Component* component : components_)
+  {
+    component->update(gameEngine, this);
+  }
 }
 
 /**

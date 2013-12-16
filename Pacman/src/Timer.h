@@ -14,6 +14,7 @@ class Timer
 {
 public:
   Timer(Command*, int);
+  ~Timer();
 
   void setTimestamp(int);
   int getTimestamp();

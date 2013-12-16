@@ -10,13 +10,19 @@
 
 #include "DefaultPhysicsComponent.h"
 
-class DefaultPhysicsComponent : public PhysicsComponent
+class DefaultPhysicsComponent : public Component
 {
 public:
   DefaultPhysicsComponent();
 
   virtual void
-  update(Moveable*, GameEngine*);
+  update(GameEngine*, Moveable*);
+
+  static bool
+  isWallAhead(Map*, GameObject*, Moveable::Direction);
+  static bool
+  canTurn(Map*, Moveable*, Moveable::Direction);
+
 };
 
 #endif /* DEFAULTPHYSICSCOMPONENT_H_ */

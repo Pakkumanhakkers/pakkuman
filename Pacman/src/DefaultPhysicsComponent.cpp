@@ -17,7 +17,7 @@ DefaultPhysicsComponent::DefaultPhysicsComponent()
 }
 
 virtual void
-DefaultPhysicsComponent::update(Moveable* moveable, GameEngine* gameEngine)
+DefaultPhysicsComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
   Moveable::Direction direction = moveable->getDirection();
   Map* map = gameEngine->getMap();
@@ -36,4 +36,24 @@ DefaultPhysicsComponent::update(Moveable* moveable, GameEngine* gameEngine)
 
     gameEngine->publishCommand(new MoveCommand(moveable, newX, newY));
   }
+}
+
+
+bool
+DefaultPhysicsComponent::isWallAhead(Map* map, GameObject* object,
+    Moveable::Direction direction)
+{
+  int p = Moveable::isPositiveDirection(direction);
+  int h = Moveable::isHorizontalDirection(direction);
+
+  return map->isWall(int{object->getX() + 0.5 * double{!h}} + h * p,
+    int{object->getY() + 0.5 * double{h}} + !h * p);
+}
+
+bool
+DefaultPhysicsComponent::canTurn(Map* map, Moveable* moveable,
+    Moveable::Direction direction)
+{
+  return moveable->isCentered() && !isWallAhead(map,
+      moveable, direction);
 }

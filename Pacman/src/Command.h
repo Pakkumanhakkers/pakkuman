@@ -135,22 +135,6 @@ private:
 };
 
 /**
- * Byter status på uppäten mat
- */
-class FoodEatenCommand : public Command
-{
-public:
-  FoodEatenCommand(Food* food) :
-    food_{food} {}
-
-  void execute();
-  void undo();
-
-private:
-  Food* food_;
-};
-
-/**
  * Tappar livspoäng.
  */
 class LifeCommand : public Command
@@ -166,5 +150,42 @@ private:
   GameInstance* game_;
   int life_;
 };
+
+/**
+ * Sätter state.
+ */
+class StateCommand : public Command
+{
+public:
+  StateCommand(GameObject* object, int state) :
+    object_{object}, state_{state}, preState_{0} {}
+
+  void execute();
+  void undo();
+
+private:
+  GameObject* object_;
+  int preState_;
+  int state_;
+};
+
+/**
+ * Ändrar sjuklighet för spöken.
+ */
+class SickGhostCommand : public Command
+{
+public:
+  SickGhostCommand(GameInstance* game, int sick) :
+    game_{game}, sick_{sick} {}
+
+  void execute();
+  void undo();
+
+private:
+  GameInstance* game_;
+  int sick_;
+};
+
+
 
 #endif /* COMMAND_H_ */

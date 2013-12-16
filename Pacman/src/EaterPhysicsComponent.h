@@ -10,14 +10,14 @@
 
 #include "DefaultPhysicsComponent.h"
 
-class EaterPhysicsComponent : public DefaultPhysicsComponent
+class EaterPhysicsComponent : public Component
 {
 public:
   EaterPhysicsComponent();
   virtual void
-  update(Moveable*, GameEngine*);
+  update(GameEngine*, Moveable*);
 private:
-  void processEatable(Moveable*, GameObject*, Eatable*, GameEngine*);
+  void processEatable(GameEngine*, Moveable*, GameObject*, Eatable*);
 };
 
 #endif /* EATERPHYSICSCOMPONENT_H_ */

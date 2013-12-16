@@ -7,7 +7,7 @@
 
 #ifndef DRAWABLE_H_
 #define DRAWABLE_H_
-class Graphics;
+class GraphicEngine;
 
 /**
  * Kan ritas ut.
@@ -20,7 +20,7 @@ public:
   Drawable();
 
   virtual void
-  draw(Graphics*) = 0;
+  draw(GraphicEngine*) = 0;
 };
 
 

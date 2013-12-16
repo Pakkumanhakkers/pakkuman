@@ -10,6 +10,11 @@
 Timer::Timer(Command* command, int duration) :
     timestamp_{0}, trigger_command_{command}, duration_{duration} {}
 
+Timer::~Timer()
+{
+  delete trigger_command_;
+}
+
 void
 Timer::setTimestamp(int time)
 {

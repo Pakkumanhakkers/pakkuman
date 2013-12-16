@@ -7,41 +7,70 @@
 
 using namespace std;
 
-void Ghost::enterChase()
+Ghost::~Ghost()
 {
-	AiComponent->setAi(AiInputComponent::CHASE);
 }
 
-void Ghost::enterScatter()
+Ghost::Ghost() :
+    health_{NORMAL}, sickness_{0}, score_{100}
 {
-	AiComponent->setAi(AiInputComponent::SCATTER);
 }
 
-void Ghost::enterRandom()
+int
+Ghost::getState()
 {
-	AiComponent->setAi(AiInputComponent::RANDOM);
+  return health_;
 }
 
-void Ghost::enterHome()
+void
+Ghost::setState(int state)
 {
-	AiComponent->setAi(AiInputComponent::HOME);
+  health_ = state;
 }
 
-void Ghost::heal()
+void
+Ghost::changeSickness(int sick)
 {
-	CurrentHealthState = NORMAL;
+  sickness_ += sick;
+  if (getState() != Ghost::Health::EATEN)
+  {
+    if (sickness_ == 1)
+    {
+      setState(Ghost::Health::EATABLE_BLINK);
+    }
+    else if (sickness_ == 0 )
+    {
+      setState(Ghost::Health::NORMAL);
+    }
+  }
 }
 
-void Ghost::wound()
+void Ghost::eat(GameEngine* gameEngine)
 {
-	CurrentHealthState = EATABLE;
+  switch (health_)
+  {
+    case Ghost::NORMAL:
+      gameEngine->getGame()->pacman->die(gameEngine);
+      break;
+    case Ghost::EATABLE:
+    case Ghost::EATABLE_BLINK:
+      die(gameEngine);
+      break;
+  }
 }
 
-void Ghost::blink() // Vad ska hända här?
+void
+Ghost::die(GameEngine* gameEngine)
 {
-		
+  gameEngine->publishCommand(new ScoreCommand(gameEngine->getGame(),
+      score_ * gameEngine->getGame()->ghostsEaten));
+
+  gameEngine->publishCommand(new StateCommand(this, Ghost::Health::EATEN));
 }
 
-
-
-
+void
+Ghost::spawn(GameEngine* gameEngine, int x, int y)
+{
+  gameEngine->publishCommand(new MoveCommand(this, x, y));
+  gameEngine->publishCommand(new SickGhostCommand(this, -sickness_));
+}

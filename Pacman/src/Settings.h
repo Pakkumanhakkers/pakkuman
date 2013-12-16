@@ -21,6 +21,12 @@ struct Settings
   int scoreGhost;
 
   int frameTime;
+
+  int sickTime;
+  int blinkTime;
+
+  int ghostCount;
+  int ghostSleep;
 };
 
 

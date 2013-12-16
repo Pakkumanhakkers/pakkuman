@@ -11,14 +11,22 @@
 class Food : public GameObject, public Eatable
 {
 public:
+  enum Health
+  {
+    NORMAL, EATEN
+  };
+
   Food(double x, double y, Sprite* sprite, int score);
-  virtual void eat(GameEngine*);
-  void setEaten(bool);
-  bool getEaten();
+
+  virtual int getState();
+  virtual void setState(int);
+
+  virtual void
+  eat(GameEngine*);
 
 private:
   int score_;
-  bool eaten_;
+  Health health_;
 };
 
 

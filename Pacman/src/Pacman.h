@@ -14,13 +14,21 @@
 class Pacman : public Moveable
 {
 public:
-  ~Pacman() {};
-  Pacman(InputComponent* input, PhysicsComponent* physics,
-        GraphicsComponent* graphics) :
-      Moveable{input, physics, graphics} {}
+  enum Health
+  {
+    ALIVE, DEAD
+  };
 
-  void die();
-  void spawn();
+  virtual ~Pacman();
+  Pacman();
+
+  virtual int getState();
+  virtual void setState(int);
+
+  void die(GameEngine*);
+  void spawn(GameEngine*, int, int);
+private:
+  int health_;
 };
 
 

@@ -69,16 +69,6 @@ void ScoreCommand::undo()
   game_->score -= score_;
 }
 
-void FoodEatenCommand::execute()
-{
-  food_->setEaten(true);
-}
-
-void FoodEatenCommand::undo()
-{
-  food_->setEaten(false);
-}
-
 void LifeCommand::execute()
 {
   game_->lives += life_;
@@ -89,3 +79,29 @@ void LifeCommand::undo()
   game_->lives -= life_;
 }
 
+void StateCommand::execute()
+{
+  preState_ = object_->getState();
+  object_->setState(state_);
+}
+
+void StateCommand::undo()
+{
+  object_->setState(preState_);
+}
+
+void SickGhostCommand::execute()
+{
+  for (Ghost* g : game_->ghosts)
+  {
+    g->changeSickness(sick_);
+  }
+}
+
+void SickGhostCommand::undo()
+{
+  for (Ghost* g : game_->ghosts)
+  {
+    g->changeSickness(-sick_);
+  }
+}

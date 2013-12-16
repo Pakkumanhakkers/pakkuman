@@ -14,11 +14,11 @@ class GameEngine;
 /**
  * Styr rörliga objekt med tangentbordet
  */
-class KeyboardInputComponent : public InputComponent
+class KeyboardInputComponent : public Component
 {
 public:
   KeyboardInputComponent();
-  virtual void update(Moveable*, GameEngine*);
+  virtual void update(GameEngine*, Moveable*);
 
 private:
   Moveable::Direction next_direction_;

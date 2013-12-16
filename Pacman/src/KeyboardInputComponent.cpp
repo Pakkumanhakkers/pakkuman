@@ -10,12 +10,11 @@
 #include <SDL_keyboard.h>
 #include <SDL_scancode.h>
 #include <SDL_stdinc.h>
-#include <cmath>
 
 #include "Command.h"
+#include "DefaultPhysicsComponent.h"
 #include "GameEngine.h"
-#include "Map.h"
-#include "PhysicsComponent.h"
+#include "Component.h"
 
 class GameEngine;
 class Moveable;
@@ -25,7 +24,7 @@ KeyboardInputComponent::KeyboardInputComponent()  :
 {
 }
 
-void KeyboardInputComponent::update(Moveable* moveable, GameEngine* gameEngine)
+void KeyboardInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
   const Uint8* state = SDL_GetKeyboardState(nullptr);
   if (state[SDL_SCANCODE_LEFT])
@@ -45,7 +44,7 @@ void KeyboardInputComponent::update(Moveable* moveable, GameEngine* gameEngine)
     next_direction_ = Moveable::Direction::DOWN;
   }
 
-  if (PhysicsComponent::canTurn(gameEngine->getMap(), moveable,
+  if (DefaultPhysicsComponent::canTurn(gameEngine->getMap(), moveable,
       next_direction_))
   {
     gameEngine->publishCommand(new DirectCommand(moveable, next_direction_));

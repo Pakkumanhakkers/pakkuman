@@ -22,6 +22,8 @@ struct GameInstance
 {
   int lives;
   int score;
+  int ghostsEaten;
+
   Pacman* pacman;
   std::vector<Ghost*> ghosts;
   std::vector<Food*> food;

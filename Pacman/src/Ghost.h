@@ -7,36 +7,36 @@
 
 #ifndef GHOST_H_
 #define GHOST_H_
-
-class AiInputComponent;
+class GameEngine;
+class GraphicsComponent;
+class InputComponent;
+class PhysicsComponent;
 
 class Ghost : public Moveable, public Eatable
 {
 public:
-  ~Ghost() {}
-  Ghost(InputComponent* input, PhysicsComponent* physics,
-        GraphicsComponent* graphics, AiInputComponent AiInput) :
-      Moveable{input, physics, graphics}, health_state_{1}, AiComponent{AiInput} {}
-
-  void eat(GameEngine*); //Vad ska denna göra, och hur ska den implementeras?
-  void enterChase();  //dessa två ändrar AiType
-  void enterScatter();
-  void enterRandom();
-  void enterHome();
-  void wound();  //Denna sätter health_state_ till EATABLE, korrektomundo?
-  void blink(); // Hur ska denna implementeras?
-  void heal();  // Just nu sätter denna health_state_ till NORMAL, funkar det för er andra?
-private:
-  AiInputComponent* AiComponent;
-  enum health_state_
+  enum Health
   {
-	NORMAL, EATABLE, EATEN
+        NORMAL, EATABLE, EATABLE_BLINK, EATEN, SLEEP
   };
 
-  health_state_ CurrentHealthState = NORMAL;
-  
+  virtual ~Ghost();
+  Ghost();
 
+  virtual int getState();
+  virtual void setState(int);
 
+  void changeSickness(int);
+  int getSickness();
+
+  void eat(GameEngine*);
+  void die(GameEngine*);
+  void spawn(GameEngine*, int x, int y);
+
+private:
+  Health health_;
+  int sickness_;
+  int score_;
 };
 
 

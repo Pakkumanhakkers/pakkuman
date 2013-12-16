@@ -9,23 +9,26 @@
 
 
 Food::Food(double x, double y, Sprite* sprite, int score) :
-  GameObject{x, y, sprite}, score_{score}, eaten_{false} {}
+  GameObject{x, y, sprite}, score_{score}, health_{NORMAL} {}
 
 virtual void
 Food::eat(GameEngine* gameEngine)
 {
-  gameEngine->publishCommand(new ScoreCommand{gameEngine->getGame(), score_});
-  gameEngine->publishCommand(new FoodEatenCommand{this});
+  if (getState() != Food::EATEN)
+  {
+    gameEngine->publishCommand(new ScoreCommand{gameEngine->getGame(), score_});
+    gameEngine->publishCommand(new StateCommand{this, Food::EATEN});
+  }
+}
+
+int
+Food::getState()
+{
+  return health_;
 }
 
 void
-Food::setEaten(bool eaten)
+Food::setState(int state)
 {
-  eaten_ = eaten;
-}
-
-bool
-Food::getEaten()
-{
-  return eaten_;
+  health_ = state;
 }

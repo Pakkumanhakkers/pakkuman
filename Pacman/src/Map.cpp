@@ -36,7 +36,7 @@ Map::TileType Map::getTileType(int x, int y)
   return MapArray[x][y];
 }
 
-void Map::draw(Graphics* g)
+void Map::draw(GraphicEngine* g)
 {
   for(int cor_y = 0;cor_y<20;++cor_y)
   {
@@ -44,11 +44,11 @@ void Map::draw(Graphics* g)
     {
       switch (MapArray[cor_x][cor_y])
       {
-      case "#":
-        g->drawSprite(wallSprite_,cor_x,cor_y);
+      case WALL:
+        g->DrawSprite(wallSprite_,cor_x,cor_y);
         break;
       default:
-        g->drawSprite(floorSprite_,cor_x,cor_y);
+        g->DrawSprite(floorSprite_,cor_x,cor_y);
         break;
       }
     }

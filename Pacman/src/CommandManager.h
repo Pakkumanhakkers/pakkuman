@@ -24,7 +24,9 @@ public:
   void add(Command*);
   void add(Timer*);
   void setCurrentTime(int);
+  void checkTimer();
 
+  void clearFutureTimers();
   void clear();
   bool canRedo();
   bool canUndo();
@@ -33,13 +35,16 @@ public:
 private:
   void remove(std::list<Command*>::iterator start,
       std::list<Command*>::iterator end);
+  void remove(std::list<Timer*>::iterator start,
+      std::list<Timer*>::iterator end);
+  void updateTimeline();
 
   int currentTime_{0};
 
   std::list<Command*>::iterator currentCommand_;
   std::list<Command*> commands_;
-  std::list<Timer*> activeTimers_;
-  std::list<Timer*> elapsedTimers;
+  std::list<Timer*> futureTimers_;
+  std::list<Timer*> pastTimers_;
 };
 
 
