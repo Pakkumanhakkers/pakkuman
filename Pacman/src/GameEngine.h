@@ -25,7 +25,8 @@ public:
   };
 
   virtual ~GameEngine(); 
-  
+  GameEngine();
+
   void initGame();
   void gameLoop();
 
@@ -46,14 +47,17 @@ private:
   void gameOver();
   void nextLife();
 
+  int currentTime_;
+  int game_state_;
+
+  Score points;
+
   Settings settings_;
   GraphicEngine graphics_;
   CommandManager commandManager_;
   GameInstance gameInstance_;
   Map map_;
   PathFinder pathFinder_;
-  
-  Score points;
   
   Sprite spritePacman;
   Sprite spriteGhost;
@@ -62,9 +66,14 @@ private:
   Sprite spriteFloor;
   Sprite spriteDot;
   Sprite spriteCherry;
+  Sprite spriteBlinkGhost;
+  Sprite spriteEyes;
 
-  int currentTime_;
-  int game_state_;
+  KeyboardInputComponent keyboardInputComponent;
+  GhostInputComponent ghostInputComponent;
+  DefaultPhysicsComponent defaultPhysicsComponent;
+  EaterPhysicsComponent eaterPhysicsComponent;
+  GhostGraphicComponent ghostGraphicComponent;
 };
 
 #endif /* GAMEENGINE_H */

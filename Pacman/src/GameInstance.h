@@ -20,6 +20,8 @@ class Pacman;
  */
 struct GameInstance
 {
+  ~GameInstance();
+
   int lives;
   int score;
   int ghostsEaten;

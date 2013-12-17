@@ -10,51 +10,87 @@
 #include <SDL_timer.h>
 #include <vector>
 
-//#include "AiInputComponent.h"
+#include "AiInputComponent.h"
 #include "Command.h"
 #include "CommandManager.h"
-//#include "Food.h"
+#include "DefaultPhysicsComponent.h"
+#include "EaterPhysicsComponent.h"
 #include "Ghost.h"
+#include "GhostGraphicComponent.h"
+#include "GhostInputComponent.h"
 #include "GraphicEngine.h"
+#include "KeyboardInputComponent.h"
 #include "Map.h"
 #include "Pacman.h"
 #include "PathFinder.h"
+#include "Score.h"
 #include "Settings.h"
 #include "Sprite.h"
 #include "SuperFood.h"
 #include "Timer.h"
 
-class Timer;
-
-void
-GameEngine::initGame()
+GameEngine::GameEngine()
 {
+  currentTime_ = 0;
+  game_state_ = GameEngine::PLAY;
 
-  spriteCherry = Sprite("Cherry.png", 32, 32);
-  spriteDot = Sprite("Dot.png", 32, 32);
-  spriteWall = Sprite("Wall.png",32, 32);
-  spriteFloor = Sprite("Floor.png",32,32);
-  spritePacman = Sprite("Pacman.png",32,32);
-  spriteGhost = Sprite("Ghost.png", 32,32);
-  spriteSickGhost = Sprite("sickGhost.png",32, 32);
+  points = Score();
 
+  settings_ = Settings();
+  graphics_ = GraphicEngine();
+  commandManager_ = CommandManager();
+  gameInstance_ = GameInstance();
 
+  // init sprites for shared use
+  spriteCherry = Sprite("Cherry.png");
+  spriteDot = Sprite("Dot.png");
+  spriteWall =  Sprite("Wall.png");
+  spriteFloor =  Sprite("Floor.png");
+  spritePacman =  Sprite("Pacman.png");
+  spriteGhost = Sprite("Ghost.png");
+  spriteSickGhost =  Sprite("sickGhost.png");
+  spriteBlinkGhost = Sprite("blinkGhost.png");
+  spriteEyes = Sprite("eyes.png");
+
+  // init components for shared use
+  keyboardInputComponent{KeyboardInputComponent{}};
+  ghostInputComponent{GhostInputComponent{AiInputComponent{&map_,
+      &pathFinder_}}};
+  defaultPhysicsComponent{DefaultPhysicsComponent{}};
+  eaterPhysicsComponent{EaterPhysicsComponent{}};
+  ghostGraphicComponent{GhostGraphicComponent{&spriteGhost,
+      &spriteSickGhost, &spriteBlinkGhost, &spriteEyes}};
+
+  // init map
   map_ = Map{&spriteWall, &spriteFloor};
-
   map_.loadFile("Map.txt");
 
-  
+  pathFinder_ = PathFinder(&map_);
+}
 
+void GameEngine::initGame()
+{
   int px = map_.getPacmanX();
   int py = map_.getPacmanY();
   int gx = map_.getGhostX();
   int gy = map_.getGhostY();
 
-  gameInstance_.pacman = new Pacman{px, py, &spritePacman};
+  // init game objects
+  Pacman* pacman = new Pacman{px, py, &spritePacman};
+  pacman->addComponent(&keyboardInputComponent);
+  pacman->addComponent(&defaultPhysicsComponent);
+  pacman->addComponent(&eaterPhysicsComponent);
+
+  gameInstance_.pacman = pacman;
 
   for (int i = 0; i < settings_.ghostCount; ++i)
   {
-    gameInstance_.ghosts.push_back(new Ghost{gx, gy, &spriteGhost});
+    Ghost* ghost{new Ghost{gx, gy, &spriteGhost}};
+    ghost->addComponent(&ghostInputComponent);
+    ghost->addComponent(&defaultPhysicsComponent);
+    ghost->addComponent(&ghostGraphicComponent);
+
+    gameInstance_.ghosts.push_back(ghost);
   }
 
   for (Map::FoodInfo& food : *(map_.getFoodInfo()))
@@ -64,10 +100,10 @@ GameEngine::initGame()
     switch (food.type)
     {
       case Map::DOT:
-        f = new Food(food.x, food.y, &spriteDot, settings_.scoreDot);
+        f = new Food{food.x, food.y, &spriteDot, settings_.scoreDot};
         break;
       case Map::CHERRY:
-        f = new SuperFood(food.x, food.y, &spriteCherry, settings_.scoreFruit);
+        f = new SuperFood{food.x, food.y, &spriteCherry, settings_.scoreFruit};
         break;
     }
 
@@ -76,9 +112,6 @@ GameEngine::initGame()
       gameInstance_.food.push_back(f);
     }
   }
-}
-
-GameEngine::~GameEngine() {
 }
 
 void
@@ -117,20 +150,27 @@ void
 GameEngine::drawGame()
 {
   graphics_.setCurrentTime(currentTime_);
+
   map_.draw(&graphics_);
 
-  gameInstance_.pacman->draw(&graphics_);
+  for (Food* object : gameInstance_.food)
+  {
+    object->draw(&graphics_);
+  }
 
   for (Moveable* object : gameInstance_.ghosts)
   {
     object->draw(&graphics_);
   }
 
-  for (Food* object : gameInstance_.food)
-  {
-    object->draw(&graphics_);
-  }
+  gameInstance_.pacman->draw(&graphics_);
 }
+
+GameEngine::~GameEngine() {
+
+	delete GraphicEngine;
+}
+
 
 void
 GameEngine::lifeLost()

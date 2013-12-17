@@ -13,7 +13,7 @@ class Component
 public:
   virtual
   ~Component();
-  Component() = 0;
+  Component();
 
   virtual void
   update(GameEngine*, Moveable*) = 0;
