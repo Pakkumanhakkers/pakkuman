@@ -26,10 +26,10 @@ GraphicEngine::~GraphicEngine() {
 }
 
 
-void GraphicEngine::DrawSprite(Sprite* sprite_, double xpos_, double ypos_, int current_ticks, Moveable::Direction direction)
+void GraphicEngine::DrawSprite(Sprite* sprite_, double xpos_, double ypos_, Moveable::Direction direction)
 {
 	SDL_RenderCopy(sdlSetup.GetRenderer(), sprite_->GetImage(),
-			sprite_->GetCrop(current_ticks, direction),
+			sprite_->GetCrop(ticks, direction),
 			OutputRectangle(xpos_,ypos_,sprite_->GetWidth(), sprite_->GetHeight()));
 }
 
@@ -49,7 +49,8 @@ void GraphicEngine::Draw(std::string output_, double xpos_, double ypos_)
 
 	if( textSurface == NULL )
 	{
-		std::cout << "Unable to render text surface! SDL_ttf Error: " << TTF_GetError() << std::endl;
+		std::cout << "Unable to render text surface! SDL_ttf Error: "
+		    << TTF_GetError() << std::endl;
 	}
 	else
 	{
