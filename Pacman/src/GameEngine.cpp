@@ -26,18 +26,29 @@ class Timer;
 void
 GameEngine::initGame()
 {
+
+	spriteCherry = new Sprite("Cherry.png", 32, 32);
+	spriteFood = new Sprite("Dot.png", 32, 32);
+	spriteWall = new Sprite("Wall.png",32, 32);
+	spriteFloor = new Sprite("Floor.png",32,32);
+	spritePacman = new Sprite("Pacman.png",64,128);
+	spriteGhost = new Sprite("Ghost.png", 64,128);
+	spriteSickGhost = new Sprite("sickGhost.png",64,128);
+
+
   map_ = Map{&spriteWall, &spriteFloor};
+  
 
   int px = map_.getPacmanX();
   int py = map_.getPacmanY();
   int gx = map_.getGhostX();
   int gy = map_.getGhostY();
 
-  gameInstance_.pacman = new Pacman{px, py, &spriteDot};
+  gameInstance_.pacman = new Pacman{px, py, &spritePacman};
 
   for (int i = 0; i < settings_.ghostCount; ++i)
   {
-    gameInstance_.ghosts.push_back(new Ghost{gx, gy, &spriteDot});
+    gameInstance_.ghosts.push_back(new Ghost{gx, gy, &spriteGhost});
   }
 
   for (Map::FoodInfo& food : *(map_.getFoodInfo()))
@@ -50,7 +61,7 @@ GameEngine::initGame()
         f = new Food(food.x, food.y, &spriteDot, settings_.scoreDot);
         break;
       case Map::CHERRY:
-        f = new SuperFood(food.x, food.y, &spriteDot, settings_.scoreFruit);
+        f = new SuperFood(food.x, food.y, &spriteCherry, settings_.scoreFruit);
         break;
     }
 
