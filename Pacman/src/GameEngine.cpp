@@ -39,8 +39,8 @@ GameEngine::initGame()
 
 
   map_ = Map{&spriteWall, &spriteFloor};
-
   map_->loadFile("Map.txt");
+  pathFinder_ = PathFinder(getMap());
 
   
 
