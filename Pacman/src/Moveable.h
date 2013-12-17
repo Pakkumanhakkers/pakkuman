@@ -7,6 +7,11 @@
 
 #ifndef MOVEABLE_H_
 #define MOVEABLE_H_
+
+#include <list>
+
+#include "Component.h"
+
 class GraphicEngine;
 
 class Graphics;

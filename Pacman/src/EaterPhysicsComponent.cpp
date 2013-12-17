@@ -25,7 +25,7 @@ EaterPhysicsComponent::EaterPhysicsComponent()
 {
 }
 
-virtual void
+void
 EaterPhysicsComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
   for (Food* e : gameEngine->getGame()->food)
@@ -35,7 +35,7 @@ EaterPhysicsComponent::update(GameEngine* gameEngine, Moveable* moveable)
 
   for (Ghost* e : gameEngine->getGame()->ghosts)
   {
-    if (moveable->getState != Pacman::Health::ALIVE)
+    if (moveable->getState() != Pacman::Health::ALIVE)
     {
       break;
     }

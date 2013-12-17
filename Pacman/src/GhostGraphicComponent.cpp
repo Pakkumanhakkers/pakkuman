@@ -7,6 +7,10 @@
 
 #include "GhostGraphicComponent.h"
 
+#include "Command.h"
+#include "GameEngine.h"
+#include "Ghost.h"
+
 GhostGraphicComponent::GhostGraphicComponent(Sprite* normal, Sprite* sick,
     Sprite* blink, Sprite* dead) :
     normal_{normal}, sick_{sick}, blink_{blink}, dead_{dead}

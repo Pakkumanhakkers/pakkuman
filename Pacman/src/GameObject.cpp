@@ -7,6 +7,8 @@
 
 #include "GameObject.h"
 
+#include "GraphicEngine.h"
+
 GameObject::GameObject() :
 x_{0}, y_{0}, sprite_{nullptr}
 {

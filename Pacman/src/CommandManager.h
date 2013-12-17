@@ -12,6 +12,7 @@
 #include <list>
 
 #include "Command.h"
+#include "Timer.h"
 
 /**
  * Hanterar återkallerliga kommandon i sekvens

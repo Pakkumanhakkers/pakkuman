@@ -7,10 +7,11 @@
 
 #ifndef GHOST_H_
 #define GHOST_H_
-class GameEngine;
-class GraphicsComponent;
-class InputComponent;
-class PhysicsComponent;
+
+#include "Moveable.h"
+#include "Eatable.h"
+
+#include "GameEngine.h"
 
 class Ghost : public Moveable, public Eatable
 {
@@ -22,6 +23,7 @@ public:
 
   virtual ~Ghost();
   Ghost();
+  Ghost(double x, double y, Sprite* sprite);
 
   virtual int getState();
   virtual void setState(int);

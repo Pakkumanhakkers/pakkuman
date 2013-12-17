@@ -28,8 +28,10 @@ AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder)
 
 void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
+  /*
   Moveable::Direction direction;
   DefaultPhysicsComponent::canTurn(internalMap, moveable, direction);
+  */
   AiInputComponent::AiType nextAi;
 
   switch (moveable->getState())
@@ -123,7 +125,7 @@ Moveable::Direction AiInputComponent::getRandom(GameObject* moveable)
 	srand (time(NULL));
 	do
 	{
-		direction = rand() % 3 ;
+		direction = Moveable::Direction(rand() % 3);
 	}
 	while (!DefaultPhysicsComponent::isWallAhead(
 	            internalMap, moveable, direction));
@@ -139,4 +141,5 @@ Moveable::Direction AiInputComponent::getRandom(GameObject* moveable)
                 case(3):
                 return Moveable::DOWN;
         }
+    return Moveable::UP;
 }

@@ -5,13 +5,16 @@
  * @author ivar
  */
 
+#include "Food.h"
 
+#include "Command.h"
+#include "GameEngine.h"
 
 
 Food::Food(double x, double y, Sprite* sprite, int score) :
   GameObject{x, y, sprite}, score_{score}, health_{NORMAL} {}
 
-virtual void
+void
 Food::eat(GameEngine* gameEngine)
 {
   if (getState() != Food::EATEN)
@@ -30,5 +33,5 @@ Food::getState()
 void
 Food::setState(int state)
 {
-  health_ = state;
+  health_ = Food::Health(state);
 }

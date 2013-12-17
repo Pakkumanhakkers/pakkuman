@@ -12,6 +12,7 @@
 
 #include "Food.h"
 #include "Moveable.h"
+class Ghost;
 
 class Pacman;
 
@@ -20,6 +21,7 @@ class Pacman;
  */
 struct GameInstance
 {
+  GameInstance();
   ~GameInstance();
 
   int lives;

@@ -4,7 +4,10 @@
 
 #ifndef SCORE_H_
 #define SCORE_H_
-#include "GraphicEngine.h"
+
+//#include "GraphicEngine.h"
+
+class GraphicEngine;
 
 class Score
 {
@@ -19,3 +22,5 @@ private:
 	double xpos_ = 40;
 	double ypos_ = 80;
 };
+
+#endif

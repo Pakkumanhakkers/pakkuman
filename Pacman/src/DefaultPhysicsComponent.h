@@ -8,7 +8,10 @@
 #ifndef DEFAULTPHYSICSCOMPONENT_H_
 #define DEFAULTPHYSICSCOMPONENT_H_
 
-#include "DefaultPhysicsComponent.h"
+#include "Component.h"
+#include "Moveable.h"
+
+class Map;
 
 class DefaultPhysicsComponent : public Component
 {

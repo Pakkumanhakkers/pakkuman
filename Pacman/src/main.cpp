@@ -4,7 +4,7 @@
  *  Created on: 2 dec 2013
  *      Author: tor
  */
-/* Ska inte main se ut typ såhär? */
+/* Ska inte main se ut typ sï¿½hï¿½r? */
 
 
 #include <iostream>
@@ -12,12 +12,11 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-	GameEngine* main = new GameEngine();
+  GameEngine gameEngine = GameEngine();
 
-	GameEngine->GameLoop();
+  gameEngine.initGame();
 
-	delete main;
+  gameEngine.gameLoop();
 
-
-	return 0;
+  return 0;
 }

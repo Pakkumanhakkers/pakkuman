@@ -10,6 +10,8 @@
 #include <iterator>
 #include <list>
 
+#include "Ghost.h"
+
 using namespace std;
 
 void MoveCommand::execute()

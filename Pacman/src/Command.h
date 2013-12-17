@@ -12,6 +12,8 @@
 
 #include "Moveable.h"
 
+#include "GameInstance.h"
+
 /**
  * Ett kommando som ska utföras
  */
@@ -62,7 +64,7 @@ class SpriteCommand : public Command
 {
 public:
   SpriteCommand(GameObject* object, Sprite* sprite) :
-    object_{object}, sprite_{sprite}, preSprite_{nullptr} {}
+    object_{object}, preSprite_{nullptr}, sprite_{sprite} {}
 
   void execute();
   void undo();
@@ -91,7 +93,7 @@ public:
 
 private:
   Moveable* object_;
-  Moveable::Direction preDirection_{0};
+  Moveable::Direction preDirection_{Moveable::LEFT};
   Moveable::Direction direction_;
 };
 
@@ -158,7 +160,7 @@ class StateCommand : public Command
 {
 public:
   StateCommand(GameObject* object, int state) :
-    object_{object}, state_{state}, preState_{0} {}
+    object_{object}, preState_{0}, state_{state} {}
 
   void execute();
   void undo();

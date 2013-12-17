@@ -21,6 +21,7 @@ public:
 
   virtual ~Pacman();
   Pacman();
+  Pacman(double x, double y, Sprite* sprite);
 
   virtual int getState();
   virtual void setState(int);

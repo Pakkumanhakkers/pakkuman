@@ -11,8 +11,9 @@
 #include "Ghost.h"
 #include "Map.h"
 #include "Moveable.h"
+#include "Component.h"
 
-class PathFinder;
+#include "PathFinder.h"
 /**
  * Styr rörliga objekt med AI
  * M�ste includea AiType:s och Directions p� n�got vis!!

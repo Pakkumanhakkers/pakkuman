@@ -8,61 +8,61 @@
 #include "GameEngine.h"
 
 #include <SDL_timer.h>
-#include <vector>
+//#include <vector>
 
 #include "AiInputComponent.h"
 #include "Command.h"
-#include "CommandManager.h"
-#include "DefaultPhysicsComponent.h"
-#include "EaterPhysicsComponent.h"
+//#include "CommandManager.h"
+//#include "DefaultPhysicsComponent.h"
+//#include "EaterPhysicsComponent.h"
 #include "Ghost.h"
-#include "GhostGraphicComponent.h"
-#include "GraphicEngine.h"
-#include "KeyboardInputComponent.h"
-#include "Map.h"
+//#include "GhostGraphicComponent.h"
+//#include "GraphicEngine.h"
+//#include "KeyboardInputComponent.h"
+//#include "Map.h"
 #include "Pacman.h"
-#include "PathFinder.h"
-#include "Score.h"
-#include "Settings.h"
+//#include "PathFinder.h"
+//#include "Score.h"
+//#include "Settings.h"
 #include "Sprite.h"
 #include "SuperFood.h"
-#include "Timer.h"
+//#include "Timer.h"
 
-GameEngine::GameEngine()
-{
-  currentTime_ = 0;
-  game_state_ = GameEngine::PLAY;
+GameEngine::GameEngine() :
+  currentTime_{0},
+  gameState_{0},
 
-  points = Score();
+  points {},
 
-  settings_ = Settings();
-  graphics_ = GraphicEngine();
-  commandManager_ = CommandManager();
-  gameInstance_ = GameInstance();
+  settings_{},
+  graphics_{},
+  commandManager_{},
+  gameInstance_{},
 
   // init sprites for shared use
-  spriteCherry = Sprite("Cherry.png");
-  spriteDot = Sprite("Dot.png");
-  spriteWall =  Sprite("Wall.png");
-  spriteFloor =  Sprite("Floor.png");
-  spritePacman =  Sprite("Pacman.png");
-  spriteGhost = Sprite("Ghost.png");
-  spriteSickGhost =  Sprite("sickGhost.png");
-  spriteBlinkGhost = Sprite("blinkGhost.png");
-  spriteEyes = Sprite("eyes.png");
+  spritePacman{"Pacman.png"},
+  spriteGhost{"Ghost.png"},
+  spriteSickGhost{"sickGhost.png"},
+  spriteBlinkGhost{"blinkGhost.png"},
+  spriteEyes{"eyes.png"},
+  spriteWall{"Wall.png"},
+  spriteFloor{"Floor.png"},
+  spriteDot{"Dot.png"},
+  spriteCherry{"Cherry.png"},
 
   // init components for shared use
-  keyboardInputComponent{KeyboardInputComponent{}};
-  defaultPhysicsComponent{DefaultPhysicsComponent{}};
-  eaterPhysicsComponent{EaterPhysicsComponent{}};
-  ghostGraphicComponent{GhostGraphicComponent{&spriteGhost,
-      &spriteSickGhost, &spriteBlinkGhost, &spriteEyes}};
+  keyboardInputComponent{},
+  defaultPhysicsComponent{},
+  eaterPhysicsComponent{},
+
+  ghostGraphicComponent{&spriteGhost,
+      &spriteSickGhost, &spriteBlinkGhost, &spriteEyes},
 
   // init map
-  map_ = Map{&spriteWall, &spriteFloor};
+  map_{&spriteWall, &spriteFloor},
+  pathFinder_{&map_}
+{
   map_.loadFile("Map.txt");
-
-  pathFinder_ = PathFinder(&map_);
 }
 
 void GameEngine::initGame()
@@ -74,7 +74,7 @@ void GameEngine::initGame()
   int gy = map_.getGhostY();
 
   // init game objects
-  Pacman* pacman = new Pacman{px, py, &spritePacman};
+  Pacman* pacman = new Pacman{double(px), double(py), &spritePacman};
   pacman->addComponent(&keyboardInputComponent);
   pacman->addComponent(&defaultPhysicsComponent);
   pacman->addComponent(&eaterPhysicsComponent);
@@ -101,10 +101,14 @@ void GameEngine::initGame()
     switch (food.type)
     {
       case Map::DOT:
-        f = new Food{food.x, food.y, &spriteDot, settings_.scoreDot};
+        f = new Food{double(food.x), double(food.y),
+          &spriteDot, settings_.scoreDot};
         break;
       case Map::CHERRY:
-        f = new SuperFood{food.x, food.y, &spriteCherry, settings_.scoreFruit};
+        f = new SuperFood{double(food.x), double(food.y),
+          &spriteCherry, settings_.scoreFruit};
+        break;
+      default:
         break;
     }
 
@@ -167,9 +171,8 @@ GameEngine::drawGame()
   gameInstance_.pacman->draw(&graphics_);
 }
 
-GameEngine::~GameEngine() {
-
-	delete GraphicEngine;
+GameEngine::~GameEngine()
+{
 }
 
 

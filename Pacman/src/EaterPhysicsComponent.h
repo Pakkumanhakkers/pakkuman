@@ -8,7 +8,12 @@
 #ifndef EATERPHYSICSCOMPONENT_H_
 #define EATERPHYSICSCOMPONENT_H_
 
-#include "DefaultPhysicsComponent.h"
+#include "Component.h"
+
+class Eatable;
+class GameEngine;
+class GameObject;
+class Moveable;
 
 class EaterPhysicsComponent : public Component
 {

@@ -78,7 +78,7 @@ if (abs(direction_x) < abs(direction_y) && direction_y < 0)
 		else 
 		return (Moveable::DOWN);
 	}
-//if (direction_x < direction_y && direction_y => 0) BORDE INTE BEHÖVAS VÄL?
+//if (direction_x < direction_y && direction_y => 0) BORDE INTE BEHï¿½VAS Vï¿½L?
 //	{
 		if(prevDirection != Moveable::DOWN && internalMap->isWall(ghost_x, ghost_y + 1))
 		{
@@ -95,6 +95,7 @@ if (abs(direction_x) < abs(direction_y) && direction_y < 0)
 		else 
 		return (Moveable::UP);
 	//}
+  return Moveable::UP;
 
 	
 }

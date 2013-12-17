@@ -10,7 +10,6 @@
 
 #include <vector>
 
-#include "AiInputComponent.h"
 #include "CommandManager.h"
 #include "DefaultPhysicsComponent.h"
 #include "EaterPhysicsComponent.h"
@@ -23,11 +22,9 @@
 #include "Score.h"
 #include "Settings.h"
 #include "Sprite.h"
+#include "Timer.h"
 
-class Timer;
-
-class Map;
-class Sound;
+class AiInputComponent;
 
 /**
  * Är samordnare för spelvärlden och menyn.
@@ -64,7 +61,7 @@ private:
   void nextLife();
 
   int currentTime_;
-  int game_state_;
+  int gameState_;
 
   Score points;
 
@@ -72,24 +69,26 @@ private:
   GraphicEngine graphics_;
   CommandManager commandManager_;
   GameInstance gameInstance_;
-  Map map_;
-  PathFinder pathFinder_;
 
   Sprite spritePacman;
   Sprite spriteGhost;
   Sprite spriteSickGhost;
+  Sprite spriteBlinkGhost;
+  Sprite spriteEyes;
   Sprite spriteWall;
   Sprite spriteFloor;
   Sprite spriteDot;
   Sprite spriteCherry;
-  Sprite spriteBlinkGhost;
-  Sprite spriteEyes;
 
-  std::vector<AiInputComponent*> ghostAi;
   KeyboardInputComponent keyboardInputComponent;
   DefaultPhysicsComponent defaultPhysicsComponent;
   EaterPhysicsComponent eaterPhysicsComponent;
+
+  std::vector<AiInputComponent*> ghostAi;
   GhostGraphicComponent ghostGraphicComponent;
+
+  Map map_;
+  PathFinder pathFinder_;
 };
 
 #endif /* GAMEENGINE_H */

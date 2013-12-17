@@ -16,6 +16,14 @@ Pacman::Pacman() :
 {
 }
 
+Pacman::Pacman(double x, double y, Sprite* sprite) :
+  health_{ALIVE}
+{
+  setX(x);
+  setY(y);
+  setSprite(sprite);
+}
+
 void
 Pacman::setState(int state)
 {

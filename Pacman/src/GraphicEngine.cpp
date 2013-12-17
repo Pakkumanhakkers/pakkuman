@@ -8,17 +8,17 @@
 #include "GraphicEngine.h"
 #include <string>
 
-GraphicEngine::GraphicEngine() {
+GraphicEngine::GraphicEngine() :
+	rect.x{0},
+	rect.y{0},
+	rect.w{0},
+	rect.h{0},
 
-	rect.x = 0;
-	rect.y = 0;
-	rect.w = 0;
-	rect.h = 0;
-	offset_map = 128;
-	globalFont =  TTF_OpenFont( "PAC-FONT.TTF", 28 );
-	textColor = { 0, 0, 0 };
-	sdlSetup = cSDL_Setup(false, 1024 /*bredd*/, 640 /*height*/);
-
+	offset_map{128},
+	globalFont{"PAC-FONT.TTF", 28 },
+	textColor{ 0, 0, 0 },
+	sdlSetup{false, 1024 /*bredd*/, 640 /*height*/}
+{
 }
 
 GraphicEngine::~GraphicEngine() {

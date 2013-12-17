@@ -12,8 +12,16 @@ Ghost::~Ghost()
 }
 
 Ghost::Ghost() :
-    health_{NORMAL}, sickness_{0}, score_{100}
+  health_{NORMAL}, sickness_{0}, score_{100}
 {
+}
+
+Ghost::Ghost(double x, double y, Sprite* sprite) :
+  health_{NORMAL}, sickness_{0}, score_{100}
+{
+  setX(x);
+  setY(y);
+  setSprite(sprite);
 }
 
 int
@@ -43,6 +51,12 @@ Ghost::changeSickness(int sick)
       setState(Ghost::Health::NORMAL);
     }
   }
+}
+
+int
+Ghost::getSickness()
+{
+  return sickness_;
 }
 
 void Ghost::eat(GameEngine* gameEngine)

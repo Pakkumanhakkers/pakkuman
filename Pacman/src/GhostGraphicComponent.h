@@ -8,6 +8,10 @@
 #ifndef GHOSTGRAPHICCOMPONENT_H_
 #define GHOSTGRAPHICCOMPONENT_H_
 
+class GameEngine;
+class Moveable;
+class Sprite;
+
 class GhostGraphicComponent : public Component
 {
 public:

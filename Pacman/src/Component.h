@@ -7,6 +7,8 @@
 
 #ifndef COMPONENT_H_
 #define COMPONENT_H_
+class GameEngine;
+class Moveable;
 
 class Component
 {

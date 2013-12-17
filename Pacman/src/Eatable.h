@@ -7,6 +7,7 @@
 
 #ifndef EATABLE_H_
 #define EATABLE_H_
+class GameEngine;
 
 /**
  * Kan ätas.

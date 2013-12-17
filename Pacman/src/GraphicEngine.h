@@ -8,8 +8,14 @@
 #ifndef GRAPHICENGINE_H_
 #define GRAPHICENGINE_H_
 
+#include <SDL_pixels.h>
+#include <SDL_rect.h>
+#include <SDL_ttf.h>
+#include <string>
+
+#include "Moveable.h"
 #include "SDLSetup.h"
-#include "Sprite.h"
+//#include "Sprite.h"
 
 class GraphicEngine {
 public:

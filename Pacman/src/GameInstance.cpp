@@ -5,18 +5,30 @@
  * @author ivar
  */
 
+#include "GameInstance.h"
+
+#include <iterator>
+
+#include "Ghost.h"
+#include "Pacman.h"
+
+
+GameInstance::GameInstance() :
+lives{0}, score{0}, ghostsEaten{}, pacman{nullptr}, ghosts{}, food{}
+{
+}
 
 GameInstance::~GameInstance()
 {
   for (auto itr = ghosts.begin(); itr < ghosts.end();)
   {
-    delete itr;
+    delete *itr;
     itr = ghosts.erase(itr);
   }
 
   for (auto itr = ghosts.begin(); itr < ghosts.end();)
   {
-    delete itr;
+    delete *itr;
     itr = ghosts.erase(itr);
   }
 

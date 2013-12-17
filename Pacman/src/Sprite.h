@@ -15,37 +15,28 @@
  */
 class Sprite {
 public:
-
 	Sprite(std::string FilePath);
 	virtual ~Sprite();
-
-
 
 	//Functions to find information about sprite.
 	int GetWidth();
 	int GetHeight();
 
-	//SDL_Renderer* GetRenderer();
+	static SDL_Renderer* GetRenderer();
+	static void SetRenderer(SDL_Renderer*);
 
 	SDL_Texture* GetImage();
-
 	SDL_Rect* GetCrop(float ticks, Moveable::Direction direction);
 
-
-
-
-
 private:
-
-
 	//choose which part to crop
 	void PlayAnimation(int BeginFrame, int EndFrame, int Row, float ticks);
 
+	static SDL_Renderer renderer;
 	SDL_Texture* image;
 
 	//crop is source rectangle(temp rectangle) which will be copied to rect
 	SDL_Rect crop;
-
 
 	int img_width;
 	int img_height;
