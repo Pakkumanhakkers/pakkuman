@@ -28,15 +28,15 @@ GraphicEngine::~GraphicEngine() {
 
 void GraphicEngine::DrawSprite(Sprite* sprite_, double xpos_, double ypos_, int current_ticks, Moveable::Direction direction)
 {
-	SDL_RenderCopy(sprite_->GetRenderer(), sprite_->GetImage(),
+	SDL_RenderCopy(sdlSetup.GetRenderer(), sprite_->GetImage(),
 			sprite_->GetCrop(current_ticks, direction),
 			OutputRectangle(xpos_,ypos_,sprite_->GetWidth(), sprite_->GetHeight()));
 }
 
 
-void GraphicEngine::Draw(Sprite* statSprite_, double xpos_, double ypos_)
+void GraphicEngine::Draw(Sprite* Sprite_, double xpos_, double ypos_)
 {
-	SDL_RenderCopy(Sprite_->GetRenderer(),
+	SDL_RenderCopy(sdlSetup.GetRenderer(),
 			Sprite_->GetImage(), NULL,
 			OutputRectangle(xpos_, ypos_, Sprite_->GetWidth(), Sprite_->GetHeight()));
 }
@@ -96,4 +96,10 @@ SDL_Rect* GraphicEngine::OutputRectangle(double Xpos, double Ypos, int SpriteWid
 	rect.h = SpriteHeight;
 
 	return rect;
+}
+
+void GraphicEngine::setCurrentTime(int input){
+
+ticks = input;
+
 }

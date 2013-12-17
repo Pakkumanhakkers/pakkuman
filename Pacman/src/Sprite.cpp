@@ -7,11 +7,9 @@
 
 #include "Sprite.h"
 
-Sprite::Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h) {
+Sprite::Sprite(std::string FilePath) {
 
-	renderer = sent_renderer;
-
-
+	
 	image = NULL;
 	image = IMG_LoadTexture(renderer, FilePath.c_str());
 
@@ -29,8 +27,8 @@ Sprite::Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h) 
 		crop.y = 0;
 
 		//Initialize to crop just first frame on the first row.
-		crop.w = img_width/2;
-		crop.h = img_height/4;
+		crop.w = 32;
+		crop.h = 32;
 
 		current_frame = 0;
 		animation_delayspeed = 0;
@@ -65,15 +63,15 @@ int Sprite::GetHeight()
 }
 
 
-SDL_Rect* Sprite::GetCrop(float ticks, std::string direction){
-	if(direction== "Right")
-	{PlayAnimation(0,1,1,ticks);}
-	else if(direction == "Left")
+SDL_Rect* Sprite::GetCrop(float ticks, Moveable::Direction direction){
+	if(direction== Moveable::Direction::RIGHT)
 	{PlayAnimation(0,1,0,ticks);}
-	else if (direction == "Up")
+	else if(direction == Moveable::Direction::LEFT)
 	{PlayAnimation(0,1,2,ticks);}
-	else
+	else if (direction == Moveable::Direction::UP)
 	{PlayAnimation(0,1,3,ticks);}
+	else
+	{PlayAnimation(0,1,1,ticks);}
 
 	SDL_Rect* temp = nullptr;
 
@@ -81,11 +79,12 @@ SDL_Rect* Sprite::GetCrop(float ticks, std::string direction){
 	return temp;
 }
 
-SDL_Renderer* Sprite::GetRenderer()
+/*SDL_Renderer* Sprite::GetRenderer()
 {
 
 	return renderer;
 }
+*/
 
 SDL_Texture* Sprite::GetImage()
 {
@@ -103,7 +102,7 @@ SDL_Texture* Sprite::GetImage()
 void  void Sprite::PlayAnimation(int BeginFrame, int EndFrame, int Row, float ticks)
 {
 
-	if (animation_delayspeed + 10 < ticks())
+	if (animation_delayspeed + 10 < ticks)
 	{
 
 

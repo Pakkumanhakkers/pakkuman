@@ -26,8 +26,22 @@ class Timer;
 void
 GameEngine::initGame()
 {
+
+	spriteCherry = Sprite("Cherry.png");
+	spriteFood = Sprite("Dot.png");
+	spriteWall =  Sprite("Wall.png");
+	spriteFloor =  Sprite("Floor.png");
+	spritePacman =  Sprite("Pacman.png");
+	spriteGhost = Sprite("Ghost.png");
+	spriteSickGhost =  Sprite("sickGhost.png");
+	spriteBlinkGhost = Sprite("blinkGhost.png");
+	spriteEyes = Sprite("eyes.png");
+
+
   map_ = Map{&spriteWall, &spriteFloor};
+
   map_->loadFile("Map.txt");
+
   
 
   int px = map_.getPacmanX();
@@ -35,7 +49,7 @@ GameEngine::initGame()
   int gx = map_.getGhostX();
   int gy = map_.getGhostY();
 
-  gameInstance_.pacman = new Pacman{px, py, &spriteDot};
+  gameInstance_.pacman = new Pacman{px, py, &spritePacman};
 
   for (int i = 0; i < settings_.ghostCount; ++i)
   {
@@ -56,7 +70,7 @@ GameEngine::initGame()
         f = new Food(food.x, food.y, &spriteDot, settings_.scoreDot);
         break;
       case Map::CHERRY:
-        f = new SuperFood(food.x, food.y, &spriteDot, settings_.scoreFruit);
+        f = new SuperFood(food.x, food.y, &spriteCherry, settings_.scoreFruit);
         break;
     }
 
@@ -117,6 +131,12 @@ GameEngine::drawGame()
     object->draw(&graphics_);
   }
 }
+
+GameEngine::~GameEngine() {
+
+	delete GraphicEngine;
+}
+
 
 void
 GameEngine::lifeLost()

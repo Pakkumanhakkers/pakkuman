@@ -24,8 +24,9 @@ public:
   {
     PLAY, PAUSE, GAME_OVER
   };
-  Sprite spriteDot = Sprite(nullptr, "", 0, 0);
 
+  virtual ~GameEngine(); 
+  
   void initGame();
   void gameLoop();
 
@@ -52,8 +53,19 @@ private:
   GameInstance gameInstance_;
   Map map_;
   PathFinder pathFinder_;
-  
+
   std::vector<AiInputComponent> ghostAi;
+  Score points;
+  
+  Sprite spritePacman;
+  Sprite spriteGhost;
+  Sprite spriteSickGhost;
+  Sprite spriteWall;
+  Sprite spriteFloor;
+  Sprite spriteDot;
+  Sprite spriteCherry;
+  Sprite spriteBlinkGhost;
+  Sprite spriteEyes;
 
   int currentTime_;
   int game_state_;
