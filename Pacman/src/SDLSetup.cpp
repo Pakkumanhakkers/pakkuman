@@ -7,7 +7,12 @@
 
 #include "SDLSetup.h"
 
-cSDL_Setup::cSDL_Setup(bool* quit, int ScreenWidth, int ScreenHeight) {
+#include <SDL.h>
+#include <SDL_events.h>
+#include <SDL_render.h>
+#include <SDL_video.h>
+
+cSDL_Setup::cSDL_Setup(int ScreenWidth, int ScreenHeight) {
 
 
 		window = NULL;
@@ -17,7 +22,6 @@ cSDL_Setup::cSDL_Setup(bool* quit, int ScreenWidth, int ScreenHeight) {
 		if (window == NULL)
 		{
 			std::cout << "Window couldn't be created" << std::endl;
-			*quit = true;
 		}
 
 		renderer = NULL;

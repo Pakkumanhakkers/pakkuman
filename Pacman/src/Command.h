@@ -10,9 +10,11 @@
 
 #include <vector>
 
-#include "Moveable.h"
-
 #include "GameInstance.h"
+#include "Moveable.h"
+#include "GameObject.h"
+#include "Sprite.h"
+#include "Ghost.h"
 
 /**
  * Ett kommando som ska utföras

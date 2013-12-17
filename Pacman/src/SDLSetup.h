@@ -12,19 +12,23 @@
 #define SDLSetup_H_
 
 
-#include <stdio.h>
-#include <string>
-#include <iostream>
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
-#include "SDL2/SDL_ttf.h"
+//#include <stdio.h>
+//#include "SDL2/SDL.h"
+//#include "SDL2/SDL_image.h"
+//#include "SDL2/SDL_ttf.h"
+//#include <iostream>
+//#include <string>
+
+union SDL_Event;
+struct SDL_Renderer;
+struct SDL_Window;
 
 /* Bad name, my bad. */
 
 class cSDL_Setup {
 public:
 	//Initializer
-	cSDL_Setup(bool* quit, int ScreenWidth, int ScreenHeight);
+	cSDL_Setup(int ScreenWidth, int ScreenHeight);
 	virtual ~cSDL_Setup();
 
 	SDL_Renderer* GetRenderer();

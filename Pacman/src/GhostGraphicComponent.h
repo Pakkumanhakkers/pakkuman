@@ -8,9 +8,10 @@
 #ifndef GHOSTGRAPHICCOMPONENT_H_
 #define GHOSTGRAPHICCOMPONENT_H_
 
-class GameEngine;
-class Moveable;
-class Sprite;
+#include "Component.h"
+#include "GameEngine.h"
+#include "Moveable.h"
+#include "Sprite.h"
 
 class GhostGraphicComponent : public Component
 {

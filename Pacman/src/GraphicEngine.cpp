@@ -5,24 +5,23 @@
  *      Author: Akdas
  */
 
+#include <SDL.h>
 #include "GraphicEngine.h"
 #include <string>
+#include <iostream>
 
 GraphicEngine::GraphicEngine() :
-	rect.x{0},
-	rect.y{0},
-	rect.w{0},
-	rect.h{0},
-
+	rect{0,0,0,0},
 	offset_map{128},
-	globalFont{"PAC-FONT.TTF", 28 },
+	globalFont{nullptr},//new TTF_Font{"PAC-FONT.TTF", 28}},
 	textColor{ 0, 0, 0 },
-	sdlSetup{false, 1024 /*bredd*/, 640 /*height*/}
+	sdlSetup{1024 /*bredd*/, 640 /*height*/},
+	ticks{0}
 {
 }
 
-GraphicEngine::~GraphicEngine() {
-	delete GraphicEngine;
+GraphicEngine::~GraphicEngine()
+{
 }
 
 
@@ -69,7 +68,7 @@ void GraphicEngine::Draw(std::string output_, double xpos_, double ypos_)
 			int mHeight = textSurface->h;
 
 			//Set rendering space and render to screen
-			SDL_Rect renderQuad = { xpos_, ypos_, mWidth, mHeight };
+			//SDL_Rect renderQuad = { xpos_, ypos_, mWidth, mHeight };
 
 			//Set how the texture is to be flipped.
 			SDL_RendererFlip flip = SDL_FLIP_NONE;
@@ -96,7 +95,7 @@ SDL_Rect* GraphicEngine::OutputRectangle(double Xpos, double Ypos, int SpriteWid
 	rect.w = SpriteWidth;
 	rect.h = SpriteHeight;
 
-	return rect;
+	return &rect;
 }
 
 void GraphicEngine::setCurrentTime(int input){

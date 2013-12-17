@@ -13,11 +13,8 @@
 #include "GameEngine.h"
 #include "GameInstance.h"
 #include "Ghost.h"
-#include "Moveable.h"
 #include "Pacman.h"
-
-class GameEngine;
-class Moveable;
+#include "Moveable.h"
 
 using namespace std;
 

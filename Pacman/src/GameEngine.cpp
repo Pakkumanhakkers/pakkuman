@@ -83,7 +83,7 @@ void GameEngine::initGame()
 
   for (int i = 0; i < settings_.ghostCount; ++i)
   {
-    Ghost* ghost = new Ghost{gx, gy, &spriteDot};
+    Ghost* ghost = new Ghost{double(gx), double(gy), &spriteDot};
     AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder());
     ghostAi.push_back(ai);
 
@@ -217,6 +217,9 @@ GameEngine::nextLife()
     }
     ++sleepMultiplier;
   }
+
+  publishCommand(new SickGhostCommand(&gameInstance_,
+      - gameInstance_.ghosts.at(0)->getSickness()));
 }
 
 void

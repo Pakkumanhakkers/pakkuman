@@ -7,9 +7,9 @@
 
 #ifndef KEYBOARDINPUTCOMPONENT_H_
 #define KEYBOARDINPUTCOMPONENT_H_
-class GameEngine;
 
 #include "Moveable.h"
+#include "GameEngine.h"
 
 /**
  * Styr rörliga objekt med tangentbordet

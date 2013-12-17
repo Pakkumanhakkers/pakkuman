@@ -7,10 +7,10 @@
 
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_
-class GraphicEngine;
 
-class GameEngine;
-class Sprite;
+#include "Sprite.h"
+#include "GraphicEngine.h"
+#include "GameEngine.h"
 
 #include "Drawable.h"
 

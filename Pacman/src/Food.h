@@ -10,9 +10,8 @@
 
 #include "GameObject.h"
 #include "Eatable.h"
-
-class GameEngine;
-class Sprite;
+#include "Sprite.h"
+#include "GameEngine.h"
 
 class Food : public GameObject, public Eatable
 {

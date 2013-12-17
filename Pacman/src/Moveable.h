@@ -9,20 +9,9 @@
 #define MOVEABLE_H_
 
 #include <list>
-
+#include "GameObject.h"
 #include "Component.h"
 
-class GraphicEngine;
-
-class Graphics;
-
-class GameEngine;
-
-class GraphicsComponent;
-class InputComponent;
-class PhysicsComponent;
-
-#include "GameObject.h"
 
 /**
  * Ett flyttbart spelobject.

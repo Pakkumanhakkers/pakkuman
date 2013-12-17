@@ -9,11 +9,10 @@
 #define EATERPHYSICSCOMPONENT_H_
 
 #include "Component.h"
-
-class Eatable;
-class GameEngine;
-class GameObject;
-class Moveable;
+#include "GameObject.h"
+#include "Moveable.h"
+#include "GameEngine.h"
+#include "Eatable.h"
 
 class EaterPhysicsComponent : public Component
 {

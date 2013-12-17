@@ -10,8 +10,8 @@
 
 #include "Component.h"
 #include "Moveable.h"
-
-class Map;
+#include "Map.h"
+#include "GameEngine.h"
 
 class DefaultPhysicsComponent : public Component
 {

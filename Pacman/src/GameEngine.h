@@ -17,6 +17,7 @@
 #include "GhostGraphicComponent.h"
 #include "GraphicEngine.h"
 #include "KeyboardInputComponent.h"
+#include "AiInputComponent.h"
 #include "Map.h"
 #include "PathFinder.h"
 #include "Score.h"
@@ -24,7 +25,6 @@
 #include "Sprite.h"
 #include "Timer.h"
 
-class AiInputComponent;
 
 /**
  * Är samordnare för spelvärlden och menyn.

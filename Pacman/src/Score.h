@@ -5,9 +5,8 @@
 #ifndef SCORE_H_
 #define SCORE_H_
 
-//#include "GraphicEngine.h"
+#include "GraphicEngine.h"
 
-class GraphicEngine;
 
 class Score
 {

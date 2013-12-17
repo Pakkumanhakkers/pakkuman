@@ -8,7 +8,10 @@
 #ifndef SPRITE_H_
 #define SPRITE_H_
 
-#include "SDLSetup.h"
+#include <SDL.h>
+#include <string>
+
+#include "Moveable.h"
 
 /**
  * Sprite representerar en sekvens av bilder. Används för bildloopar.
@@ -26,7 +29,7 @@ public:
 	static void SetRenderer(SDL_Renderer*);
 
 	SDL_Texture* GetImage();
-	SDL_Rect* GetCrop(float ticks, Moveable::Direction direction);
+	SDL_Rect* GetCrop(float ticks, int direction);
 
 private:
 	//choose which part to crop

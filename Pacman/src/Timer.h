@@ -7,8 +7,7 @@
 
 #ifndef TIMER_H_
 #define TIMER_H_
-class Command;
-
+#include "Command.h"
 
 class Timer
 {

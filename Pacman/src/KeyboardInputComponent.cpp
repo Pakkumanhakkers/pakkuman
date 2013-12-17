@@ -15,9 +15,7 @@
 #include "DefaultPhysicsComponent.h"
 #include "GameEngine.h"
 #include "Component.h"
-
-class GameEngine;
-class Moveable;
+#include "Moveable.h"
 
 KeyboardInputComponent::KeyboardInputComponent()  :
     next_direction_{Moveable::Direction::LEFT}

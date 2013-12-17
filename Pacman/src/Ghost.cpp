@@ -5,6 +5,12 @@
  * @author Erik N inte philip iallafall
  */
 
+#include "Ghost.h"
+
+#include "Command.h"
+#include "GameInstance.h"
+#include "Pacman.h"
+
 using namespace std;
 
 Ghost::~Ghost()
@@ -33,7 +39,7 @@ Ghost::getState()
 void
 Ghost::setState(int state)
 {
-  health_ = state;
+  health_ = Ghost::Health(state);
 }
 
 void
@@ -70,6 +76,8 @@ void Ghost::eat(GameEngine* gameEngine)
     case Ghost::EATABLE_BLINK:
       die(gameEngine);
       break;
+    default:
+      break;
   }
 }
 
@@ -86,5 +94,4 @@ void
 Ghost::spawn(GameEngine* gameEngine, int x, int y)
 {
   gameEngine->publishCommand(new MoveCommand(this, x, y));
-  gameEngine->publishCommand(new SickGhostCommand(this, -sickness_));
 }

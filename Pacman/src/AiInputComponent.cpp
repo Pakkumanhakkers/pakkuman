@@ -15,9 +15,8 @@
 #include "GameInstance.h"
 #include "Pacman.h"
 #include "PathFinder.h"
-
-class GameEngine;
-class Moveable;
+#include "GameEngine.h"
+#include "Moveable.h"
 
 //konstruktor
 AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder)

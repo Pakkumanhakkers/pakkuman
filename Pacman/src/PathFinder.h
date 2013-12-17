@@ -11,8 +11,7 @@
 
 #include "GameEngine.h"
 #include "Moveable.h"
-class Map;
-
+#include "Map.h"
 
 class PathFinder
 {
