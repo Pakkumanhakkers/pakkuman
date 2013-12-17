@@ -27,6 +27,8 @@ void
 GameEngine::initGame()
 {
   map_ = Map{&spriteWall, &spriteFloor};
+  map_->loadFile("Map.txt");
+  
 
   int px = map_.getPacmanX();
   int py = map_.getPacmanY();
