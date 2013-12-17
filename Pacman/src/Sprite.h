@@ -16,7 +16,7 @@
 class Sprite {
 public:
 
-	Sprite(SDL_Renderer* sent_renderer, std::string FilePath, int w, int h);
+	Sprite(std::string FilePath, int w, int h);
 	virtual ~Sprite();
 
 
@@ -25,11 +25,11 @@ public:
 	int GetWidth();
 	int GetHeight();
 
-	SDL_Renderer* GetRenderer();
+	//SDL_Renderer* GetRenderer();
 
 	SDL_Texture* GetImage();
 
-	SDL_Rect* GetCrop(float ticks, std::string direction);
+	SDL_Rect* GetCrop(float ticks, Moveable::Direction direction);
 
 
 
@@ -46,7 +46,6 @@ private:
 	//crop is source rectangle(temp rectangle) which will be copied to rect
 	SDL_Rect crop;
 
-	SDL_Renderer* renderer;
 
 	int img_width;
 	int img_height;

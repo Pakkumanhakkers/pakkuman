@@ -26,9 +26,9 @@ public:
   virtual void setState(int);
 
   void die(GameEngine*);
-  void spawn(GameEngine*, int, int);
+  void spawn(GameEngine*, int x, int y);
 private:
-  int health_;
+  Health health_;
 };
 
 

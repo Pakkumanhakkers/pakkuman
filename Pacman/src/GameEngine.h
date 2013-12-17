@@ -23,7 +23,6 @@ public:
   {
     PLAY, PAUSE, GAME_OVER
   };
-  Sprite spriteDot = Sprite(nullptr, "", 0, 0);
 
   void initGame();
   void gameLoop();
@@ -51,6 +50,16 @@ private:
   GameInstance gameInstance_;
   Map map_;
   PathFinder pathFinder_;
+  
+  Score points;
+  
+  Sprite spritePacman;
+  Sprite spriteGhost;
+  Sprite spriteSickGhost;
+  Sprite spriteWall;
+  Sprite spriteFloor;
+  Sprite spriteDot;
+  Sprite spriteCherry;
 
   int currentTime_;
   int game_state_;

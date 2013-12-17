@@ -27,6 +27,12 @@ Moveable::addComponent(Component* component)
   components_.push_back(component);
 }
 
+void
+Moveable::draw(GraphicEngine* graphics)
+{
+  graphics->DrawSprite(getSprite(), getX(), getY(), getDirection());
+}
+
 /**
  * Uppdaterar internt tillstånd genom kommandon.
  * @param gameEngine spelmotorn

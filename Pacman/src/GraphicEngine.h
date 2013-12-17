@@ -18,7 +18,7 @@ public:
 
 
 	//DrawSprite takes care of movable, needs a direction as input argument to know which row of the image to crop.
-	void DrawSprite(Sprite* sprite_, double xpos_, double ypos_, Moveable::Direction direction = Movable::Direction::RIGHT)  ;
+	void DrawSprite(Sprite* sprite_, double xpos_, double ypos_, Moveable::Direction direction = Moveable::Direction::RIGHT)  ;
 
 	void Draw(Sprite* sprite_, double xpos_, double ypos_);
 

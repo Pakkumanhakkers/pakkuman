@@ -39,6 +39,8 @@ public:
   addComponent(Component*);
 
   virtual void
+  draw(GraphicEngine*);
+  virtual void
   update(GameEngine*);
 
   Direction
