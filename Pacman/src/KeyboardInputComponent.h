@@ -9,7 +9,8 @@
 #define KEYBOARDINPUTCOMPONENT_H_
 
 #include "Moveable.h"
-#include "GameEngine.h"
+#include "Component.h"
+class GameEngine;
 
 /**
  * Styr rörliga objekt med tangentbordet
@@ -21,7 +22,7 @@ public:
   virtual void update(GameEngine*, Moveable*);
 
 private:
-  Moveable::Direction next_direction_;
+  Direction next_direction_;
 };
 
 

@@ -8,10 +8,12 @@
 #ifndef GHOST_H_
 #define GHOST_H_
 
-#include "Moveable.h"
 #include "Eatable.h"
+#include "Moveable.h"
 
-#include "GameEngine.h"
+class Sprite;
+
+class GameEngine;
 
 class Ghost : public Moveable, public Eatable
 {

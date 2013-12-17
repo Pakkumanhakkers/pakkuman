@@ -7,7 +7,7 @@
 
 #include <fstream>
 #include <iostream>
-#include <Map.h>
+#include "Map.h"
 using namespace std;
 
 Map::Map(Sprite* wall, Sprite* floor) :
@@ -67,19 +67,20 @@ void Map::loadFile(string fileName) 	//Fyller på en array utifrån Map.txt
     for(cor_x=0;cor_x<15;cor_x++)
     {
       inputMap >> TempChar;
-      switch (TempChar)
-      case "#":
+      switch (TempChar) {
+      case '#':
         MapArray[cor_x][cor_y] = WALL;
-      case ".":
+      case '.':
         MapArray[cor_x][cor_y] = DOT;
-      case "p":
+      case 'p':
         MapArray[cor_x][cor_y] = PACMAN_SPAWN;
-      case "g":
+      case 'g':
         MapArray[cor_x][cor_y] = GHOST_SPAWN;
-      case "c":
+      case 'c':
         MapArray[cor_x][cor_y] = CHERRY;
-      case "0":
+      case '0':
         MapArray[cor_x][cor_y] = FLOOR;
+      }
     }
   }
 
@@ -139,5 +140,5 @@ int Map::getGhostY()
 
 std::vector<Map::FoodInfo>* Map::getFoodInfo()
 {
-  return foodInfo_;
+  return &foodInfo_;
 }

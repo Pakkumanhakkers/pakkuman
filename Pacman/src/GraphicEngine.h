@@ -14,9 +14,11 @@
 #include <SDL_ttf.h>
 #include <string>
 
-#include "Moveable.h"
+#include "Direction.h"
+//#include "Moveable.h"
 #include "SDLSetup.h"
 
+class Sprite;
 //#include "Sprite.h"
 
 class GraphicEngine {
@@ -26,7 +28,7 @@ public:
 
 
 	//DrawSprite takes care of movable, needs a direction as input argument to know which row of the image to crop.
-	void DrawSprite(Sprite* sprite_, double xpos_, double ypos_, Moveable::Direction direction = Moveable::Direction::RIGHT)  ;
+	void DrawSprite(Sprite* sprite_, double xpos_, double ypos_, Direction direction = Direction::RIGHT)  ;
 
 	void Draw(Sprite* sprite_, double xpos_, double ypos_);
 

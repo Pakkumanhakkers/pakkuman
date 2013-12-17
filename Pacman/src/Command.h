@@ -8,13 +8,15 @@
 #ifndef COMMAND_H_
 #define COMMAND_H_
 
-#include <vector>
+//#include <vector>
 
-#include "GameInstance.h"
-#include "Moveable.h"
-#include "GameObject.h"
-#include "Sprite.h"
-#include "Ghost.h"
+#include "Direction.h"
+
+class Moveable;
+class GameInstance;
+class GameObject;
+class Ghost;
+class Sprite;
 
 /**
  * Ett kommando som ska utföras
@@ -87,7 +89,7 @@ private:
 class DirectCommand : public Command
 {
 public:
-  DirectCommand(Moveable* moveable, Moveable::Direction direction) :
+  DirectCommand(Moveable* moveable, Direction direction) :
     object_{moveable}, direction_{direction} {}
 
   void execute();
@@ -95,8 +97,8 @@ public:
 
 private:
   Moveable* object_;
-  Moveable::Direction preDirection_{Moveable::LEFT};
-  Moveable::Direction direction_;
+  Direction preDirection_{Direction::LEFT};
+  Direction direction_;
 };
 
 /**

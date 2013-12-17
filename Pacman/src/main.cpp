@@ -7,7 +7,9 @@
 /* Ska inte main se ut typ s�h�r? */
 
 
-#include <iostream>
+//#include <iostream>
+#include "GameEngine.h"
+
 using namespace std;
 
 int main(int argc, char* argv[]) {

@@ -5,9 +5,17 @@
  * @author Erik & Ph
  */
 
-#include "Moveable.h"
-#include <random>
-#include <iostream>
+#include "PathFinder.h"
+
+#include <cstdlib>
+//#include <iostream>
+//#include <random>
+
+#include "Direction.h"
+#include "Map.h"
+//#include "Moveable.h"
+
+
 using namespace std;
 
 PathFinder::PathFinder(Map* map): internalMap{map}
@@ -15,9 +23,9 @@ PathFinder::PathFinder(Map* map): internalMap{map}
 }
 
 //PathFinder tar in en ghost och en target-position och retunerar en giltlig direction
-Moveable::Direction PathFinder::getDirection(Moveable* gh, int target_x, int target_y)
+Direction PathFinder::getDirection(Moveable* gh, int target_x, int target_y)
 {
-Moveable::Direction prevDirection = gh->getDirection();
+Direction prevDirection = gh->getDirection();
 int direction_x;
 int direction_y;
 int ghost_x = gh->getX();
@@ -28,74 +36,74 @@ direction_y = ghost_y - target_y;
 
 if (abs(direction_x) >= abs(direction_y) && direction_x > 0)
 	{
-		if (prevDirection != Moveable::LEFT && internalMap->isWall(ghost_x -1, ghost_y))
+		if (prevDirection != Direction::LEFT && internalMap->isWall(ghost_x -1, ghost_y))
 		{
-			return (Moveable::LEFT);
+			return (Direction::LEFT);
 		}
-		else if(direction_y > 0 && internalMap->isWall(ghost_x, ghost_y -1) && prevDirection != Moveable::DOWN)
+		else if(direction_y > 0 && internalMap->isWall(ghost_x, ghost_y -1) && prevDirection != Direction::DOWN)
 		{
-			return (Moveable::DOWN);
+			return (Direction::DOWN);
 		}
-		else if(internalMap->isWall(ghost_x, ghost_y +1) && prevDirection != Moveable::UP)
+		else if(internalMap->isWall(ghost_x, ghost_y +1) && prevDirection != Direction::UP)
 		{
-			return (Moveable::UP);
+			return (Direction::UP);
 		}
 		else 
-		return (Moveable::RIGHT );
+		return (Direction::RIGHT );
 	}
 if (abs(direction_x) > abs(direction_y) && direction_x <= 0)
 	{
-		if(prevDirection != Moveable::RIGHT && internalMap->isWall(ghost_x +1, ghost_y))
+		if(prevDirection != Direction::RIGHT && internalMap->isWall(ghost_x +1, ghost_y))
 		{
-			return (Moveable::RIGHT);
+			return (Direction::RIGHT);
 		}
-		else if(direction_y > 0 && internalMap->isWall(ghost_x, ghost_y -1) && prevDirection != Moveable::DOWN)
+		else if(direction_y > 0 && internalMap->isWall(ghost_x, ghost_y -1) && prevDirection != Direction::DOWN)
 		{
-			return (Moveable::DOWN);
+			return (Direction::DOWN);
 		}
-		else if(internalMap->isWall(ghost_x, ghost_y +1) && prevDirection != Moveable::UP)
+		else if(internalMap->isWall(ghost_x, ghost_y +1) && prevDirection != Direction::UP)
 		{
-			return (Moveable::UP);
+			return (Direction::UP);
 		}
 		else 
-		return (Moveable::LEFT);
+		return (Direction::LEFT);
 	}
 	
 if (abs(direction_x) < abs(direction_y) && direction_y < 0)
 	{
-		if(prevDirection != Moveable::UP && internalMap->isWall(ghost_x, ghost_y + 1))
+		if(prevDirection != Direction::UP && internalMap->isWall(ghost_x, ghost_y + 1))
 		{
-			return (Moveable::UP);
+			return (Direction::UP);
 		}
-		else if(direction_x > 0 && internalMap->isWall(ghost_x-1, ghost_y) && prevDirection != Moveable::LEFT)
+		else if(direction_x > 0 && internalMap->isWall(ghost_x-1, ghost_y) && prevDirection != Direction::LEFT)
 		{
-			return (Moveable::LEFT);
+			return (Direction::LEFT);
 		}
-		else if(internalMap->isWall(ghost_x + 1, ghost_y) && prevDirection != Moveable::RIGHT)
+		else if(internalMap->isWall(ghost_x + 1, ghost_y) && prevDirection != Direction::RIGHT)
 		{
-			return (Moveable::RIGHT);
+			return (Direction::RIGHT);
 		}
 		else 
-		return (Moveable::DOWN);
+		return (Direction::DOWN);
 	}
 //if (direction_x < direction_y && direction_y => 0) BORDE INTE BEH�VAS V�L?
 //	{
-		if(prevDirection != Moveable::DOWN && internalMap->isWall(ghost_x, ghost_y + 1))
+		if(prevDirection != Direction::DOWN && internalMap->isWall(ghost_x, ghost_y + 1))
 		{
-			return (Moveable::DOWN);
+			return (Direction::DOWN);
 		}
-		else if(direction_x > 0 && internalMap->isWall(ghost_x-1, ghost_y) && prevDirection != Moveable::LEFT)
+		else if(direction_x > 0 && internalMap->isWall(ghost_x-1, ghost_y) && prevDirection != Direction::LEFT)
 		{
-			return (Moveable::LEFT);
+			return (Direction::LEFT);
 		}
-		else if(internalMap->isWall(ghost_x + 1, ghost_y) && prevDirection != Moveable::RIGHT)
+		else if(internalMap->isWall(ghost_x + 1, ghost_y) && prevDirection != Direction::RIGHT)
 		{
-			return (Moveable::RIGHT);
+			return (Direction::RIGHT);
 		}
 		else 
-		return (Moveable::UP);
+		return (Direction::UP);
 	//}
-  return Moveable::UP;
+  return Direction::UP;
 
 	
 }

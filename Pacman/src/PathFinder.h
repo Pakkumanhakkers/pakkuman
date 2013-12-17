@@ -9,14 +9,15 @@
 #define PATHFINDER_H_
 
 
-#include "GameEngine.h"
+//#include "GameEngine.h"
+//#include "Map.h"
 #include "Moveable.h"
-#include "Map.h"
+class Map;
 
 class PathFinder
 {
 public:
-Moveable::Direction getDirection(Moveable*, int, int);
+Direction getDirection(Moveable*, int, int);
 PathFinder(Map*);
 
 private:

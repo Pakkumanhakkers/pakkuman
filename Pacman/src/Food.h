@@ -8,10 +8,13 @@
 #ifndef FOOD_H_
 #define FOOD_H_
 
-#include "GameObject.h"
 #include "Eatable.h"
-#include "Sprite.h"
-#include "GameEngine.h"
+//#include "GameEngine.h"
+#include "GameObject.h"
+//#include "Sprite.h"
+
+class GameEngine;
+class Sprite;
 
 class Food : public GameObject, public Eatable
 {

@@ -10,6 +10,7 @@
 #include "Command.h"
 #include "GameInstance.h"
 #include "Pacman.h"
+#include "GameEngine.h"
 
 using namespace std;
 

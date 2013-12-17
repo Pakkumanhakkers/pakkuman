@@ -9,9 +9,13 @@
 #define GHOSTGRAPHICCOMPONENT_H_
 
 #include "Component.h"
-#include "GameEngine.h"
-#include "Moveable.h"
-#include "Sprite.h"
+//#include "GameEngine.h"
+//#include "Moveable.h"
+//#include "Sprite.h"
+
+class GameEngine;
+class Moveable;
+class Sprite;
 
 class GhostGraphicComponent : public Component
 {

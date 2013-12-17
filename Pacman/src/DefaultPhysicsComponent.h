@@ -8,10 +8,12 @@
 #ifndef DEFAULTPHYSICSCOMPONENT_H_
 #define DEFAULTPHYSICSCOMPONENT_H_
 
-#include "Component.h"
 #include "Moveable.h"
-#include "Map.h"
-#include "GameEngine.h"
+
+class GameEngine;
+class GameObject;
+class Map;
+
 
 class DefaultPhysicsComponent : public Component
 {
@@ -22,9 +24,9 @@ public:
   update(GameEngine*, Moveable*);
 
   static bool
-  isWallAhead(Map*, GameObject*, Moveable::Direction);
+  isWallAhead(Map*, GameObject*, Direction);
   static bool
-  canTurn(Map*, Moveable*, Moveable::Direction);
+  canTurn(Map*, Moveable*, Direction);
 
 };
 

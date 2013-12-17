@@ -29,13 +29,13 @@ public:
 	static void SetRenderer(SDL_Renderer*);
 
 	SDL_Texture* GetImage();
-	SDL_Rect* GetCrop(float ticks, int direction);
+	SDL_Rect* GetCrop(float ticks, Direction direction);
 
 private:
 	//choose which part to crop
 	void PlayAnimation(int BeginFrame, int EndFrame, int Row, float ticks);
 
-	static SDL_Renderer renderer;
+	static SDL_Renderer* renderer;
 	SDL_Texture* image;
 
 	//crop is source rectangle(temp rectangle) which will be copied to rect

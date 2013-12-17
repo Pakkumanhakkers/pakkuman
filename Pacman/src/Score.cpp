@@ -3,7 +3,11 @@
  */
 
 #include "Score.h"
+
 #include <sstream>
+#include <string>
+
+#include "GraphicEngine.h"
 
 void Score::UpdateScore(int added_score)
 {

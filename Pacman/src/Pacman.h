@@ -7,6 +7,9 @@
 
 #ifndef PACMAN_H_
 #define PACMAN_H_
+#include "Moveable.h"
+class GameEngine;
+class Sprite;
 
 /**
  * Pacman som äter allt.

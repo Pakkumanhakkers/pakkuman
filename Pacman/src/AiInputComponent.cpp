@@ -7,16 +7,20 @@
 
 #include "AiInputComponent.h"
 
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <time.h>
+#include <cstdlib>
 
 #include "Command.h"
+#include "DefaultPhysicsComponent.h"
 #include "GameEngine.h"
 #include "GameInstance.h"
+#include "Ghost.h"
+#include "Map.h"
+#include "Moveable.h"
 #include "Pacman.h"
 #include "PathFinder.h"
-#include "GameEngine.h"
-#include "Moveable.h"
+#include "Direction.h"
 
 //konstruktor
 AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder)
@@ -28,7 +32,7 @@ AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder)
 void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
   /*
-  Moveable::Direction direction;
+  Direction direction;
   DefaultPhysicsComponent::canTurn(internalMap, moveable, direction);
   */
   AiInputComponent::AiType nextAi;
@@ -50,7 +54,7 @@ void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
   if (nextAi != getAi())
   {
     setAi(nextAi);
-    Moveable::Direction next = updateDirection(moveable, gameEngine);
+    Direction next = updateDirection(moveable, gameEngine);
     gameEngine->publishCommand(new DirectCommand(moveable, next));
   }
 }
@@ -65,7 +69,7 @@ void AiInputComponent::setAi(AiType ai)
 	CurrentAi = ai;
 }
 
-Moveable::Direction AiInputComponent::updateDirection(Moveable* ghost,
+Direction AiInputComponent::updateDirection(Moveable* ghost,
     GameEngine* gameengine)
 {
 	int target_x{0};
@@ -118,13 +122,13 @@ bool AiInputComponent::Valid(int ghost_x, int ghost_y, int direction)
 	return true;
 }*/
 
-Moveable::Direction AiInputComponent::getRandom(GameObject* moveable)
+Direction AiInputComponent::getRandom(GameObject* moveable)
 {
-	Moveable::Direction direction;
+	Direction direction;
 	srand (time(NULL));
 	do
 	{
-		direction = Moveable::Direction(rand() % 3);
+		direction = Direction(rand() % 3);
 	}
 	while (!DefaultPhysicsComponent::isWallAhead(
 	            internalMap, moveable, direction));
@@ -132,13 +136,13 @@ Moveable::Direction AiInputComponent::getRandom(GameObject* moveable)
         switch(direction)
         {
                 case(0):
-                return Moveable::LEFT;
+                return Direction::LEFT;
                 case(1):
-                return Moveable::RIGHT;
+                return Direction::RIGHT;
                 case(2):
-                return Moveable::UP;
+                return Direction::UP;
                 case(3):
-                return Moveable::DOWN;
+                return Direction::DOWN;
         }
-    return Moveable::UP;
+    return Direction::UP;
 }

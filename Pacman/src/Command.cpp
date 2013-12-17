@@ -11,6 +11,7 @@
 #include <list>
 
 #include "Ghost.h"
+#include "GameInstance.h"
 
 using namespace std;
 

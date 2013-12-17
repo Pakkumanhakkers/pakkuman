@@ -6,6 +6,7 @@
  */
 
 #include "Moveable.h"
+#include "Direction.h"
 
 #include <cmath>
 #include <cstdlib>
@@ -15,7 +16,9 @@ Moveable::~Moveable()
 }
 
 Moveable::Moveable() :
-    speed_{0}, direction_{Direction::LEFT} {}
+    speed_{0}, direction_{Direction::LEFT}
+{
+}
 
 /**
  * Lägger till en komponent för uppdatering av objektet.
@@ -41,6 +44,7 @@ void
 Moveable::update(GameEngine* gameEngine)
 {
   for (Component* component : components_)
+
   {
     component->update(gameEngine, this);
   }
@@ -50,7 +54,7 @@ Moveable::update(GameEngine* gameEngine)
  * Ger objektets riktning.
  * @return direction
  */
-Moveable::Direction
+Direction
 Moveable::getDirection()
 {
   return direction_;
@@ -93,30 +97,8 @@ Moveable::setSpeed(double speed)
 bool
 Moveable::isCentered()
 {
-  double h = isHorizontalDirection(direction_);
+  double h = double(isHorizontalDirection(direction_));
 
-  return (abs(x_ - round(x_))*(1.0 - h) <= speed_ &&
-      abs(y_ - round(y_))*h <= speed_);
-}
-
-/**
- * Sant om riktningen är horisontell.
- * @param direction riktning
- * @return horisontell
- */
-static bool
-Moveable::isHorizontalDirection(Moveable::Direction direction)
-{
-  return direction % 2 == 0;
-}
-
-/**
- * Sant om riktningen är i positiv led.
- * @param direction riktning
- * @return positiv
- */
-static bool
-Moveable::isPositiveDirection(Moveable::Direction direction)
-{
-  return direction / 2 == 0;
+  return (abs(getX() - round(getX()))*(1.0 - h) <= speed_ &&
+      abs(getY() - round(getY()))*h <= speed_);
 }

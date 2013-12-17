@@ -11,9 +11,10 @@
 #include <vector>
 
 #include "Food.h"
-#include "Moveable.h"
 #include "Ghost.h"
-#include "Pacman.h"
+//#include "Moveable.h"
+//#include "Pacman.h"
+class Pacman;
 
 /**
  * Representerar data för en spelomgång

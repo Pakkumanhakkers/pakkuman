@@ -10,6 +10,7 @@
 
 #include <vector>
 
+#include "AiInputComponent.h"
 #include "CommandManager.h"
 #include "DefaultPhysicsComponent.h"
 #include "EaterPhysicsComponent.h"
@@ -17,14 +18,13 @@
 #include "GhostGraphicComponent.h"
 #include "GraphicEngine.h"
 #include "KeyboardInputComponent.h"
-#include "AiInputComponent.h"
 #include "Map.h"
 #include "PathFinder.h"
 #include "Score.h"
 #include "Settings.h"
 #include "Sprite.h"
-#include "Timer.h"
 
+class AiInputComponent;
 
 /**
  * Är samordnare för spelvärlden och menyn.

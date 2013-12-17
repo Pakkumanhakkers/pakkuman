@@ -7,8 +7,12 @@
 
 #ifndef COMPONENT_H_
 #define COMPONENT_H_
-#include "GameEngine.h"
-#include "Moveable.h"
+
+//#include "GameEngine.h"
+//#include "Moveable.h"
+
+class GameEngine;
+class Moveable;
 
 class Component
 {

@@ -10,6 +10,9 @@
 
 #include "Food.h"
 
+class GameEngine;
+class Sprite;
+
 class SuperFood : public Food
 {
 public:

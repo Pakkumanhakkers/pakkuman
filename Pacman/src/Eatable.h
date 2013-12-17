@@ -8,7 +8,9 @@
 #ifndef EATABLE_H_
 #define EATABLE_H_
 
-#include "GameEngine.h"
+//#include "GameEngine.h"
+
+class GameEngine;
 
 /**
  * Kan ätas.

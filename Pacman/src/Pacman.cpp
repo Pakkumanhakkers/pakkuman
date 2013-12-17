@@ -7,6 +7,9 @@
 
 #include "Pacman.h"
 
+#include "Command.h"
+#include "GameEngine.h"
+
 Pacman::~Pacman()
 {
 }
@@ -27,7 +30,7 @@ Pacman::Pacman(double x, double y, Sprite* sprite) :
 void
 Pacman::setState(int state)
 {
-  health_ = state;
+  health_ = Pacman::Health(state);
 }
 
 int

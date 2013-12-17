@@ -8,11 +8,13 @@
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_
 
-#include "Sprite.h"
-#include "GraphicEngine.h"
-#include "GameEngine.h"
-
 #include "Drawable.h"
+//#include "GameEngine.h"
+//#include "GraphicEngine.h"
+//#include "Sprite.h"
+
+class GraphicEngine;
+class Sprite;
 
 /**
  * Representerar ett object på spelplanen.

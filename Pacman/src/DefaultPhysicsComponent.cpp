@@ -19,11 +19,11 @@ DefaultPhysicsComponent::DefaultPhysicsComponent()
 void
 DefaultPhysicsComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
-  Moveable::Direction direction = moveable->getDirection();
+  Direction direction = moveable->getDirection();
   Map* map = gameEngine->getMap();
 
-  double p = 2 * Moveable::isPositiveDirection(direction) - 1;
-  double h = Moveable::isHorizontalDirection(direction);
+  double p = 2 * isPositiveDirection(direction) - 1;
+  double h = isHorizontalDirection(direction);
 
   double x = moveable->getX();
   double y = moveable->getY();
@@ -41,10 +41,10 @@ DefaultPhysicsComponent::update(GameEngine* gameEngine, Moveable* moveable)
 
 bool
 DefaultPhysicsComponent::isWallAhead(Map* map, GameObject* object,
-    Moveable::Direction direction)
+    Direction direction)
 {
-  int p = Moveable::isPositiveDirection(direction);
-  int h = Moveable::isHorizontalDirection(direction);
+  int p = isPositiveDirection(direction);
+  int h = isHorizontalDirection(direction);
 
   return map->isWall(int(object->getX() + 0.5 * double(!h)) + h * p,
     int(object->getY() + 0.5 * double(h)) + !h * p);
@@ -52,7 +52,7 @@ DefaultPhysicsComponent::isWallAhead(Map* map, GameObject* object,
 
 bool
 DefaultPhysicsComponent::canTurn(Map* map, Moveable* moveable,
-    Moveable::Direction direction)
+    Direction direction)
 {
   return moveable->isCentered() && !isWallAhead(map,
       moveable, direction);

@@ -13,6 +13,9 @@
 
 #include "Drawable.h"
 
+class GraphicEngine;
+class Sprite;
+
 
 /**
  * Beskriver en karta. Är statisk efter att data lästs in. Beskrivs med rutnät.

@@ -8,11 +8,17 @@
 #ifndef EATERPHYSICSCOMPONENT_H_
 #define EATERPHYSICSCOMPONENT_H_
 
+//#include "Component.h"
+//#include "Eatable.h"
+//#include "GameEngine.h"
+//#include "GameObject.h"
+//#include "Moveable.h"
 #include "Component.h"
-#include "GameObject.h"
-#include "Moveable.h"
-#include "GameEngine.h"
-#include "Eatable.h"
+
+class Eatable;
+class GameEngine;
+class GameObject;
+class Moveable;
 
 class EaterPhysicsComponent : public Component
 {

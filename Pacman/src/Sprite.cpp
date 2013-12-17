@@ -68,20 +68,17 @@ void Sprite::SetRenderer(SDL_Renderer* r)
  * Copies the specified crop to the destination rectangle.
  * Destination rectangle is the one to be rendered.
  */
-SDL_Rect* Sprite::GetCrop(float ticks, Moveable::Direction direction){
-  if(direction== Moveable::Direction::RIGHT)
+SDL_Rect* Sprite::GetCrop(float ticks, Direction direction){
+  if(direction== Direction::RIGHT)
   {PlayAnimation(0,1,0,ticks);}
-  else if(direction == Moveable::Direction::LEFT)
+  else if(direction == Direction::LEFT)
   {PlayAnimation(0,1,2,ticks);}
-  else if (direction == Moveable::Direction::UP)
+  else if (direction == Direction::UP)
   {PlayAnimation(0,1,3,ticks);}
   else
   {PlayAnimation(0,1,1,ticks);}
 
-  SDL_Rect* temp = nullptr;
-
-  temp = crop;
-  return temp;
+  return &crop;
 }
 
 SDL_Texture* Sprite::GetImage()
@@ -97,7 +94,7 @@ SDL_Texture* Sprite::GetImage()
  * This will check which frame of pacman.png we're cropping and crop the next one or reset to the first one.
  * pacman.png is uploaded to google drive for reference.
  */
-void  void Sprite::PlayAnimation(int BeginFrame, int EndFrame, int Row, float ticks)
+void Sprite::PlayAnimation(int BeginFrame, int EndFrame, int Row, float ticks)
 {
   if (animation_delayspeed + 10 < ticks)
   {

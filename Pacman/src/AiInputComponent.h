@@ -8,12 +8,21 @@
 #ifndef AIINPUTCOMPONENT_H_
 #define AIINPUTCOMPONENT_H_
 
-#include "Ghost.h"
-#include "Map.h"
-#include "Moveable.h"
-#include "Component.h"
+//#include "Component.h"
+//#include "Ghost.h"
+//#include "Map.h"
 
-#include "PathFinder.h"
+#include "Component.h"
+#include "Direction.h"
+
+class Moveable;
+class Map;
+class PathFinder;
+class GameObject;
+class GameEngine;
+
+//#include "PathFinder.h"
+
 /**
  * Styr rörliga objekt med AI
  * M�ste includea AiType:s och Directions p� n�got vis!!
@@ -37,8 +46,8 @@ public:
 
 private:
   //bool Valid(int ghost_x, int ghost_y,int direction);
-  Moveable::Direction updateDirection(Moveable* ghost, GameEngine* gameengine);
-  Moveable::Direction getRandom(GameObject*);
+  Direction updateDirection(Moveable* ghost, GameEngine* gameengine);
+  Direction getRandom(GameObject*);
   PathFinder* pathfinder;
   AiType CurrentAi = CHASE;
   Map* internalMap;

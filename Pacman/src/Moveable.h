@@ -11,7 +11,9 @@
 #include <list>
 #include "GameObject.h"
 #include "Component.h"
-
+#include "Direction.h"
+class GameEngine;
+class GraphicEngine;
 
 /**
  * Ett flyttbart spelobject.
@@ -19,12 +21,6 @@
 class Moveable : public GameObject
 {
 public:
-  enum Direction
-  {
-    // ordningen är viktig för hjälpfunktionerna
-    RIGHT, DOWN, LEFT, UP
-  };
-
   virtual
   ~Moveable();
   Moveable();
@@ -48,11 +44,6 @@ public:
 
   bool
   isCentered();
-
-  static bool
-  isHorizontalDirection(Direction);
-  static bool
-  isPositiveDirection(Direction);
 
 protected:
   std::list<Component*> components_;

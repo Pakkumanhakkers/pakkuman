@@ -18,7 +18,7 @@
 #include "Moveable.h"
 
 KeyboardInputComponent::KeyboardInputComponent()  :
-    next_direction_{Moveable::Direction::LEFT}
+    next_direction_{Direction::LEFT}
 {
 }
 
@@ -27,19 +27,19 @@ void KeyboardInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
   const Uint8* state = SDL_GetKeyboardState(nullptr);
   if (state[SDL_SCANCODE_LEFT])
   {
-    next_direction_ = Moveable::Direction::LEFT;
+    next_direction_ = Direction::LEFT;
   }
   else if (state[SDL_SCANCODE_RIGHT])
   {
-    next_direction_ = Moveable::Direction::RIGHT;
+    next_direction_ = Direction::RIGHT;
   }
   else if (state[SDL_SCANCODE_UP])
   {
-    next_direction_ = Moveable::Direction::UP;
+    next_direction_ = Direction::UP;
   }
   else if (state[SDL_SCANCODE_DOWN])
   {
-    next_direction_ = Moveable::Direction::DOWN;
+    next_direction_ = Direction::DOWN;
   }
 
   if (DefaultPhysicsComponent::canTurn(gameEngine->getMap(), moveable,

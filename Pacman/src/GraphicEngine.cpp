@@ -5,10 +5,16 @@
  *      Author: Akdas
  */
 
-#include <SDL.h>
 #include "GraphicEngine.h"
-#include <string>
+
+#include <SDL.h>
+#include <SDL_error.h>
+#include <SDL_render.h>
+#include <SDL_surface.h>
 #include <iostream>
+//#include <string>
+
+#include "Sprite.h"
 
 GraphicEngine::GraphicEngine() :
 	rect{0,0,0,0},
@@ -25,7 +31,7 @@ GraphicEngine::~GraphicEngine()
 }
 
 
-void GraphicEngine::DrawSprite(Sprite* sprite_, double xpos_, double ypos_, Moveable::Direction direction)
+void GraphicEngine::DrawSprite(Sprite* sprite_, double xpos_, double ypos_, Direction direction)
 {
 	SDL_RenderCopy(sdlSetup.GetRenderer(), sprite_->GetImage(),
 			sprite_->GetCrop(ticks, direction),

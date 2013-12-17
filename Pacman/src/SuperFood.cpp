@@ -7,6 +7,11 @@
 
 #include "SuperFood.h"
 
+#include "Command.h"
+#include "GameEngine.h"
+#include "Settings.h"
+#include "Timer.h"
+
 SuperFood::SuperFood(double x, double y, Sprite* sprite, int score) :
   Food{x, y, sprite, score}
 {
@@ -20,11 +25,13 @@ SuperFood::eat(GameEngine* gameEngine)
     Food::eat(gameEngine);
 
     Settings* s = gameEngine->getSettings();
-    gameEngine->publishCommand(new SickGhostCommand(gameEngine, 2));
+    gameEngine->publishCommand(new SickGhostCommand(gameEngine->getGame(), 2));
 
-    gameEngine->publishTimer(new Timer(new SickGhostCommand(gameEngine, -1),
+    gameEngine->publishTimer(new Timer(new SickGhostCommand(
+        gameEngine->getGame(), -1),
         s->sickTime - s->blinkTime));
-    gameEngine->publishTimer(new Timer(new SickGhostCommand(gameEngine, -1),
+    gameEngine->publishTimer(new Timer(new SickGhostCommand(
+        gameEngine->getGame(), -1),
         s->sickTime));
   }
 }
