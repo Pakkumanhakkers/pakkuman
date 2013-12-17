@@ -34,7 +34,7 @@ void GraphicEngine::DrawSprite(Sprite* sprite_, double xpos_, double ypos_, int 
 }
 
 
-void GraphicEngine::Draw(Sprite* statSprite_, double xpos_, double ypos_)
+void GraphicEngine::Draw(Sprite* Sprite_, double xpos_, double ypos_)
 {
 	SDL_RenderCopy(sdlSetup.GetRenderer(),
 			Sprite_->GetImage(), NULL,

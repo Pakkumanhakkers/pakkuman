@@ -31,9 +31,9 @@ GameEngine::initGame()
 	spriteFood = new Sprite("Dot.png", 32, 32);
 	spriteWall = new Sprite("Wall.png",32, 32);
 	spriteFloor = new Sprite("Floor.png",32,32);
-	spritePacman = new Sprite("Pacman.png",64,128);
-	spriteGhost = new Sprite("Ghost.png", 64,128);
-	spriteSickGhost = new Sprite("sickGhost.png",64,128);
+	spritePacman = new Sprite("Pacman.png",32,32);
+	spriteGhost = new Sprite("Ghost.png", 32,32);
+	spriteSickGhost = new Sprite("sickGhost.png",32, 32);
 
 
   map_ = Map{&spriteWall, &spriteFloor};
@@ -125,6 +125,19 @@ GameEngine::drawGame()
     object->draw(&graphics_);
   }
 }
+
+GameEngine::~GameEngine() {
+	delete spriteCherry;
+	delete spriteDot;
+	delete spriteWall;
+	delete spriteFloor;
+	delete spritePacman;
+	delete spriteGhost;
+	delete spriteSickGhost;
+
+	delete GraphicEngine;
+}
+
 
 void
 GameEngine::lifeLost()
