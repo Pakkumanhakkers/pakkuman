@@ -18,14 +18,14 @@ class PathFinder;
  * Måste includea AiType:s och Directions på något vis!!
  * Finns i ghost och i moveable
  */
-class AiInputComponent : Moveable, GameEngine
+class AiInputComponent
 {
 public:
 	enum AiType
 	{
 		CHASE, RANDOM, SCATTER, HOME
 	};
-	void update(Moveable*, GameEngine*);
+	void update(GameEngine*, Moveable*);
 	Moveable::Direction updateDirection(AiInputComponent::AiType Ai, Moveable* ghost, GameEngine* gameengine);
 	void setAi(AiType);
 	AiType getAi();
