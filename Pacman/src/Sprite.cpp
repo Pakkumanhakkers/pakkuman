@@ -7,7 +7,7 @@
 
 #include "Sprite.h"
 
-Sprite::Sprite(std::string FilePath, int w, int h) {
+Sprite::Sprite(std::string FilePath) {
 
 	
 	image = NULL;
@@ -27,8 +27,8 @@ Sprite::Sprite(std::string FilePath, int w, int h) {
 		crop.y = 0;
 
 		//Initialize to crop just first frame on the first row.
-		crop.w = img_width/2;
-		crop.h = img_height/4;
+		crop.w = 32;
+		crop.h = 32;
 
 		current_frame = 0;
 		animation_delayspeed = 0;
@@ -102,7 +102,7 @@ SDL_Texture* Sprite::GetImage()
 void  void Sprite::PlayAnimation(int BeginFrame, int EndFrame, int Row, float ticks)
 {
 
-	if (animation_delayspeed + 10 < ticks())
+	if (animation_delayspeed + 10 < ticks)
 	{
 
 

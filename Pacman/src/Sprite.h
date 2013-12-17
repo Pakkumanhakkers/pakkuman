@@ -16,7 +16,7 @@
 class Sprite {
 public:
 
-	Sprite(std::string FilePath, int w, int h);
+	Sprite(std::string FilePath);
 	virtual ~Sprite();
 
 

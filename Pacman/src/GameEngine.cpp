@@ -27,13 +27,15 @@ void
 GameEngine::initGame()
 {
 
-	spriteCherry = Sprite("Cherry.png", 32, 32);
-	spriteFood = Sprite("Dot.png", 32, 32);
-	spriteWall =  Sprite("Wall.png",32, 32);
-	spriteFloor =  Sprite("Floor.png",32,32);
-	spritePacman =  Sprite("Pacman.png",32,32);
-	spriteGhost = Sprite("Ghost.png", 32,32);
-	spriteSickGhost =  Sprite("sickGhost.png",32, 32);
+	spriteCherry = Sprite("Cherry.png");
+	spriteFood = Sprite("Dot.png");
+	spriteWall =  Sprite("Wall.png");
+	spriteFloor =  Sprite("Floor.png");
+	spritePacman =  Sprite("Pacman.png");
+	spriteGhost = Sprite("Ghost.png");
+	spriteSickGhost =  Sprite("sickGhost.png");
+	spriteBlinkGhost = Sprite("blinkGhost.png");
+	spriteEyes = Sprite("eyes.png");
 
 
   map_ = Map{&spriteWall, &spriteFloor};

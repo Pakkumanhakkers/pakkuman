@@ -62,6 +62,8 @@ private:
   Sprite spriteFloor;
   Sprite spriteDot;
   Sprite spriteCherry;
+  Sprite spriteBlinkGhost;
+  Sprite spriteEyes;
 
   int currentTime_;
   int game_state_;
