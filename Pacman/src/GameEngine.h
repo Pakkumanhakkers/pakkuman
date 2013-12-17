@@ -8,7 +8,23 @@
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
 
+#include <vector>
+
+#include "AiInputComponent.h"
+#include "CommandManager.h"
+#include "DefaultPhysicsComponent.h"
+#include "EaterPhysicsComponent.h"
 #include "GameInstance.h"
+#include "GhostGraphicComponent.h"
+#include "GraphicEngine.h"
+#include "KeyboardInputComponent.h"
+#include "Map.h"
+#include "PathFinder.h"
+#include "Score.h"
+#include "Settings.h"
+#include "Sprite.h"
+
+class Timer;
 
 class Map;
 class Sound;
@@ -58,7 +74,7 @@ private:
   GameInstance gameInstance_;
   Map map_;
   PathFinder pathFinder_;
-  
+
   Sprite spritePacman;
   Sprite spriteGhost;
   Sprite spriteSickGhost;
@@ -69,8 +85,8 @@ private:
   Sprite spriteBlinkGhost;
   Sprite spriteEyes;
 
+  std::vector<AiInputComponent*> ghostAi;
   KeyboardInputComponent keyboardInputComponent;
-  GhostInputComponent ghostInputComponent;
   DefaultPhysicsComponent defaultPhysicsComponent;
   EaterPhysicsComponent eaterPhysicsComponent;
   GhostGraphicComponent ghostGraphicComponent;

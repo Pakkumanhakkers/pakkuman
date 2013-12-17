@@ -15,28 +15,32 @@
 class PathFinder;
 /**
  * Styr rÃ¶rliga objekt med AI
- * Måste includea AiType:s och Directions på något vis!!
+ * Mï¿½ste includea AiType:s och Directions pï¿½ nï¿½got vis!!
  * Finns i ghost och i moveable
  */
-class AiInputComponent
+class AiInputComponent : public Component
 {
 public:
 	enum AiType
 	{
 		CHASE, RANDOM, SCATTER, HOME
 	};
+
+        AiInputComponent(Map*, PathFinder*);
+
+        // TODO uppdatera bara vid korsningar, endast en (1) gÃ¥ng
 	void update(GameEngine*, Moveable*);
-	Moveable::Direction updateDirection(AiInputComponent::AiType Ai, Moveable* ghost, GameEngine* gameengine);
+
 	void setAi(AiType);
 	AiType getAi();
-	AiInputComponent(Map*, PathFinder*);
 
 private:
-    bool Valid(int ghost_x, int ghost_y,int direction);
-	Moveable::Direction getRandom(int ghost_x, int ghost_y);
-	PathFinder* pathfinder;
-	AiType CurrentAi = CHASE;
-	Map* internalMap;
+  //bool Valid(int ghost_x, int ghost_y,int direction);
+  Moveable::Direction updateDirection(Moveable* ghost, GameEngine* gameengine);
+  Moveable::Direction getRandom(GameObject*);
+  PathFinder* pathfinder;
+  AiType CurrentAi = CHASE;
+  Map* internalMap;
 
 };
 

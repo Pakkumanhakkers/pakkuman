@@ -25,7 +25,7 @@ void CommandManager::add(Command* command)
 {
   if (currentCommand_ != commands_.end())
   {
-      remove(currentCommand_, commands_.end());
+      remove(commands_, currentCommand_, commands_.end());
       currentCommand_ = commands_.end();
   }
 
@@ -41,7 +41,7 @@ void CommandManager::add(Timer* timer)
 {
   if (currentCommand_ != commands_.end())
   {
-      remove(currentCommand_, commands_.end());
+      remove(commands_, currentCommand_, commands_.end());
       currentCommand_ = commands_.end();
   }
 
@@ -83,9 +83,9 @@ void CommandManager::checkTimer()
  */
 void CommandManager::clear()
 {
-  remove(commands_.begin(), commands_.end());
-  remove(futureTimers_.begin(), futureTimers_.end());
-  remove(pastTimers_.begin(), pastTimers_.end());
+  remove(commands_, commands_.begin(), commands_.end());
+  remove(futureTimers_, futureTimers_.begin(), futureTimers_.end());
+  remove(pastTimers_, pastTimers_.begin(), pastTimers_.end());
 
   commands_.clear();
   futureTimers_.clear();
@@ -97,7 +97,7 @@ void CommandManager::clear()
  */
 void CommandManager::clearFutureTimers()
 {
-  remove(futureTimers_.begin(), futureTimers_.end());
+  remove(futureTimers_, futureTimers_.begin(), futureTimers_.end());
 
   futureTimers_.clear();
 }
@@ -149,12 +149,13 @@ void CommandManager::undo()
  * @param start
  * @param end
  */
-void CommandManager::remove(std::list<Command*>::iterator start,
-    std::list<Command*>::iterator end)
+void CommandManager::remove(std::list<Command*> lst,
+    std::list<Command*>::iterator start, std::list<Command*>::iterator end)
 {
   for (std::list<Command*>::iterator i = start; i != end; ++i)
   {
     delete *i;
+    i = lst.erase(i);
   }
 }
 
@@ -163,12 +164,13 @@ void CommandManager::remove(std::list<Command*>::iterator start,
  * @param start
  * @param end
  */
-void CommandManager::remove(std::list<Timer*>::iterator start,
-    std::list<Timer*>::iterator end)
+void CommandManager::remove(std::list<Timer*> lst,
+    std::list<Timer*>::iterator start, std::list<Timer*>::iterator end)
 {
-  for (std::list<Timer*>::iterator i = start; i != end; ++i)
+  for (std::list<Timer*>::iterator i = start; i != end;)
   {
     delete *i;
+    i = lst.erase(i);
   }
 }
 

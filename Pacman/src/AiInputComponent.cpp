@@ -7,11 +7,14 @@
 
 #include "AiInputComponent.h"
 
-//#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-#include "Pathfinder.h"
+#include "Command.h"
+#include "GameEngine.h"
+#include "GameInstance.h"
+#include "Pacman.h"
+#include "PathFinder.h"
 
 class GameEngine;
 class Moveable;
@@ -23,11 +26,32 @@ AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder)
 	pathfinder = inpathfinder;
 }
 
-void AiInputComponent::update(Moveable* moveable, GameEngine* gameengine)
+void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
-	AiInputComponent::AiType Ai = CurrentAi; //erik �r b�st
-	//Det vi egentligen vill göra är att få koordinaterna till pacman
-	updateDirection(Ai,moveable, gameengine);
+  Moveable::Direction direction;
+  DefaultPhysicsComponent::canTurn(internalMap, moveable, direction);
+  AiInputComponent::AiType nextAi;
+
+  switch (moveable->getState())
+  {
+    case Ghost::EATABLE:
+    case Ghost::EATABLE_BLINK:
+      nextAi = AiInputComponent::SCATTER;
+      break;
+    case Ghost::EATEN:
+      nextAi = AiInputComponent::HOME;
+      break;
+    default:
+      nextAi = AiInputComponent::CHASE;
+      break;
+  }
+
+  if (nextAi != getAi())
+  {
+    setAi(nextAi);
+    Moveable::Direction next = updateDirection(moveable, gameEngine);
+    gameEngine->publishCommand(new DirectCommand(moveable, next));
+  }
 }
 
 AiInputComponent::AiType AiInputComponent::getAi()
@@ -40,20 +64,21 @@ void AiInputComponent::setAi(AiType ai)
 	CurrentAi = ai;
 }
 
-Moveable::Direction AiInputComponent::updateDirection(AiInputComponent::AiType Ai, Moveable* ghost, GameEngine* gameengine)
+Moveable::Direction AiInputComponent::updateDirection(Moveable* ghost,
+    GameEngine* gameengine)
 {
 	int target_x{0};
 	int target_y{0};
 	int slump;
-	if (Ai == AiInputComponent::AiType::CHASE)
+	if (CurrentAi == AiInputComponent::AiType::CHASE)
 	{
 		target_x = gameengine->getGame()->pacman->getX();
 		target_y = gameengine->getGame()->pacman->getY();
 		return (pathfinder->getDirection(ghost,target_x,target_y));
 	}
-	else if (Ai == AiInputComponent::AiType::RANDOM)
-		return getRandom(ghost->getX(), ghost->getY());
-	else if (Ai == AiInputComponent::AiType::HOME)
+	else if (CurrentAi == AiInputComponent::AiType::RANDOM)
+		return getRandom(ghost);
+	else if (CurrentAi == AiInputComponent::AiType::HOME)
 	{
 		target_x = internalMap->getGhostX();
 		target_y = internalMap->getGhostY();
@@ -65,18 +90,20 @@ Moveable::Direction AiInputComponent::updateDirection(AiInputComponent::AiType A
 		srand (time(NULL));
 		slump = rand() % 1;
 		if (slump == 0)
-			return getRandom(ghost->getX(), ghost->getY());
+			return getRandom(ghost);
 		else
 		{
 			target_x = 5*gameengine->getGame()->pacman->getX();
 			target_y = 5*gameengine->getGame()->pacman->getY();
-			return (pathfinder->getDirection(ghost,target_x,target_y));
+			return (pathfinder->getDirection(ghost,target_x,
+			    target_y));
 		}
 	}
 }
 	
-
-bool AiInputComponent::Valid(int ghost_x, int ghost_y, int direction) // isWall m�ste kallas med ett mapobjekt??
+/* använder isWallAhead från DefaultPhysicsComponent istället
+bool AiInputComponent::Valid(int ghost_x, int ghost_y, int direction)
+// isWall m�ste kallas med ett mapobjekt??
 {
 	if (direction == 0 && internalMap->isWall(ghost_x - 1, ghost_y))
 		return false;
@@ -88,25 +115,28 @@ bool AiInputComponent::Valid(int ghost_x, int ghost_y, int direction) // isWall 
 		return false;
 	else
 	return true;
-}
+}*/
 
-Moveable::Direction AiInputComponent::getRandom(int ghost_x, int ghost_y)
+Moveable::Direction AiInputComponent::getRandom(GameObject* moveable)
 {
-	int direction;
+	Moveable::Direction direction;
 	srand (time(NULL));
-	while (!Valid(ghost_x,ghost_y,direction))
+	do
 	{
-		direction = rand() % 3 + 0;
-	}	
-		switch(direction)
-		{
-			case(0):
-			return Moveable::LEFT;
-			case(1):
-			return Moveable::RIGHT;
-			case(2):
-			return Moveable::UP;
-			case(3):
-			return Moveable::DOWN;
-		}
+		direction = rand() % 3 ;
+	}
+	while (!DefaultPhysicsComponent::isWallAhead(
+	            internalMap, moveable, direction));
+
+        switch(direction)
+        {
+                case(0):
+                return Moveable::LEFT;
+                case(1):
+                return Moveable::RIGHT;
+                case(2):
+                return Moveable::UP;
+                case(3):
+                return Moveable::DOWN;
+        }
 }

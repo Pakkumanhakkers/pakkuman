@@ -99,5 +99,5 @@ GameObject::setSprite(Sprite* sprite)
 void
 GameObject::draw(GraphicEngine* graphics)
 {
-  graphics->Draw(sprite_, x_, y_);
+  graphics->Draw(getSprite(), getX(), getY());
 }

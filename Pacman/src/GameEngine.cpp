@@ -17,7 +17,6 @@
 #include "EaterPhysicsComponent.h"
 #include "Ghost.h"
 #include "GhostGraphicComponent.h"
-#include "GhostInputComponent.h"
 #include "GraphicEngine.h"
 #include "KeyboardInputComponent.h"
 #include "Map.h"
@@ -54,8 +53,6 @@ GameEngine::GameEngine()
 
   // init components for shared use
   keyboardInputComponent{KeyboardInputComponent{}};
-  ghostInputComponent{GhostInputComponent{AiInputComponent{&map_,
-      &pathFinder_}}};
   defaultPhysicsComponent{DefaultPhysicsComponent{}};
   eaterPhysicsComponent{EaterPhysicsComponent{}};
   ghostGraphicComponent{GhostGraphicComponent{&spriteGhost,
@@ -70,6 +67,7 @@ GameEngine::GameEngine()
 
 void GameEngine::initGame()
 {
+  // kan ta hand om tidigare gameInstance och rensa ghostAi
   int px = map_.getPacmanX();
   int py = map_.getPacmanY();
   int gx = map_.getGhostX();
@@ -85,8 +83,11 @@ void GameEngine::initGame()
 
   for (int i = 0; i < settings_.ghostCount; ++i)
   {
-    Ghost* ghost{new Ghost{gx, gy, &spriteGhost}};
-    ghost->addComponent(&ghostInputComponent);
+    Ghost* ghost = new Ghost{gx, gy, &spriteDot};
+    AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder());
+    ghostAi.push_back(ai);
+
+    ghost->addComponent(ai);
     ghost->addComponent(&defaultPhysicsComponent);
     ghost->addComponent(&ghostGraphicComponent);
 

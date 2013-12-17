@@ -33,9 +33,11 @@ public:
   void undo();
   void redo();
 private:
-  void remove(std::list<Command*>::iterator start,
+  void remove(std::list<Command*> lst,
+      std::list<Command*>::iterator start,
       std::list<Command*>::iterator end);
-  void remove(std::list<Timer*>::iterator start,
+  void remove(std::list<Timer*> lst,
+      std::list<Timer*>::iterator start,
       std::list<Timer*>::iterator end);
   void updateTimeline();
 
