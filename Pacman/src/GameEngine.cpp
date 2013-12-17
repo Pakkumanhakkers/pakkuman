@@ -10,16 +10,19 @@
 #include <SDL_timer.h>
 #include <vector>
 
-#include "AiInputComponent.h"
+//#include "AiInputComponent.h"
 #include "Command.h"
 #include "CommandManager.h"
-#include "Food.h"
+//#include "Food.h"
 #include "Ghost.h"
 #include "GraphicEngine.h"
 #include "Map.h"
 #include "Pacman.h"
+#include "PathFinder.h"
 #include "Settings.h"
 #include "Sprite.h"
+#include "SuperFood.h"
+#include "Timer.h"
 
 class Timer;
 
@@ -27,18 +30,18 @@ void
 GameEngine::initGame()
 {
 
-  spriteCherry = new Sprite("Cherry.png", 32, 32);
-  spriteFood = new Sprite("Dot.png", 32, 32);
-  spriteWall = new Sprite("Wall.png",32, 32);
-  spriteFloor = new Sprite("Floor.png",32,32);
-  spritePacman = new Sprite("Pacman.png",64,128);
-  spriteGhost = new Sprite("Ghost.png", 64,128);
-  spriteSickGhost = new Sprite("sickGhost.png",64,128);
+  spriteCherry = Sprite("Cherry.png", 32, 32);
+  spriteDot = Sprite("Dot.png", 32, 32);
+  spriteWall = Sprite("Wall.png",32, 32);
+  spriteFloor = Sprite("Floor.png",32,32);
+  spritePacman = Sprite("Pacman.png",32,32);
+  spriteGhost = Sprite("Ghost.png", 32,32);
+  spriteSickGhost = Sprite("sickGhost.png",32, 32);
 
 
   map_ = Map{&spriteWall, &spriteFloor};
 
-  map_->loadFile("Map.txt");
+  map_.loadFile("Map.txt");
 
   
 
@@ -73,6 +76,9 @@ GameEngine::initGame()
       gameInstance_.food.push_back(f);
     }
   }
+}
+
+GameEngine::~GameEngine() {
 }
 
 void

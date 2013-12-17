@@ -24,6 +24,8 @@ public:
     PLAY, PAUSE, GAME_OVER
   };
 
+  virtual ~GameEngine(); 
+  
   void initGame();
   void gameLoop();
 
