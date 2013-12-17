@@ -26,19 +26,19 @@ GraphicEngine::~GraphicEngine() {
 }
 
 
-void GraphicEngine::DrawSprite(Sprite sprite_, double xpos_, double ypos_, int current_ticks, std::string direction)
+void GraphicEngine::DrawSprite(Sprite* sprite_, double xpos_, double ypos_, int current_ticks, Moveable::Direction direction)
 {
-	SDL_RenderCopy(sprite_.GetRenderer(), sprite_.GetImage(),
-			sprite_.GetCrop(current_ticks, direction),
-			OutputRectangle(xpos_,ypos_,sprite_.GetWidth(), sprite_.GetHeight()));
+	SDL_RenderCopy(sprite_->GetRenderer(), sprite_->GetImage(),
+			sprite_->GetCrop(current_ticks, direction),
+			OutputRectangle(xpos_,ypos_,sprite_->GetWidth(), sprite_->GetHeight()));
 }
 
 
-void GraphicEngine::Draw(StaticSprite statSprite_, double xpos_, double ypos_)
+void GraphicEngine::Draw(Sprite* statSprite_, double xpos_, double ypos_)
 {
-	SDL_RenderCopy(statSprite_.GetRenderer(),
-			statSprite_.GetImage(), NULL,
-			OutputRectangle(xpos_, ypos_, statSprite_.GetWidth(), statSprite_.GetHeight()));
+	SDL_RenderCopy(Sprite_->GetRenderer(),
+			Sprite_->GetImage(), NULL,
+			OutputRectangle(xpos_, ypos_, Sprite_->GetWidth(), Sprite_->GetHeight()));
 }
 
 

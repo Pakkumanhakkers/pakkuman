@@ -18,12 +18,14 @@ public:
 
 
 	//DrawSprite takes care of movable, needs a direction as input argument to know which row of the image to crop.
-	void DrawSprite(Sprite sprite_, double xpos_, double ypos_, int current_ticks, std::string direction);
+	void DrawSprite(Sprite* sprite_, double xpos_, double ypos_, Moveable::Direction direction = Movable::Direction::RIGHT)  ;
 
-	void Draw(StaticSprite sprite_, double xpos_, double ypos_);
+	void Draw(Sprite* sprite_, double xpos_, double ypos_);
 
 	//Draw is used by objects with no direction.
 	void Draw(std::string output_, double xpos_, double ypos_);
+	
+	void setCurrentTime(int input);
 
 
 	SDL_Rect* OutputRectangle(double Xpos, double Ypos, int SpriteWidth, int SpriteHeight);
@@ -35,6 +37,7 @@ private:
 	TTF_Font* globalFont;
 	SDL_Color textColor;
 	cSDL_Setup sdlSetup;
+	int ticks;
 };
 
 #endif /* GRAPHICS_H_ */
