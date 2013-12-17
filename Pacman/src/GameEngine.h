@@ -8,6 +8,7 @@
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
 
+#include <vector>
 #include "GameInstance.h"
 
 class Map;
@@ -51,6 +52,8 @@ private:
   GameInstance gameInstance_;
   Map map_;
   PathFinder pathFinder_;
+  
+  std::vector<AiInputComponent> ghostAi;
 
   int currentTime_;
   int game_state_;

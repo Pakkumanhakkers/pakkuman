@@ -39,7 +39,11 @@ GameEngine::initGame()
 
   for (int i = 0; i < settings_.ghostCount; ++i)
   {
-    gameInstance_.ghosts.push_back(new Ghost{gx, gy, &spriteDot});
+  Ghost* g = new Ghost{gx, gy, &spriteDot};
+  AiInputComponent* a = new AiInputComponent(getMap(),getPathFinder());
+  ghostAi.push_back(a);
+  g->addComponent(a);
+  gameInstance_.ghosts.push_back(g);
   }
 
   for (Map::FoodInfo& food : *(map_.getFoodInfo()))
