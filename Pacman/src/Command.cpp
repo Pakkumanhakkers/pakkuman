@@ -128,3 +128,13 @@ void SickGhostCommand::undo()
     g->changeSickness(-sick_);
   }
 }
+
+void GhostEatenCommand::execute()
+{
+  game_->ghostsEaten += eaten_;
+}
+
+void GhostEatenCommand::undo()
+{
+  game_->ghostsEaten -= eaten_;
+}

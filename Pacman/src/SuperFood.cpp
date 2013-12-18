@@ -25,6 +25,10 @@ SuperFood::eat(GameEngine* gameEngine)
     Food::eat(gameEngine);
 
     Settings* s = gameEngine->getSettings();
+
+
+    gameEngine->publishCommand(new GhostEatenCommand(gameEngine->getGame(), 0));
+
     gameEngine->publishCommand(new SickGhostCommand(gameEngine->getGame(), 2));
 
     gameEngine->publishTimer(new Timer(new SickGhostCommand(

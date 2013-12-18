@@ -85,6 +85,8 @@ void Ghost::eat(GameEngine* gameEngine)
 void
 Ghost::die(GameEngine* gameEngine)
 {
+  gameEngine->publishCommand(new GhostEatenCommand(gameEngine->getGame(),
+		  gameEngine->getGame()->ghostsEaten + 1));
   gameEngine->publishCommand(new ScoreCommand(gameEngine->getGame(),
       score_ * gameEngine->getGame()->ghostsEaten));
 

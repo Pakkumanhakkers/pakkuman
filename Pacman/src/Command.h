@@ -192,6 +192,19 @@ private:
   int sick_;
 };
 
+class GhostEatenCommand : public Command
+{
+public:
+  GhostEatenCommand(GameInstance* game, int eaten) :
+    game_{game}, eaten_{eaten} {}
+
+  void execute();
+  void undo();
+
+private:
+  GameInstance* game_;
+  int eaten_;
+};
 
 
 #endif /* COMMAND_H_ */
