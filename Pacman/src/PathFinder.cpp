@@ -13,7 +13,7 @@
 
 #include "Direction.h"
 #include "Map.h"
-//#include "Moveable.h"
+#include "Moveable.h"
 
 
 using namespace std;

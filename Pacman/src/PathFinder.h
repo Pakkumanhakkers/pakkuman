@@ -11,7 +11,10 @@
 
 //#include "GameEngine.h"
 //#include "Map.h"
-#include "Moveable.h"
+
+#include "Direction.h"
+
+class Moveable;
 class Map;
 
 class PathFinder
