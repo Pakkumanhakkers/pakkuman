@@ -35,6 +35,7 @@ private:
 	//choose which part to crop
 	void PlayAnimation(int BeginFrame, int EndFrame, int Row, float ticks);
 
+
 	static SDL_Renderer* renderer;
 	SDL_Texture* image;
 
@@ -48,5 +49,6 @@ private:
 	int current_frame;
 	int animation_delayspeed;
 };
+
 
 #endif /* SPRITE_H_ */

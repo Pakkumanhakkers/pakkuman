@@ -37,6 +37,7 @@ public:
 	
 	void setCurrentTime(int input);
 
+	SDL_Renderer* getRenderer();
 
 	SDL_Rect* OutputRectangle(double Xpos, double Ypos, int SpriteWidth, int SpriteHeight);
 

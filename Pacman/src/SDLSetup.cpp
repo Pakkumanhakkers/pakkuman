@@ -14,51 +14,49 @@
 #include <SDL_video.h>
 #include <iostream>
 
-cSDL_Setup::cSDL_Setup(int ScreenWidth, int ScreenHeight) {
+cSDL_Setup::cSDL_Setup(int ScreenWidth, int ScreenHeight)
+{
+  window = SDL_CreateWindow("Pakkuman", 100, 100, ScreenWidth, ScreenHeight, SDL_WINDOW_SHOWN);
 
+  //Failcheck
+  if (window == NULL)
+  {
+    std::cerr << "Window couldn't be created" << std::endl;
+  }
 
-		window = NULL;
-		window = SDL_CreateWindow("Pakkuman", 100, 100, ScreenWidth, ScreenHeight, SDL_WINDOW_SHOWN);
-
-		//Failcheck
-		if (window == NULL)
-		{
-			std::cout << "Window couldn't be created" << std::endl;
-		}
-
-		renderer = NULL;
-		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-		mainEvent = new SDL_Event();
+  renderer = NULL;
+  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+  mainEvent = new SDL_Event();
 
 
 }
 
 cSDL_Setup::~cSDL_Setup() {
 
-	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(renderer);
-	delete mainEvent;
+  SDL_DestroyWindow(window);
+  SDL_DestroyRenderer(renderer);
+  delete mainEvent;
 
 }
 
 SDL_Renderer* cSDL_Setup::GetRenderer()
 {
 
-	return renderer;
+  return renderer;
 }
 
 
 SDL_Event* cSDL_Setup::GetMainEvent()
 {
 
-	return mainEvent;
+  return mainEvent;
 }
 
 
 void cSDL_Setup::Begin() {
 
-	SDL_PollEvent(mainEvent);
-	SDL_RenderClear(renderer);
+  SDL_PollEvent(mainEvent);
+  SDL_RenderClear(renderer);
 
 
 }
@@ -66,5 +64,5 @@ void cSDL_Setup::Begin() {
 
 void cSDL_Setup::End() {
 
-	SDL_RenderPresent(renderer);
+  SDL_RenderPresent(renderer);
 }

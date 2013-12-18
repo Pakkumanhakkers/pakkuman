@@ -17,13 +17,16 @@
 #include "Sprite.h"
 #include "Moveable.h"
 
+
+SDL_Renderer* Sprite::renderer = nullptr;
+
 Sprite::Sprite(std::string FilePath) {
   image = NULL;
   image = IMG_LoadTexture(Sprite::GetRenderer(), FilePath.c_str());
 
   if(image == NULL)
   {
-    std::cout << "Couldn't load " << FilePath.c_str() << std::endl;
+    std::cerr << "Couldn't load " << FilePath.c_str() << std::endl;
   }
 
   //Sets img_width and img_height to the dimensions of the image.
@@ -56,12 +59,12 @@ int Sprite::GetHeight()
 
 SDL_Renderer* Sprite::GetRenderer()
 {
-  return nullptr;//return renderer;
+  return renderer;
 }
 
 void Sprite::SetRenderer(SDL_Renderer* r)
 {
-  //renderer = r;
+  renderer = r;
 }
 
 /**
