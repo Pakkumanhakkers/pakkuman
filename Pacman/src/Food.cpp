@@ -27,7 +27,7 @@ Food::eat(GameEngine* gameEngine)
 int
 Food::getState()
 {
-  return health_;
+  return int(health_);
 }
 
 void

@@ -10,7 +10,7 @@
 #include <cmath>
 #include <cstdlib>
 
-//#include "Direction.h"
+#include "Direction.h"
 #include "GraphicEngine.h"
 
 Moveable::~Moveable()
@@ -46,7 +46,6 @@ void
 Moveable::update(GameEngine* gameEngine)
 {
   for (Component* component : components_)
-
   {
     component->update(gameEngine, this);
   }
@@ -101,6 +100,6 @@ Moveable::isCentered()
 {
   double h = double(isHorizontalDirection(direction_));
 
-  return (abs(getX() - round(getX()))*(1.0 - h) <= speed_ &&
-      abs(getY() - round(getY()))*h <= speed_);
+  return (abs(getX() - round(getX()))*(1.0 - h) < speed_ * 0.75 &&
+      abs(getY() - round(getY()))*h < speed_ * 0.75);
 }

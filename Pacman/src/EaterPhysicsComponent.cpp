@@ -46,7 +46,7 @@ EaterPhysicsComponent::processEatable(GameEngine* gameEngine,
     Moveable* moveable, GameObject* pos, Eatable* eat)
 {
   if (abs(moveable->getX() - pos->getX()) < 0.5 &&
-      abs(moveable->getY() - pos->getY()))
+      abs(moveable->getY() - pos->getY()) < 0.5)
   {
     eat->eat(gameEngine);
   }

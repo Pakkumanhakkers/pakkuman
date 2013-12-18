@@ -61,7 +61,7 @@ private:
   void nextLife();
 
   int currentTime_;
-  int gameState_;
+  GameState gameState_;
 
   Score points;
 

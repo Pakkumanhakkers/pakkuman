@@ -62,7 +62,7 @@ GameEngine::GameEngine() :
   map_{&spriteWall, &spriteFloor},
   pathFinder_{&map_}
 {
-  map_.loadFile("Map.txt");
+  map_.loadFile("img/Map.txt");
 }
 
 void GameEngine::initGame()
@@ -78,20 +78,20 @@ void GameEngine::initGame()
   pacman->addComponent(&keyboardInputComponent);
   pacman->addComponent(&defaultPhysicsComponent);
   pacman->addComponent(&eaterPhysicsComponent);
-  pacman->setSpeed(1.0 / settings_.fps);
+  pacman->setSpeed(2.0 / settings_.fps);
 
   gameInstance_.pacman = pacman;
 
   for (int i = 0; i < settings_.ghostCount; ++i)
   {
-    Ghost* ghost = new Ghost{double(gx), double(gy), &spriteDot};
     AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder());
     ghostAi.push_back(ai);
 
+    Ghost* ghost = new Ghost{double(gx), double(gy), &spriteDot};
     ghost->addComponent(ai);
     ghost->addComponent(&defaultPhysicsComponent);
     ghost->addComponent(&ghostGraphicComponent);
-    ghost->setSpeed(0.8 / settings_.fps);
+    ghost->setSpeed(1.6 / settings_.fps);
 
     gameInstance_.ghosts.push_back(ghost);
   }
@@ -173,7 +173,10 @@ GameEngine::drawGame()
 
   for (Food* object : gameInstance_.food)
   {
-    object->draw(&graphics_);
+    if (object->getState() != int(Food::EATEN))
+    {
+      object->draw(&graphics_);
+    }
   }
 
   for (Moveable* object : gameInstance_.ghosts)
@@ -207,7 +210,7 @@ GameEngine::lifeLost()
 void
 GameEngine::gameOver()
 {
-// TODO
+  gameState_ = GAME_OVER;
 }
 
 void

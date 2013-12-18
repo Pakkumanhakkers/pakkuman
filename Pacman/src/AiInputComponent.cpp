@@ -25,8 +25,8 @@
 //konstruktor
 AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder)
 {
-	internalMap = map;
-	pathfinder = inpathfinder;
+  internalMap = map;
+  pathfinder = inpathfinder;
 }
 
 void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
@@ -58,7 +58,8 @@ void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
     Direction opposite{getOppositeDirection(current)};
     Direction next{opposite};
 
-    while (next != opposite)
+    while (next != opposite &&
+        DefaultPhysicsComponent::canTurn(internalMap, moveable, next))
     {
       next = updateDirection(moveable, gameEngine);
     }
@@ -72,51 +73,51 @@ void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
 
 AiInputComponent::AiType AiInputComponent::getAi()
 {
-	return CurrentAi;
+  return CurrentAi;
 }
 
 void AiInputComponent::setAi(AiType ai)
 {
-	CurrentAi = ai;
+  CurrentAi = ai;
 }
 
 Direction AiInputComponent::updateDirection(Moveable* ghost,
     GameEngine* gameengine)
 {
-	int target_x{0};
-	int target_y{0};
-	int slump;
-	if (CurrentAi == AiInputComponent::AiType::CHASE)
-	{
-		target_x = gameengine->getGame()->pacman->getX();
-		target_y = gameengine->getGame()->pacman->getY();
-		return (pathfinder->getDirection(ghost,target_x,target_y));
-	}
-	else if (CurrentAi == AiInputComponent::AiType::RANDOM)
-		return getRandom(ghost);
-	else if (CurrentAi == AiInputComponent::AiType::HOME)
-	{
-		target_x = internalMap->getGhostX();
-		target_y = internalMap->getGhostY();
-		return (pathfinder->getDirection(ghost,target_x,target_y));
-	}
-	else //if (Ai == AiInputComponent::AiType::SCATTER)
-		//slumpar mellan RANDOM och 5*(pacmans position)
-	{
-		srand (time(NULL));
-		slump = rand() % 1;
-		if (slump == 0)
-			return getRandom(ghost);
-		else
-		{
-			target_x = 5*gameengine->getGame()->pacman->getX();
-			target_y = 5*gameengine->getGame()->pacman->getY();
-			return (pathfinder->getDirection(ghost,target_x,
-			    target_y));
-		}
-	}
+  int target_x{0};
+  int target_y{0};
+  int slump;
+  if (CurrentAi == AiInputComponent::AiType::CHASE)
+  {
+    target_x = gameengine->getGame()->pacman->getX();
+    target_y = gameengine->getGame()->pacman->getY();
+    return (pathfinder->getDirection(ghost,target_x,target_y));
+  }
+  else if (CurrentAi == AiInputComponent::AiType::RANDOM)
+    return getRandom(ghost);
+  else if (CurrentAi == AiInputComponent::AiType::HOME)
+  {
+    target_x = internalMap->getGhostX();
+    target_y = internalMap->getGhostY();
+    return (pathfinder->getDirection(ghost,target_x,target_y));
+  }
+  else //if (Ai == AiInputComponent::AiType::SCATTER)
+    //slumpar mellan RANDOM och 5*(pacmans position)
+  {
+    srand (time(NULL));
+    slump = rand() % 1;
+    if (slump == 0)
+      return getRandom(ghost);
+    else
+    {
+      target_x = 5*gameengine->getGame()->pacman->getX();
+      target_y = 5*gameengine->getGame()->pacman->getY();
+      return (pathfinder->getDirection(ghost,target_x,
+          target_y));
+    }
+  }
 }
-	
+
 /* använder isWallAhead från DefaultPhysicsComponent istället
 bool AiInputComponent::Valid(int ghost_x, int ghost_y, int direction)
 // isWall m�ste kallas med ett mapobjekt??
@@ -135,25 +136,25 @@ bool AiInputComponent::Valid(int ghost_x, int ghost_y, int direction)
 
 Direction AiInputComponent::getRandom(GameObject* moveable)
 {
-	Direction direction;
-	srand (time(NULL));
-	do
-	{
-		direction = Direction(rand() % 3);
-	}
-	while (!DefaultPhysicsComponent::isWallAhead(
-	            internalMap, moveable, direction));
+  Direction direction;
+  srand (time(NULL));
+  do
+  {
+    direction = Direction(rand() % 3);
+  }
+  while (!DefaultPhysicsComponent::isWallAhead(
+      internalMap, moveable, direction));
 
-        switch(direction)
-        {
-                case(0):
-                return Direction::LEFT;
-                case(1):
-                return Direction::RIGHT;
-                case(2):
-                return Direction::UP;
-                case(3):
-                return Direction::DOWN;
-        }
-    return Direction::UP;
+  switch(direction)
+  {
+    case(0):
+                    return Direction::LEFT;
+    case(1):
+                    return Direction::RIGHT;
+    case(2):
+                    return Direction::UP;
+    case(3):
+                    return Direction::DOWN;
+  }
+  return Direction::UP;
 }
