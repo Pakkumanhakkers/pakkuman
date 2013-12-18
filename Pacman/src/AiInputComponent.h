@@ -36,7 +36,7 @@ public:
 		CHASE, RANDOM, SCATTER, HOME
 	};
 
-        AiInputComponent(Map*, PathFinder*);
+        AiInputComponent(Map*, PathFinder*, AiType);
 
         // TODO uppdatera bara vid korsningar, endast en (1) gång
 	void update(GameEngine*, Moveable*);
@@ -49,7 +49,7 @@ private:
   Direction updateDirection(Moveable* ghost, GameEngine* gameengine);
   Direction getRandom(Moveable*);
   PathFinder* pathfinder;
-  AiType CurrentAi = CHASE;
+  AiType CurrentAi;
   Map* internalMap;
 };
 

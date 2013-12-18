@@ -26,6 +26,7 @@
 //#include "Settings.h"
 #include "Sprite.h"
 #include "SuperFood.h"
+#include <iostream>
 //#include "Timer.h"
 
 GameEngine::GameEngine() :
@@ -82,18 +83,35 @@ void GameEngine::initGame()
 
   gameInstance_.pacman = pacman;
 
-  for (int i = 0; i <1; ++i)
+  for (int i = 0; i <2; ++i)
   {
-    AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder());
+	  if (i == 0)
+	  {
+    AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder(), AiInputComponent::CHASE);
+	  ghostAi.push_back(ai);
+
+	    Ghost* ghost = new Ghost{double(gx), double(gy), &spriteDot};
+	    ghost->addComponent(ai);
+	    ghost->addComponent(&defaultPhysicsComponent);
+	    ghost->addComponent(&ghostGraphicComponent);
+	    ghost->setSpeed(1.6 / settings_.fps);
+
+	    gameInstance_.ghosts.push_back(ghost);
+	  }
+	  else
+	  {
+	AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder(), AiInputComponent::RANDOM);
     ghostAi.push_back(ai);
 
-    Ghost* ghost = new Ghost{double(gx), double(gy), &spriteDot};
+
+    Ghost* ghost = new Ghost{double(7), double(8), &spriteDot};
     ghost->addComponent(ai);
     ghost->addComponent(&defaultPhysicsComponent);
     ghost->addComponent(&ghostGraphicComponent);
     ghost->setSpeed(1.6 / settings_.fps);
 
     gameInstance_.ghosts.push_back(ghost);
+	  }
   }
 
   for (Map::FoodInfo& food : *(map_.getFoodInfo()))
@@ -128,7 +146,8 @@ GameEngine::gameLoop()
 {
   int newTime = SDL_GetTicks();
   int oldTime = currentTime_;
-
+  if ( gameInstance_.pacman->getState() == 1)
+  {std::cout << "han e död den lille fan" << std::endl;}
   while (currentTime_ < newTime)
   {
     commandManager_.setCurrentTime(currentTime_);
@@ -148,7 +167,8 @@ GameEngine::gameLoop()
 void
 GameEngine::updateGame()
 {
-  int preLives = gameInstance_.lives;
+//	if()
+ // int preLives = gameInstance_.lives;
 
   gameInstance_.pacman->update(this);
 
@@ -157,10 +177,10 @@ GameEngine::updateGame()
     moveable->update(this);
   }
 
-  if (gameInstance_.lives < preLives)
-  {
-    lifeLost();
-  }
+ // if (gameInstance_.lives < preLives)
+ // {
+  //  lifeLost();
+ // }
 }
 
 void

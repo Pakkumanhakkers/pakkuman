@@ -9,7 +9,7 @@
 
 #include "Command.h"
 #include "GameEngine.h"
-
+#include <iostream>
 Pacman::~Pacman()
 {
 }

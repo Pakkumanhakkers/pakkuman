@@ -22,17 +22,24 @@
 #include "PathFinder.h"
 #include "Direction.h"
 #include <iostream>
-
+#include <cmath>
 //konstruktor
-AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder)
+AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder, AiType inputAi)
 {
   internalMap = map;
   pathfinder = inpathfinder;
+  CurrentAi = inputAi;
 }
+
 
 void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
 	//std::cout << moveable->getX() << std::endl;
+	if (round(gameEngine->getGame()->pacman->getX()) == round(moveable->getX()) &&
+			round(gameEngine->getGame()->pacman->getY()) == round(moveable->getY()))
+	{
+		gameEngine->getGame()->pacman->die(gameEngine);
+	}
   if (moveable->isCentered())
   {
     AiInputComponent::AiType nextAi;
