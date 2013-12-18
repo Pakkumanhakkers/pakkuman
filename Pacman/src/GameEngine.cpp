@@ -69,9 +69,9 @@ void GameEngine::initGame()
 {
   // kan ta hand om tidigare gameInstance och rensa ghostAi
   int px = map_.getPacmanX();
-  int py = map_.getPacmanY();
-  int gx = map_.getGhostX();
-  int gy = map_.getGhostY();
+  int py = 12;
+  int gx = 7;
+  int gy = 10;
 
   // init game objects
   Pacman* pacman = new Pacman{double(px), double(py), &spritePacman};
@@ -82,7 +82,7 @@ void GameEngine::initGame()
 
   gameInstance_.pacman = pacman;
 
-  for (int i = 0; i < settings_.ghostCount; ++i)
+  for (int i = 0; i <1; ++i)
   {
     AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder());
     ghostAi.push_back(ai);

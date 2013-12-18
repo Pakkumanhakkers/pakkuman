@@ -58,7 +58,7 @@ void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
     Direction opposite{getOppositeDirection(current)};
     Direction next{opposite};
 
-    while (next == opposite ||
+    while (next == opposite)
 
     {
       next = updateDirection(moveable, gameEngine);

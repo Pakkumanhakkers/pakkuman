@@ -18,10 +18,10 @@
 
 GraphicEngine::GraphicEngine() :
 rect{0,0,0,0},
-offset_map{128},
+offset_map{272},
 globalFont{nullptr},
 textColor{ 0, 0, 0 },
-sdlSetup{15*32, 20*32},
+sdlSetup{1024, 640},
 ticks{0},
 scaleX_{1.0},
 scaleY_{1.0}
@@ -46,8 +46,8 @@ void GraphicEngine::DrawSprite(Sprite* sprite_, double xpos_, double ypos_,
 {
   SDL_RenderCopy(sdlSetup.GetRenderer(), sprite_->GetImage(),
       sprite_->GetCrop(ticks, direction),
-      OutputRectangle(sprite_->GetSize()*scaleX_*xpos_,
-          sprite_->GetSize()*scaleY_*ypos_,
+      OutputRectangle(scaleX_*xpos_,
+          scaleY_*ypos_,
           sprite_->GetSize(), sprite_->GetSize()));
 }
 
@@ -115,8 +115,8 @@ void GraphicEngine::Draw(std::string output_, double xpos_, double ypos_)
 SDL_Rect* GraphicEngine::OutputRectangle(double Xpos, double Ypos,
     int SpriteWidth, int SpriteHeight)
 {
-  rect.x = Xpos + offset_map;
-  rect.y = Ypos;
+  rect.x = Xpos*32 + offset_map;
+  rect.y = Ypos*32;
   rect.w = SpriteWidth;
   rect.h = SpriteHeight;
 
