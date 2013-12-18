@@ -20,5 +20,7 @@ bool
 isHorizontalDirection(Direction);
 bool
 isPositiveDirection(Direction);
+Direction
+getOppositeDirection(Direction);
 
 #endif /* DIRECTION_H_ */

@@ -78,6 +78,7 @@ void GameEngine::initGame()
   pacman->addComponent(&keyboardInputComponent);
   pacman->addComponent(&defaultPhysicsComponent);
   pacman->addComponent(&eaterPhysicsComponent);
+  pacman->setSpeed(1.0 / settings_.fps);
 
   gameInstance_.pacman = pacman;
 
@@ -90,6 +91,7 @@ void GameEngine::initGame()
     ghost->addComponent(ai);
     ghost->addComponent(&defaultPhysicsComponent);
     ghost->addComponent(&ghostGraphicComponent);
+    ghost->setSpeed(0.8 / settings_.fps);
 
     gameInstance_.ghosts.push_back(ghost);
   }
@@ -117,12 +119,20 @@ void GameEngine::initGame()
       gameInstance_.food.push_back(f);
     }
   }
+
+  currentTime_ = SDL_GetTicks();
 }
 
 void
 GameEngine::gameLoop()
 {
   int newTime = SDL_GetTicks();
+
+  if (currentTime_ < newTime)
+  {
+    drawGame();
+  }
+
   while (currentTime_ < newTime)
   {
     commandManager_.setCurrentTime(currentTime_);
@@ -131,7 +141,7 @@ GameEngine::gameLoop()
     currentTime_ += settings_.frameTime;
   }
 
-  drawGame();
+  SDL_Delay(1);
 }
 
 void
@@ -169,6 +179,8 @@ GameEngine::drawGame()
   }
 
   gameInstance_.pacman->draw(&graphics_);
+
+  graphics_.update();
 }
 
 GameEngine::~GameEngine()

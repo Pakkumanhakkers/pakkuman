@@ -21,8 +21,10 @@ rect{0,0,0,0},
 offset_map{128},
 globalFont{nullptr},
 textColor{ 0, 0, 0 },
-sdlSetup{1024 /*bredd*/, 640 /*height*/},
-ticks{0}
+sdlSetup{15*32, 20*32},
+ticks{0},
+scaleX_{1.0},
+scaleY_{1.0}
 {
   if (TTF_Init() == -1)
   {
@@ -39,23 +41,24 @@ GraphicEngine::~GraphicEngine()
 {
 }
 
-
 void GraphicEngine::DrawSprite(Sprite* sprite_, double xpos_, double ypos_,
     Direction direction)
 {
   SDL_RenderCopy(sdlSetup.GetRenderer(), sprite_->GetImage(),
       sprite_->GetCrop(ticks, direction),
-      OutputRectangle(xpos_,ypos_,sprite_->GetWidth(), sprite_->GetHeight()));
+      OutputRectangle(sprite_->GetSize()*scaleX_*xpos_,
+          sprite_->GetSize()*scaleY_*ypos_,
+          sprite_->GetSize(), sprite_->GetSize()));
 }
-
 
 void GraphicEngine::Draw(Sprite* Sprite_, double xpos_, double ypos_)
 {
   SDL_RenderCopy(sdlSetup.GetRenderer(),
       Sprite_->GetImage(), NULL,
-      OutputRectangle(xpos_, ypos_, Sprite_->GetWidth(), Sprite_->GetHeight()));
+      OutputRectangle(Sprite_->GetSize()*scaleX_*xpos_,
+          Sprite_->GetSize()*scaleY_*ypos_,
+          Sprite_->GetSize(), Sprite_->GetSize()));
 }
-
 
 void GraphicEngine::Draw(std::string output_, double xpos_, double ypos_)
 {
@@ -131,4 +134,10 @@ void GraphicEngine::setCurrentTime(int input){
 
   ticks = input;
 
+}
+
+void GraphicEngine::update()
+{
+  sdlSetup.End();
+  sdlSetup.Begin();
 }

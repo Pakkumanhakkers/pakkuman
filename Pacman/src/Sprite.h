@@ -24,6 +24,7 @@ public:
 	//Functions to find information about sprite.
 	int GetWidth();
 	int GetHeight();
+	int GetSize();
 
 	static SDL_Renderer* GetRenderer();
 	static void SetRenderer(SDL_Renderer*);

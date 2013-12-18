@@ -31,31 +31,42 @@ AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder)
 
 void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
-  /*
-  Direction direction;
-  DefaultPhysicsComponent::canTurn(internalMap, moveable, direction);
-  */
-  AiInputComponent::AiType nextAi;
-
-  switch (moveable->getState())
+  if (moveable->isCentered())
   {
-    case Ghost::EATABLE:
-    case Ghost::EATABLE_BLINK:
-      nextAi = AiInputComponent::SCATTER;
-      break;
-    case Ghost::EATEN:
-      nextAi = AiInputComponent::HOME;
-      break;
-    default:
-      nextAi = AiInputComponent::CHASE;
-      break;
-  }
+    AiInputComponent::AiType nextAi;
 
-  if (nextAi != getAi())
-  {
-    setAi(nextAi);
-    Direction next = updateDirection(moveable, gameEngine);
-    gameEngine->publishCommand(new DirectCommand(moveable, next));
+    switch (moveable->getState())
+    {
+      case Ghost::EATABLE:
+      case Ghost::EATABLE_BLINK:
+        nextAi = AiInputComponent::SCATTER;
+        break;
+      case Ghost::EATEN:
+        nextAi = AiInputComponent::HOME;
+        break;
+      default:
+        nextAi = AiInputComponent::CHASE;
+        break;
+    }
+
+    if (nextAi != getAi())
+    {
+      setAi(nextAi);
+    }
+
+    Direction current{moveable->getDirection()};
+    Direction opposite{getOppositeDirection(current)};
+    Direction next{opposite};
+
+    while (next != opposite)
+    {
+      next = updateDirection(moveable, gameEngine);
+    }
+
+    if (next != current)
+    {
+      gameEngine->publishCommand(new DirectCommand(moveable, next));
+    }
   }
 }
 

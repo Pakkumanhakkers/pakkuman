@@ -30,6 +30,7 @@ Sprite::Sprite(std::string FilePath) {
   }
 
   //Sets img_width and img_height to the dimensions of the image.
+  // TODO bör fixas! kan inte bete sig lika för enkla bilder och bildkartor
   SDL_QueryTexture(image, NULL,NULL, &img_width, &img_height);
 
   crop.x = 0;
@@ -49,12 +50,21 @@ Sprite::~Sprite() {
 
 int Sprite::GetWidth()
 {
-  return img_width;
+  // TODO bör fixas! kan inte bete sig lika för enkla bilder och bildkartor
+  return img_width/2;
 }
 
 int Sprite::GetHeight()
 {
-  return img_height;
+  // TODO bör fixas! kan inte bete sig lika för enkla bilder och bildkartor
+  // vad ska dessa egentligen användas till?
+  return img_height/4;
+}
+
+int Sprite::GetSize()
+{
+  // använder denna så länge (kvadratiska sprites, samma storlek)
+  return 32;
 }
 
 SDL_Renderer* Sprite::GetRenderer()
@@ -106,6 +116,8 @@ void Sprite::PlayAnimation(int BeginFrame, int EndFrame, int Row, float ticks)
     else
       current_frame++;
 
+    // TODO måste fixas! kan inte bete sig lika för enkla bilder och bildkartor
+    // ska man ha en annan variabel för enkla bildens storlek?
     crop.x = current_frame * img_width/2;
     crop.y = Row * (img_height/4);
     crop.w = img_width/2;

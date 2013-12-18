@@ -39,6 +39,8 @@ public:
 
 	SDL_Renderer* getRenderer();
 
+	void update();
+
 	SDL_Rect* OutputRectangle(double Xpos, double Ypos, int SpriteWidth, int SpriteHeight);
 
 private:
@@ -49,6 +51,8 @@ private:
 	SDL_Color textColor;
 	cSDL_Setup sdlSetup;
 	int ticks;
+	double scaleX_;
+	double scaleY_;
 };
 
 #endif /* GRAPHICS_H_ */

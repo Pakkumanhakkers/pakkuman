@@ -20,7 +20,8 @@ struct Settings
   int scoreFruit{50};
   int scoreGhost{100};
 
-  int frameTime{200};
+  int fps{16};
+  int frameTime{1000 / fps};
 
   int sickTime{10 * 1000};
   int blinkTime{2 * 1000};

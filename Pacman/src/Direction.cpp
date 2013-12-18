@@ -28,3 +28,13 @@ isPositiveDirection(Direction direction)
 {
   return direction / 2 == 0;
 }
+
+/**
+ * Ger motsatt riktning
+ * @return
+ */
+Direction
+getOppositeDirection(Direction first)
+{
+  return Direction((first + 2) % 4);
+}
