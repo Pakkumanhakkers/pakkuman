@@ -55,10 +55,10 @@ void Map::draw(GraphicEngine* g)
       {
       case WALL:
       case BAD_INPUT:
-        g->Draw(wallSprite_,cor_x*32,cor_y*32);
+        g->Draw(wallSprite_,cor_x,cor_y);
         break;
       default:
-        g->Draw(floorSprite_,cor_x*32,cor_y*32);
+        g->Draw(floorSprite_,cor_x,cor_y);
         break;
       }
     }
