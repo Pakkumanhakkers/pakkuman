@@ -7,7 +7,7 @@
 
 #include "GameEngine.h"
 
-#include <SDL_timer.h>
+#include "SDL2/SDL_timer.h"
 //#include <vector>
 
 #include "AiInputComponent.h"
@@ -126,6 +126,8 @@ void GameEngine::initGame()
 void
 GameEngine::gameLoop()
 {
+
+	graphics_.update();
   int newTime = SDL_GetTicks();
 
   if (currentTime_ < newTime)
@@ -142,6 +144,7 @@ GameEngine::gameLoop()
   }
 
   SDL_Delay(1);
+  graphics_.show();
 }
 
 void
@@ -164,6 +167,7 @@ GameEngine::updateGame()
 void
 GameEngine::drawGame()
 {
+
   graphics_.setCurrentTime(currentTime_);
 
   map_.draw(&graphics_);
@@ -180,7 +184,6 @@ GameEngine::drawGame()
 
   gameInstance_.pacman->draw(&graphics_);
 
-  graphics_.update();
 }
 
 GameEngine::~GameEngine()

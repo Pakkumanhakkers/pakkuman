@@ -138,6 +138,11 @@ void GraphicEngine::setCurrentTime(int input){
 
 void GraphicEngine::update()
 {
-  sdlSetup.End();
   sdlSetup.Begin();
+}
+
+void GraphicEngine::show(){
+
+	sdlSetup.End();
+
 }
