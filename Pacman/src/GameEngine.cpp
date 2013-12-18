@@ -126,14 +126,8 @@ void GameEngine::initGame()
 void
 GameEngine::gameLoop()
 {
-
-	graphics_.update();
   int newTime = SDL_GetTicks();
-
-  if (currentTime_ < newTime)
-  {
-    drawGame();
-  }
+  int oldTime = currentTime_;
 
   while (currentTime_ < newTime)
   {
@@ -143,8 +137,12 @@ GameEngine::gameLoop()
     currentTime_ += settings_.frameTime;
   }
 
+  if (oldTime < currentTime_)
+  {
+    drawGame();
+  }
+
   SDL_Delay(1);
-  graphics_.show();
 }
 
 void
@@ -167,6 +165,7 @@ GameEngine::updateGame()
 void
 GameEngine::drawGame()
 {
+  graphics_.update();
 
   graphics_.setCurrentTime(currentTime_);
 
@@ -184,6 +183,7 @@ GameEngine::drawGame()
 
   gameInstance_.pacman->draw(&graphics_);
 
+  graphics_.show();
 }
 
 GameEngine::~GameEngine()

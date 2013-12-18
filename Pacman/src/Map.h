@@ -25,7 +25,7 @@ class Map : public Drawable
 public:
   enum TileType
   {
-    FLOOR, WALL, DOT, CHERRY, PACMAN_SPAWN, GHOST_SPAWN
+    FLOOR, WALL, DOT, CHERRY, PACMAN_SPAWN, GHOST_SPAWN, BAD_INPUT
   };
 
   struct FoodInfo

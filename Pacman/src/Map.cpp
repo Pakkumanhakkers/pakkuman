@@ -54,6 +54,7 @@ void Map::draw(GraphicEngine* g)
       switch (MapArray[cor_x][cor_y])
       {
       case WALL:
+      case BAD_INPUT:
         g->Draw(wallSprite_,cor_x*32,cor_y*32);
         break;
       default:
@@ -83,18 +84,20 @@ void Map::loadFile(string fileName) 	//Fyller på en array utifrån Map.txt
       case '.':
         MapArray[cor_x][cor_y] = DOT;
         break;
-      case 'p':
+      case 'P':
         MapArray[cor_x][cor_y] = PACMAN_SPAWN;
         break;
-      case 'g':
+      case 'G':
         MapArray[cor_x][cor_y] = GHOST_SPAWN;
         break;
-      case 'c':
+      case 'F':
         MapArray[cor_x][cor_y] = CHERRY;
         break;
       case '0':
         MapArray[cor_x][cor_y] = FLOOR;
         break;
+      default:
+        MapArray[cor_x][cor_y] = BAD_INPUT;
       }
     }
   }
