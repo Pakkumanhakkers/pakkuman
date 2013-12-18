@@ -54,17 +54,9 @@ void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
       setAi(nextAi);
     }
 
-    Direction current{moveable->getDirection()};
-    Direction opposite{getOppositeDirection(current)};
-    Direction next{opposite};
+    Direction next = updateDirection(moveable, gameEngine);
 
-    while (next == opposite)
-
-    {
-      next = updateDirection(moveable, gameEngine);
-    }
-
-    if (next != current)
+    if (next != moveable->getDirection())
     {
       gameEngine->publishCommand(new DirectCommand(moveable, next));
     }
@@ -87,6 +79,7 @@ Direction AiInputComponent::updateDirection(Moveable* ghost,
   int target_x{0};
   int target_y{0};
   int slump;
+
   if (CurrentAi == AiInputComponent::AiType::CHASE)
   {
     target_x = gameengine->getGame()->pacman->getX();
@@ -118,22 +111,6 @@ Direction AiInputComponent::updateDirection(Moveable* ghost,
   }
 }
 
-/* använder isWallAhead från DefaultPhysicsComponent istället
-bool AiInputComponent::Valid(int ghost_x, int ghost_y, int direction)
-// isWall m�ste kallas med ett mapobjekt??
-{
-	if (direction == 0 && internalMap->isWall(ghost_x - 1, ghost_y))
-		return false;
-	else if (direction == 1 && internalMap->isWall(ghost_x + 1, ghost_y))
-		return false;
-	else if (direction == 2 && internalMap->isWall(ghost_x, ghost_y +1))
-		return false;
-	else if (direction == 3 && internalMap->isWall(ghost_x, ghost_y -1))
-		return false;
-	else
-	return true;
-}*/
-
 Direction AiInputComponent::getRandom(Moveable* moveable)
 {
   Direction direction;
@@ -145,16 +122,5 @@ Direction AiInputComponent::getRandom(Moveable* moveable)
   while (!DefaultPhysicsComponent::canTurn(internalMap, moveable, direction) ||
 		  getOppositeDirection(direction) == moveable->getDirection());
 
-  switch(direction)
-  {
-    case(0):
-                    return Direction::LEFT;
-    case(1):
-                    return Direction::RIGHT;
-    case(2):
-                    return Direction::UP;
-    case(3):
-                    return Direction::DOWN;
-  }
-  return Direction::UP;
+  return direction;
 }

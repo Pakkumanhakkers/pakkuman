@@ -10,6 +10,7 @@
 
 #include "Moveable.h"
 #include "Component.h"
+#include "Direction.h"
 class GameEngine;
 
 /**
@@ -22,7 +23,7 @@ public:
   virtual void update(GameEngine*, Moveable*);
 
 private:
-  Direction next_direction_;
+  enum Direction next_direction_;
 };
 
 

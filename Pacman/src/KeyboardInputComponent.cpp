@@ -42,8 +42,9 @@ void KeyboardInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
     next_direction_ = Direction::DOWN;
   }
 
-  if (DefaultPhysicsComponent::canTurn(gameEngine->getMap(), moveable,
-      next_direction_))
+  if (moveable->isCentered() && DefaultPhysicsComponent::canTurn(
+      gameEngine->getMap(), moveable, next_direction_) &&
+      moveable->getDirection() != getOppositeDirection(next_direction_))
   {
     gameEngine->publishCommand(new DirectCommand(moveable, next_direction_));
   }
