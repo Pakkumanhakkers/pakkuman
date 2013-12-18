@@ -47,7 +47,7 @@ public:
 private:
   //bool Valid(int ghost_x, int ghost_y,int direction);
   Direction updateDirection(Moveable* ghost, GameEngine* gameengine);
-  Direction getRandom(GameObject*);
+  Direction getRandom(Moveable*);
   PathFinder* pathfinder;
   AiType CurrentAi = CHASE;
   Map* internalMap;

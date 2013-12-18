@@ -58,8 +58,8 @@ void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
     Direction opposite{getOppositeDirection(current)};
     Direction next{opposite};
 
-    while (next != opposite &&
-        DefaultPhysicsComponent::canTurn(internalMap, moveable, next))
+    while (next == opposite ||
+
     {
       next = updateDirection(moveable, gameEngine);
     }
@@ -134,16 +134,16 @@ bool AiInputComponent::Valid(int ghost_x, int ghost_y, int direction)
 	return true;
 }*/
 
-Direction AiInputComponent::getRandom(GameObject* moveable)
+Direction AiInputComponent::getRandom(Moveable* moveable)
 {
   Direction direction;
   srand (time(NULL));
   do
   {
-    direction = Direction(rand() % 3);
+    direction = Direction(rand() % 4);
   }
-  while (!DefaultPhysicsComponent::isWallAhead(
-      internalMap, moveable, direction));
+  while (!DefaultPhysicsComponent::canTurn(internalMap, moveable, direction) ||
+		  getOppositeDirection(direction) == moveable->getDirection());
 
   switch(direction)
   {
