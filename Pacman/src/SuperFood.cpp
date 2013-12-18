@@ -27,7 +27,8 @@ SuperFood::eat(GameEngine* gameEngine)
     Settings* s = gameEngine->getSettings();
 
 
-    gameEngine->publishCommand(new GhostEatenCommand(gameEngine->getGame(), 0));
+    gameEngine->publishCommand(new GhostEatenCommand(gameEngine->getGame(),
+    		- gameEngine->getGame()->ghostsEaten));
 
     gameEngine->publishCommand(new SickGhostCommand(gameEngine->getGame(), 2));
 
