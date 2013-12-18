@@ -40,15 +40,15 @@ GameEngine::GameEngine() :
   gameInstance_{},
 
   // init sprites for shared use
-  spritePacman{"Pacman.png"},
-  spriteGhost{"Ghost.png"},
-  spriteSickGhost{"sickGhost.png"},
-  spriteBlinkGhost{"blinkGhost.png"},
-  spriteEyes{"eyes.png"},
-  spriteWall{"Wall.png"},
-  spriteFloor{"Floor.png"},
-  spriteDot{"Dot.png"},
-  spriteCherry{"Cherry.png"},
+  spritePacman{"img/Pacman.png"},
+  spriteGhost{"img/Ghost.png"},
+  spriteSickGhost{"img/sickGhost.png"},
+  spriteBlinkGhost{"img/blinkGhost.png"},
+  spriteEyes{"img/eyes.png"},
+  spriteWall{"img/Wall.png"},
+  spriteFloor{"img/Floor.png"},
+  spriteDot{"img/Dot.png"},
+  spriteCherry{"img/Cherry.png"},
 
   // init components for shared use
   keyboardInputComponent{},

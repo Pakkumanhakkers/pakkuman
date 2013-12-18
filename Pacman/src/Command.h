@@ -24,14 +24,14 @@ class Sprite;
 class Command
 {
 public:
-  Command() {}
-  virtual ~Command() {}
+  Command();
+  virtual ~Command();
 
   virtual void execute() = 0;
   virtual void undo() = 0;
 
-  void setTimestamp(int timestamp) {timestamp_ = timestamp;};
-  int getTimestamp() {return timestamp_;};
+  void setTimestamp(int timestamp);
+  int getTimestamp();
 
 private:
   int timestamp_{0};

@@ -13,20 +13,20 @@
  */
 struct Settings
 {
-  int soundLevel;
-  bool soundMute;
+  int soundLevel{0};
+  bool soundMute{true};
 
-  int scoreDot;
-  int scoreFruit;
-  int scoreGhost;
+  int scoreDot{10};
+  int scoreFruit{50};
+  int scoreGhost{100};
 
-  int frameTime;
+  int frameTime{200};
 
-  int sickTime;
-  int blinkTime;
+  int sickTime{10 * 1000};
+  int blinkTime{2 * 1000};
 
-  int ghostCount;
-  int ghostSleep;
+  int ghostCount{4};
+  int ghostSleep{200};
 };
 
 

@@ -15,6 +15,26 @@
 
 using namespace std;
 
+Command::Command()
+{
+}
+
+Command::~Command()
+{
+}
+
+void
+Command::setTimestamp(int timestamp)
+{
+  timestamp_ = timestamp;
+}
+
+int
+Command::getTimestamp()
+{
+  return timestamp_;
+}
+
 void MoveCommand::execute()
 {
   preX_ = object_->getX();

@@ -18,7 +18,8 @@ int main(int argc, char* argv[]) {
 
   gameEngine.initGame();
 
-  gameEngine.gameLoop();
+  while (true)
+    gameEngine.gameLoop();
 
   return 0;
 }
