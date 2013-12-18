@@ -30,7 +30,7 @@
 
 GameEngine::GameEngine() :
   currentTime_{0},
-  gameState_{0},
+  gameState_{PLAY},
 
   points {},
 
@@ -149,6 +149,7 @@ void
 GameEngine::updateGame()
 {
   int preLives = gameInstance_.lives;
+
   gameInstance_.pacman->update(this);
 
   for (Moveable* moveable : gameInstance_.ghosts)
@@ -226,7 +227,7 @@ GameEngine::nextLife()
   for (Ghost* ghost : gameInstance_.ghosts)
   {
     ghost->spawn(this, map_.getGhostX(), map_.getGhostY());
-
+/*
     if (sleepMultiplier > 0)
     {
       publishCommand(new StateCommand(ghost, Ghost::SLEEP));
@@ -234,6 +235,7 @@ GameEngine::nextLife()
         new StateCommand(ghost, Ghost::NORMAL), sleepMultiplier * sleepTime));
     }
     ++sleepMultiplier;
+    */
   }
 
   publishCommand(new SickGhostCommand(&gameInstance_,

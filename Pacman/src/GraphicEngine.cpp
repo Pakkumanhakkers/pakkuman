@@ -117,8 +117,8 @@ void GraphicEngine::Draw(std::string output_, double xpos_, double ypos_)
 SDL_Rect* GraphicEngine::OutputRectangle(double Xpos, double Ypos,
     int SpriteWidth, int SpriteHeight)
 {
-  rect.x = Xpos*32 + offset_map;
-  rect.y = Ypos*32;
+  rect.x = Xpos + offset_map;
+  rect.y = Ypos;
   rect.w = SpriteWidth;
   rect.h = SpriteHeight;
 
