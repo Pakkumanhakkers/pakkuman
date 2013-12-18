@@ -54,10 +54,10 @@ void Map::draw(GraphicEngine* g)
       switch (MapArray[cor_x][cor_y])
       {
       case WALL:
-        g->Draw(wallSprite_,cor_x,cor_y);
+        g->Draw(wallSprite_,cor_x*32,cor_y*32);
         break;
       default:
-        g->Draw(floorSprite_,cor_x,cor_y);
+        g->Draw(floorSprite_,cor_x*32,cor_y*32);
         break;
       }
     }
