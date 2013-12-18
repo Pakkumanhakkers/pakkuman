@@ -1,0 +1,10 @@
+Linux:
+
+flaggor för kompilerare:
+-I/usr/local/include/SDL2 -O0 -g3 -Wall -c -fmessage-length=0 -std=c++0x
+
+c++ Linker har bibliotek
+SDL2
+SDL2_ttf
+SDL2_image
+
