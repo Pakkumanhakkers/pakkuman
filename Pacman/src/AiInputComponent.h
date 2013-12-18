@@ -51,7 +51,6 @@ private:
   PathFinder* pathfinder;
   AiType CurrentAi = CHASE;
   Map* internalMap;
-
 };
 
 

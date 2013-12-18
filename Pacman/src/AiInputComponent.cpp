@@ -21,6 +21,7 @@
 #include "Pacman.h"
 #include "PathFinder.h"
 #include "Direction.h"
+#include <iostream>
 
 //konstruktor
 AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder)
@@ -31,6 +32,7 @@ AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder)
 
 void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
+	//std::cout << moveable->getX() << std::endl;
   if (moveable->isCentered())
   {
     AiInputComponent::AiType nextAi;
@@ -85,6 +87,7 @@ Direction AiInputComponent::updateDirection(Moveable* ghost,
     target_x = gameengine->getGame()->pacman->getX();
     target_y = gameengine->getGame()->pacman->getY();
     return (pathfinder->getDirection(ghost,target_x,target_y));
+
   }
   else if (CurrentAi == AiInputComponent::AiType::RANDOM)
     return getRandom(ghost);

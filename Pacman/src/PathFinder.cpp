@@ -8,11 +8,12 @@
 #include "PathFinder.h"
 
 #include <cstdlib>
-//#include <iostream>
+#include <iostream>
 //#include <random>
 
 #include "Direction.h"
 #include "Map.h"
+#include <cmath>
 #include "Moveable.h"
 
 
@@ -28,23 +29,25 @@ Direction PathFinder::getDirection(Moveable* gh, int target_x, int target_y)
 Direction prevDirection = gh->getDirection();
 int direction_x;
 int direction_y;
-int ghost_x = gh->getX();
-int ghost_y = gh->getY();
+if (abs((gh->getX() - round(gh->getX()))) >0.05 || abs((gh->getY() - round(gh->getY()))) >0.05 )
+	return prevDirection;
+int ghost_x = round(gh->getX());
+int ghost_y = round(gh->getY());
 
 direction_x = ghost_x - target_x;
 direction_y = ghost_y - target_y;
 
-if (abs(direction_x) >= abs(direction_y) && direction_x > 0)
+if (abs(direction_x) > abs(direction_y) && direction_x >= 0)
 	{
-		if (prevDirection != Direction::LEFT && internalMap->isWall(ghost_x -1, ghost_y))
+		if (prevDirection != Direction::RIGHT && !internalMap->isWall(ghost_x -1, ghost_y))
 		{
 			return (Direction::LEFT);
 		}
-		else if(direction_y > 0 && internalMap->isWall(ghost_x, ghost_y -1) && prevDirection != Direction::DOWN)
+		else if(direction_y < 0 && !internalMap->isWall(ghost_x, ghost_y +1) && prevDirection != Direction::UP)
 		{
 			return (Direction::DOWN);
 		}
-		else if(internalMap->isWall(ghost_x, ghost_y +1) && prevDirection != Direction::UP)
+		else if(!internalMap->isWall(ghost_x, ghost_y - 1) && prevDirection != Direction::DOWN)
 		{
 			return (Direction::UP);
 		}
@@ -53,57 +56,77 @@ if (abs(direction_x) >= abs(direction_y) && direction_x > 0)
 	}
 if (abs(direction_x) > abs(direction_y) && direction_x <= 0)
 	{
-		if(prevDirection != Direction::RIGHT && internalMap->isWall(ghost_x +1, ghost_y))
+		if(prevDirection != Direction::LEFT && !internalMap->isWall(ghost_x +1, ghost_y))
 		{
 			return (Direction::RIGHT);
 		}
-		else if(direction_y > 0 && internalMap->isWall(ghost_x, ghost_y -1) && prevDirection != Direction::DOWN)
+		else if(direction_y < 0 && !internalMap->isWall(ghost_x, ghost_y +1) && prevDirection != Direction::UP)
 		{
 			return (Direction::DOWN);
 		}
-		else if(internalMap->isWall(ghost_x, ghost_y +1) && prevDirection != Direction::UP)
+		else if(!internalMap->isWall(ghost_x, ghost_y- 1) && prevDirection != Direction::DOWN)
 		{
 			return (Direction::UP);
 		}
-		else 
+		else if (!internalMap->isWall(ghost_x -1, ghost_y))
+		{
 		return (Direction::LEFT);
+		}
+
 	}
 	
-if (abs(direction_x) < abs(direction_y) && direction_y < 0)
+if (abs(direction_x) <= abs(direction_y) && direction_y >= 0)
 	{
-		if(prevDirection != Direction::UP && internalMap->isWall(ghost_x, ghost_y + 1))
+		if(prevDirection != Direction::DOWN && !internalMap->isWall(ghost_x, ghost_y - 1))
 		{
 			return (Direction::UP);
 		}
-		else if(direction_x > 0 && internalMap->isWall(ghost_x-1, ghost_y) && prevDirection != Direction::LEFT)
+		else if(direction_x > 0 && !internalMap->isWall(ghost_x-1, ghost_y) && prevDirection != Direction::RIGHT)
 		{
 			return (Direction::LEFT);
 		}
-		else if(internalMap->isWall(ghost_x + 1, ghost_y) && prevDirection != Direction::RIGHT)
+		else if(!internalMap->isWall(ghost_x + 1, ghost_y) && prevDirection != Direction::LEFT)
 		{
 			return (Direction::RIGHT);
 		}
-		else 
+		else if (!internalMap->isWall(ghost_x, ghost_y+1))
+				{
 		return (Direction::DOWN);
+				}
 	}
 //if (direction_x < direction_y && direction_y => 0) BORDE INTE BEH�VAS V�L?
 //	{
-		if(prevDirection != Direction::DOWN && internalMap->isWall(ghost_x, ghost_y + 1))
+		if(prevDirection != Direction::UP && !internalMap->isWall(ghost_x, ghost_y + 1))
 		{
 			return (Direction::DOWN);
 		}
-		else if(direction_x > 0 && internalMap->isWall(ghost_x-1, ghost_y) && prevDirection != Direction::LEFT)
+		else if(direction_x > 0 && !internalMap->isWall(ghost_x-1, ghost_y) && prevDirection != Direction::RIGHT)
 		{
 			return (Direction::LEFT);
 		}
-		else if(internalMap->isWall(ghost_x + 1, ghost_y) && prevDirection != Direction::RIGHT)
+		else if(!internalMap->isWall(ghost_x + 1, ghost_y) && prevDirection != Direction::LEFT)
 		{
 			return (Direction::RIGHT);
 		}
 		else 
-		return (Direction::UP);
+		{
+		 if (!internalMap->isWall(ghost_x, ghost_y - 1))
+		 {
+			 return (Direction::UP);
+		 }
+		else if (!internalMap->isWall(ghost_x, ghost_y + 1))
+		{
+			return (Direction::DOWN);
+		}
+		else if (!internalMap->isWall(ghost_x + 1, ghost_y))
+		{
+			return (Direction::RIGHT);
+		}
+		else return (Direction::LEFT);
+
+		}
 	//}
-  return Direction::UP;
+ // return Direction::UP;
 
 	
 }

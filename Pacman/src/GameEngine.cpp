@@ -70,7 +70,7 @@ void GameEngine::initGame()
   // kan ta hand om tidigare gameInstance och rensa ghostAi
   int px = map_.getPacmanX();
   int py = 12;
-  int gx = 5;
+  int gx = 4;
   int gy = 8;
 
   // init game objects

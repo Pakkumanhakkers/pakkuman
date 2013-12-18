@@ -93,7 +93,7 @@ Moveable::setSpeed(double speed)
 
 /**
  * Sant om objektet är mitt på en ruta.
- * @return
+ * @returnround’ was not d
  */
 bool
 Moveable::isCentered()
