@@ -8,7 +8,9 @@
 #ifndef DRAWABLE_H_
 #define DRAWABLE_H_
 
-#include "GraphicEngine.h"
+//#include "GraphicEngine.h"
+
+class GraphicEngine;
 
 /**
  * Kan ritas ut.

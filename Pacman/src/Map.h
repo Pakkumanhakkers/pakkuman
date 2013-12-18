@@ -36,7 +36,7 @@ public:
   };
 
   Map(Sprite* wall, Sprite* floor);
-  virtual ~Map();
+  ~Map();
 
   void
   loadFile(std::string filename);

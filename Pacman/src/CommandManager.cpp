@@ -146,6 +146,7 @@ void CommandManager::undo()
 
 /**
  * Removes commands in specified range.
+ * @param lst
  * @param start
  * @param end
  */
@@ -161,8 +162,10 @@ void CommandManager::remove(std::list<Command*> lst,
 
 /**
  * Removes timers in specified range.
+ * @param lst
  * @param start
  * @param end
+ *
  */
 void CommandManager::remove(std::list<Timer*> lst,
     std::list<Timer*>::iterator start, std::list<Timer*>::iterator end)

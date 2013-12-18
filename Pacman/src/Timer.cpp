@@ -8,7 +8,7 @@
 #include "Timer.h"
 
 Timer::Timer(Command* command, int duration) :
-    timestamp_{0}, trigger_command_{command}, duration_{duration} {}
+    timestamp_{0}, duration_{duration}, trigger_command_{command} {}
 
 Timer::~Timer()
 {

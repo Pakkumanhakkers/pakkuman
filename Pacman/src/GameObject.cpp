@@ -19,6 +19,10 @@ x_{x}, y_{y}, sprite_{sprite}
 {
 }
 
+GameObject::~GameObject()
+{
+}
+
 /**
  * Ger x-koordinaten för objektets position på spelplanen.
  * @return x koordinat

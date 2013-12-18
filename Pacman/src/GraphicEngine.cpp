@@ -11,8 +11,8 @@
 #include <SDL_error.h>
 #include <SDL_render.h>
 #include <SDL_surface.h>
+#include <SDL_ttf.h>
 #include <iostream>
-//#include <string>
 
 #include "Sprite.h"
 
@@ -50,7 +50,8 @@ void GraphicEngine::Draw(Sprite* Sprite_, double xpos_, double ypos_)
 void GraphicEngine::Draw(std::string output_, double xpos_, double ypos_)
 {
 	//Render text surface
-	SDL_Surface* textSurface = TTF_RenderText_Solid( globalFont, output_.c_str(), textColor );
+	SDL_Surface* textSurface = TTF_RenderText_Solid(
+	    globalFont, output_.c_str(), textColor );
 
 	if( textSurface == NULL )
 	{

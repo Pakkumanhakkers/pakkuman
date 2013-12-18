@@ -23,7 +23,7 @@ class GameObject : public Drawable
 {
 public:
   virtual
-  ~GameObject() = 0;
+  ~GameObject();
   GameObject();
   GameObject(double x, double y, Sprite* sprite);
 

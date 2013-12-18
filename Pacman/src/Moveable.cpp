@@ -6,10 +6,12 @@
  */
 
 #include "Moveable.h"
-#include "Direction.h"
 
 #include <cmath>
 #include <cstdlib>
+
+//#include "Direction.h"
+#include "GraphicEngine.h"
 
 Moveable::~Moveable()
 {

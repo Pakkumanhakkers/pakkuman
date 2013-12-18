@@ -5,14 +5,23 @@
  * @author Erik N inte philip iallafall
  */
 
+#include "Map.h"
+
 #include <fstream>
 #include <iostream>
-#include "Map.h"
+//#include <istream>
+
+#include "GraphicEngine.h"
+
 using namespace std;
 
 Map::Map(Sprite* wall, Sprite* floor) :
-  wallSprite_{wall}, floorSprite_{floor}, ghostX_{0}, ghostY_{0},
-  pacmanX_{0}, pacmanY_{0}
+  wallSprite_{wall}, floorSprite_{floor},
+  pacmanX_{0}, pacmanY_{0}, ghostX_{0}, ghostY_{0}
+{
+}
+
+Map::~Map()
 {
 }
 
@@ -70,16 +79,22 @@ void Map::loadFile(string fileName) 	//Fyller på en array utifrån Map.txt
       switch (TempChar) {
       case '#':
         MapArray[cor_x][cor_y] = WALL;
+        break;
       case '.':
         MapArray[cor_x][cor_y] = DOT;
+        break;
       case 'p':
         MapArray[cor_x][cor_y] = PACMAN_SPAWN;
+        break;
       case 'g':
         MapArray[cor_x][cor_y] = GHOST_SPAWN;
+        break;
       case 'c':
         MapArray[cor_x][cor_y] = CHERRY;
+        break;
       case '0':
         MapArray[cor_x][cor_y] = FLOOR;
+        break;
       }
     }
   }
@@ -112,6 +127,8 @@ Map::initMapExtras()
       case Map::TileType::GHOST_SPAWN:
         ghostX_ = i;
         ghostY_ = j;
+        break;
+      default:
         break;
       }
     }

@@ -7,7 +7,7 @@
 
 
 
-//#include <SDL.h>
+#include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_rect.h>
 #include <SDL_render.h>
@@ -56,12 +56,12 @@ int Sprite::GetHeight()
 
 SDL_Renderer* Sprite::GetRenderer()
 {
-  return renderer;
+  return nullptr;//return renderer;
 }
 
 void Sprite::SetRenderer(SDL_Renderer* r)
 {
-  renderer = r;
+  //renderer = r;
 }
 
 /**
