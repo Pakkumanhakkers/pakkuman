@@ -8,10 +8,10 @@
 #include "SDLSetup.h"
 
 #include <stddef.h>
-#include <SDL.h>
-#include <SDL_events.h>
-#include <SDL_render.h>
-#include <SDL_video.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_video.h>
 #include <iostream>
 
 cSDL_Setup::cSDL_Setup(int ScreenWidth, int ScreenHeight)

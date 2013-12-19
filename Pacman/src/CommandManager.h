@@ -42,7 +42,7 @@ private:
       std::list<Timer*>::iterator end);
   void updateTimeline();
 
-  int currentTime_{0};
+  int currentTime_;
 
   std::list<Command*>::iterator currentCommand_;
   std::list<Command*> commands_;

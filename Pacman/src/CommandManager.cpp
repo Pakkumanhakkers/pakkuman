@@ -12,7 +12,8 @@ CommandManager::~CommandManager()
   clear();
 }
 
-CommandManager::CommandManager()
+CommandManager::CommandManager() :
+    currentTime_{0}
 {
   currentCommand_ = commands_.begin();
 }

@@ -33,8 +33,6 @@ GameEngine::GameEngine() :
   currentTime_{0},
   gameState_{PLAY},
 
-  points {},
-
   settings_{},
   graphics_{},
   commandManager_{},

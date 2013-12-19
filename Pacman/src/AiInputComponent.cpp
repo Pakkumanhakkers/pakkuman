@@ -89,16 +89,16 @@ Direction AiInputComponent::updateDirection(Moveable* ghost,
   int target_y{0};
   int slump;
 
-  if (CurrentAi == AiInputComponent::AiType::CHASE)
+  if (CurrentAi == AiInputComponent::CHASE)
   {
     target_x = gameengine->getGame()->pacman->getX();
     target_y = gameengine->getGame()->pacman->getY();
     return (pathfinder->getDirection(ghost,target_x,target_y));
 
   }
-  else if (CurrentAi == AiInputComponent::AiType::RANDOM)
+  else if (CurrentAi == AiInputComponent::RANDOM)
     return getRandom(ghost);
-  else if (CurrentAi == AiInputComponent::AiType::HOME)
+  else if (CurrentAi == AiInputComponent::HOME)
   {
     target_x = internalMap->getGhostX();
     target_y = internalMap->getGhostY();

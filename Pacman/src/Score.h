@@ -5,23 +5,23 @@
 #ifndef SCORE_H_
 #define SCORE_H_
 
-//#include "GraphicEngine.h"
+#include "Drawable.h"
 
 class GraphicEngine;
 
 
-class Score
+class Score : public Drawable
 {
 public:
-	Score() = default;
+	Score();
 
-	void setScore(int added_score);
+	void setScore(int score);
 	void draw(GraphicEngine* graphic);
 
 private:
-	int score_ = 0;
-	double xpos_ = 40;
-	double ypos_ = 80;
+	int score_;
+	double xpos_;
+	double ypos_;
 };
 
 #endif

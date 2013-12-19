@@ -50,7 +50,7 @@ protected:
 
 private:
   double speed_;
-  enum Direction direction_{UP};
+  enum Direction direction_;
 };
 
 

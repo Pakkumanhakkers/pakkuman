@@ -15,7 +15,8 @@
 
 using namespace std;
 
-Command::Command()
+Command::Command() :
+    timestamp_{0}
 {
 }
 
@@ -35,6 +36,11 @@ Command::getTimestamp()
   return timestamp_;
 }
 
+MoveCommand::MoveCommand(GameObject* object, double x, double y) :
+    object_{object}, preX_{0}, preY_{0}, x_{x}, y_{y}
+{
+}
+
 void MoveCommand::execute()
 {
   preX_ = object_->getX();
@@ -49,6 +55,11 @@ void MoveCommand::undo()
   object_->setY(preY_);
 }
 
+SpriteCommand::SpriteCommand(GameObject* object, Sprite* sprite) :
+    object_{object}, preSprite_{nullptr}, sprite_{sprite}
+{
+}
+
 void SpriteCommand::execute()
 {
   preSprite_ = object_->getSprite();
@@ -58,6 +69,11 @@ void SpriteCommand::execute()
 void SpriteCommand::undo()
 {
   object_->setSprite(preSprite_);
+}
+
+DirectCommand::DirectCommand(Moveable* moveable, enum Direction direction) :
+    object_{moveable}, direction_{direction}, preDirection_{Direction::LEFT}
+{
 }
 
 void DirectCommand::execute()
@@ -71,6 +87,11 @@ void DirectCommand::undo()
   object_->setDirection(preDirection_);
 }
 
+SpeedCommand::SpeedCommand(Moveable* moveable, double speed) :
+    object_{moveable}, preSpeed_{0}, speed_{speed}
+{
+}
+
 void SpeedCommand::execute()
 {
   preSpeed_ = object_->getSpeed();
@@ -80,6 +101,11 @@ void SpeedCommand::execute()
 void SpeedCommand::undo()
 {
   object_->setSpeed(preSpeed_);
+}
+
+ScoreCommand::ScoreCommand(GameInstance* game, int score) :
+    game_{game}, score_{score}
+{
 }
 
 void ScoreCommand::execute()
@@ -92,6 +118,11 @@ void ScoreCommand::undo()
   game_->score -= score_;
 }
 
+LifeCommand::LifeCommand(GameInstance* game, int life) :
+    game_{game}, life_{life}
+{
+}
+
 void LifeCommand::execute()
 {
   game_->lives += life_;
@@ -100,6 +131,11 @@ void LifeCommand::execute()
 void LifeCommand::undo()
 {
   game_->lives -= life_;
+}
+
+StateCommand::StateCommand(GameObject* object, int state) :
+    object_{object}, preState_{0}, state_{state}
+{
 }
 
 void StateCommand::execute()
@@ -111,6 +147,11 @@ void StateCommand::execute()
 void StateCommand::undo()
 {
   object_->setState(preState_);
+}
+
+SickGhostCommand::SickGhostCommand(GameInstance* game, int sick) :
+    game_{game}, sick_{sick}
+{
 }
 
 void SickGhostCommand::execute()
@@ -127,6 +168,11 @@ void SickGhostCommand::undo()
   {
     g->changeSickness(-sick_);
   }
+}
+
+GhostEatenCommand::GhostEatenCommand(GameInstance* game, int eaten) :
+    game_{game}, eaten_{eaten}
+{
 }
 
 void GhostEatenCommand::execute()

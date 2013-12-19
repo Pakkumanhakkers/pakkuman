@@ -8,10 +8,10 @@
 #ifndef GRAPHICENGINE_H_
 #define GRAPHICENGINE_H_
 
-#include <SDL.h>
-#include <SDL_pixels.h>
-#include <SDL_rect.h>
-#include <SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_pixels.h>
+#include <SDL2/SDL_rect.h>
+#include <SDL2/SDL_ttf.h>
 #include <string>
 
 #include "Direction.h"

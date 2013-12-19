@@ -7,11 +7,11 @@
 
 #include "GraphicEngine.h"
 
-#include <SDL.h>
-#include <SDL_error.h>
-#include <SDL_render.h>
-#include <SDL_surface.h>
-#include <SDL2_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_error.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_surface.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 
 #include "Sprite.h"

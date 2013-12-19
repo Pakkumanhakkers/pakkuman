@@ -34,7 +34,7 @@ public:
   int getTimestamp();
 
 private:
-  int timestamp_{0};
+  int timestamp_;
 };
 
 /*
@@ -47,16 +47,15 @@ private:
 class MoveCommand : public Command
 {
 public:
-  MoveCommand(GameObject* object, double x, double y) :
-    object_{object}, x_{x}, y_{y} {}
+  MoveCommand(GameObject* object, double x, double y);
 
   void execute();
   void undo();
 
 private:
   GameObject* object_;
-  double preX_{0};
-  double preY_{0};
+  double preX_;
+  double preY_;
   double x_;
   double y_;
 };
@@ -67,8 +66,7 @@ private:
 class SpriteCommand : public Command
 {
 public:
-  SpriteCommand(GameObject* object, Sprite* sprite) :
-    object_{object}, preSprite_{nullptr}, sprite_{sprite} {}
+  SpriteCommand(GameObject* object, Sprite* sprite);
 
   void execute();
   void undo();
@@ -89,15 +87,14 @@ private:
 class DirectCommand : public Command
 {
 public:
-  DirectCommand(Moveable* moveable, Direction direction) :
-    object_{moveable}, direction_{direction} {}
+  DirectCommand(Moveable* moveable, Direction direction);
 
   void execute();
   void undo();
 
 private:
   Moveable* object_;
-  Direction preDirection_{Direction::LEFT};
+  Direction preDirection_;
   Direction direction_;
 };
 
@@ -107,15 +104,14 @@ private:
 class SpeedCommand : public Command
 {
 public:
-  SpeedCommand(Moveable* moveable, double speed) :
-    object_{moveable}, speed_{speed} {}
+  SpeedCommand(Moveable* moveable, double speed);
 
   void execute();
   void undo();
 
 private:
   Moveable* object_;
-  double preSpeed_{0};
+  double preSpeed_;
   double speed_;
 };
 
@@ -129,8 +125,7 @@ private:
 class ScoreCommand : public Command
 {
 public:
-  ScoreCommand(GameInstance* game, int score) :
-    game_{game}, score_{score} {}
+  ScoreCommand(GameInstance* game, int score);
 
   void execute();
   void undo();
@@ -146,8 +141,7 @@ private:
 class LifeCommand : public Command
 {
 public:
-  LifeCommand(GameInstance* game, int life) :
-    game_{game}, life_{life} {}
+  LifeCommand(GameInstance* game, int life);
 
   void execute();
   void undo();
@@ -163,8 +157,7 @@ private:
 class StateCommand : public Command
 {
 public:
-  StateCommand(GameObject* object, int state) :
-    object_{object}, preState_{0}, state_{state} {}
+  StateCommand(GameObject* object, int state);
 
   void execute();
   void undo();
@@ -181,8 +174,7 @@ private:
 class SickGhostCommand : public Command
 {
 public:
-  SickGhostCommand(GameInstance* game, int sick) :
-    game_{game}, sick_{sick} {}
+  SickGhostCommand(GameInstance* game, int sick);
 
   void execute();
   void undo();
@@ -195,8 +187,7 @@ private:
 class GhostEatenCommand : public Command
 {
 public:
-  GhostEatenCommand(GameInstance* game, int eaten) :
-    game_{game}, eaten_{eaten} {}
+  GhostEatenCommand(GameInstance* game, int eaten);
 
   void execute();
   void undo();
