@@ -8,7 +8,7 @@
 #include "GameEngine.h"
 
 #include "SDL2/SDL_timer.h"
-//#include <vector>
+#include <vector>
 
 #include "AiInputComponent.h"
 #include "Command.h"
@@ -54,8 +54,8 @@ GameEngine::GameEngine() :
   defaultPhysicsComponent{},
   eaterPhysicsComponent{},
 
-  ghostGraphicComponent{&spriteGhost,
-      &spriteSickGhost, &spriteBlinkGhost, &spriteEyes},
+  ghostGraphicComponent{&spriteGhost, &spriteSickGhost, &spriteBlinkGhost,
+    &spriteEyes},
 
   // init map
   map_{&spriteWall, &spriteFloor},
@@ -83,33 +83,33 @@ void GameEngine::initGame()
 
   for (int i = 0; i <2; ++i)
   {
-	  if (i == 0)
-	  {
-    AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder(), AiInputComponent::CHASE);
-	  ghostAi.push_back(ai);
+    if (i == 0)
+    {
+      AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder(), AiInputComponent::CHASE);
+      ghostAi.push_back(ai);
 
-	    Ghost* ghost = new Ghost{double(gx), double(gy), &spriteDot};
-	    ghost->addComponent(ai);
-	    ghost->addComponent(&defaultPhysicsComponent);
-	    ghost->addComponent(&ghostGraphicComponent);
-	    ghost->setSpeed(1.6 / settings_.fps);
+      Ghost* ghost = new Ghost{double(gx), double(gy), &spriteDot};
+      ghost->addComponent(ai);
+      ghost->addComponent(&defaultPhysicsComponent);
+      ghost->addComponent(&ghostGraphicComponent);
+      ghost->setSpeed(1.6 / settings_.fps);
 
-	    gameInstance_.ghosts.push_back(ghost);
-	  }
-	  else
-	  {
-	AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder(), AiInputComponent::RANDOM);
-    ghostAi.push_back(ai);
+      gameInstance_.ghosts.push_back(ghost);
+    }
+    else
+    {
+      AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder(), AiInputComponent::RANDOM);
+      ghostAi.push_back(ai);
 
 
-    Ghost* ghost = new Ghost{double(7), double(8), &spriteDot};
-    ghost->addComponent(ai);
-    ghost->addComponent(&defaultPhysicsComponent);
-    ghost->addComponent(&ghostGraphicComponent);
-    ghost->setSpeed(1.6 / settings_.fps);
+      Ghost* ghost = new Ghost{double(7), double(8), &spriteDot};
+      ghost->addComponent(ai);
+      ghost->addComponent(&defaultPhysicsComponent);
+      ghost->addComponent(&ghostGraphicComponent);
+      ghost->setSpeed(1.6 / settings_.fps);
 
-    gameInstance_.ghosts.push_back(ghost);
-	  }
+      gameInstance_.ghosts.push_back(ghost);
+    }
   }
 
   for (Map::FoodInfo& food : *(map_.getFoodInfo()))
@@ -118,16 +118,16 @@ void GameEngine::initGame()
 
     switch (food.type)
     {
-      case Map::DOT:
-        f = new Food{double(food.x), double(food.y),
-          &spriteDot, settings_.scoreDot};
-        break;
-      case Map::CHERRY:
-        f = new SuperFood{double(food.x), double(food.y),
-          &spriteCherry, settings_.scoreFruit};
-        break;
-      default:
-        break;
+    case Map::DOT:
+      f = new Food{double(food.x), double(food.y),
+        &spriteDot, settings_.scoreDot};
+      break;
+    case Map::CHERRY:
+      f = new SuperFood{double(food.x), double(food.y),
+        &spriteCherry, settings_.scoreFruit};
+      break;
+    default:
+      break;
     }
 
     if (f != nullptr)
@@ -165,8 +165,8 @@ GameEngine::gameLoop()
 void
 GameEngine::updateGame()
 {
-//	if()
- // int preLives = gameInstance_.lives;
+  //	if()
+  // int preLives = gameInstance_.lives;
 
   gameInstance_.pacman->update(this);
 
@@ -178,10 +178,10 @@ GameEngine::updateGame()
   //gameInstance_.score contains the current score, correct? If so we just setScore
   points_.setScore(gameInstance_.score);
 
- // if (gameInstance_.lives < preLives)
- // {
+  // if (gameInstance_.lives < preLives)
+  // {
   //  lifeLost();
- // }
+  // }
 }
 
 void
@@ -243,26 +243,36 @@ GameEngine::nextLife()
   commandManager_.clearFutureTimers();
 
   gameInstance_.pacman->spawn(this, map_.getPacmanX(), map_.getPacmanY());
-
+/*
   int sleepMultiplier{0};
   int sleepTime{settings_.ghostSleep};
+*/
+  Ghost* first{nullptr};
 
   for (Ghost* ghost : gameInstance_.ghosts)
   {
-    ghost->spawn(this, map_.getGhostX(), map_.getGhostY());
-/*
-    if (sleepMultiplier > 0)
+    if (first == nullptr)
     {
-      publishCommand(new StateCommand(ghost, Ghost::SLEEP));
-      publishTimer(new Timer(
-        new StateCommand(ghost, Ghost::NORMAL), sleepMultiplier * sleepTime));
+      first = ghost;
     }
-    ++sleepMultiplier;
-    */
+
+    ghost->spawn(this, map_.getGhostX(), map_.getGhostY());
+    /*
+  if (sleepMultiplier > 0)
+  {
+    publishCommand(new StateCommand(ghost, Ghost::SLEEP));
+    publishTimer(new Timer(
+      new StateCommand(ghost, Ghost::NORMAL), sleepMultiplier * sleepTime));
+  }
+  ++sleepMultiplier;
+     */
   }
 
-  publishCommand(new SickGhostCommand(&gameInstance_,
-      - gameInstance_.ghosts.at(0)->getSickness()));
+  if (first != nullptr)
+  {
+    publishCommand(new SickGhostCommand(&gameInstance_,
+        - first->getSickness()));
+  }
 }
 
 void

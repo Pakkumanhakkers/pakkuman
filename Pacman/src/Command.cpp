@@ -72,7 +72,7 @@ void SpriteCommand::undo()
 }
 
 DirectCommand::DirectCommand(Moveable* moveable, enum Direction direction) :
-    object_{moveable}, direction_{direction}, preDirection_{Direction::LEFT}
+    object_{moveable}, preDirection_{Direction::LEFT}, direction_{direction}
 {
 }
 

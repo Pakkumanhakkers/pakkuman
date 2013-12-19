@@ -6,6 +6,7 @@
  */
 
 #include "Timer.h"
+#include "Command.h"
 
 Timer::Timer(Command* command, int duration) :
     timestamp_{0}, duration_{duration}, trigger_command_{command} {}
