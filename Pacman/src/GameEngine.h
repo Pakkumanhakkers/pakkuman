@@ -63,7 +63,7 @@ private:
   int currentTime_;
   GameState gameState_;
 
-  Score points;
+  Score points_;
 
   Settings settings_;
   GraphicEngine graphics_;
