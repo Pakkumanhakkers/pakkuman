@@ -7,11 +7,11 @@
 
 #include "GraphicEngine.h"
 
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_error.h"
-#include "SDL2/SDL_render.h"
-#include "SDL2/SDL_surface.h"
-#include "SDL2/SDL_ttf.h"
+#include <SDL.h>
+#include <SDL_error.h>
+#include <SDL_render.h>
+#include <SDL_surface.h>
+#include <SDL2_ttf.h>
 #include <iostream>
 
 #include "Sprite.h"
@@ -58,7 +58,7 @@ void GraphicEngine::Draw(Sprite* Sprite_, double xpos_, double ypos_)
       OutputRectangle(xpos_, ypos_, Sprite_->GetSize(), Sprite_->GetSize()));
 }
 
-void GraphicEngine::Draw(std::string output_, double xpos_, double ypos_)
+void GraphicEngine::draw(std::string output_, double xpos_, double ypos_)
 {
   if (globalFont == nullptr)
   {

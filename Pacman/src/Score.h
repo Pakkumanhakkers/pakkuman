@@ -15,8 +15,8 @@ class Score
 public:
 	Score() = default;
 
-	void UpdateScore(int added_score);
-	void Draw(GraphicEngine* graphic);
+	void setScore(int added_score);
+	void draw(GraphicEngine* graphic);
 
 private:
 	int score_ = 0;

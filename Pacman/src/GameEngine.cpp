@@ -177,6 +177,9 @@ GameEngine::updateGame()
     moveable->update(this);
   }
 
+  //gameInstance_.score contains the current score, correct? If so we just setScore
+  points_.setScore(gameInstance_.score);
+
  // if (gameInstance_.lives < preLives)
  // {
   //  lifeLost();
@@ -205,6 +208,8 @@ GameEngine::drawGame()
     object->draw(&graphics_);
   }
 
+  //Points should be drawn, I put it here.
+  points_.draw(&graphics_);
   gameInstance_.pacman->draw(&graphics_);
 
   graphics_.show();

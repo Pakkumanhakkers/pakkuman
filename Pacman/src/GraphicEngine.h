@@ -8,10 +8,10 @@
 #ifndef GRAPHICENGINE_H_
 #define GRAPHICENGINE_H_
 
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_pixels.h"
-#include "SDL2/SDL_rect.h"
-#include "SDL2/SDL_ttf.h"
+#include <SDL.h>
+#include <SDL_pixels.h>
+#include <SDL_rect.h>
+#include <SDL_ttf.h>
 #include <string>
 
 #include "Direction.h"
@@ -32,8 +32,8 @@ public:
 
 	void Draw(Sprite* sprite_, double xpos_, double ypos_);
 
-	//Draw is used by objects with no direction.
-	void Draw(std::string output_, double xpos_, double ypos_);
+	//Draw is used by text to be drawn, for example the score/highscore.
+	void draw(std::string output_, double xpos_, double ypos_);
 	
 	void setCurrentTime(int input);
 
