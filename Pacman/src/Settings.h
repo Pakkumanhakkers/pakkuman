@@ -13,6 +13,8 @@
  */
 struct Settings
 {
+  Settings();
+
   int soundLevel;
   bool soundMute;
 
