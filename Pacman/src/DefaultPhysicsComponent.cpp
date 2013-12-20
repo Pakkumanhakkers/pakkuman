@@ -43,7 +43,7 @@ DefaultPhysicsComponent::update(GameEngine* gameEngine, Moveable* moveable)
     else if (x != round(x) || y != round(y))
     {
       // center object
-      //gameEngine->publishCommand(new MoveCommand(moveable, round(x), round(y)));
+      gameEngine->publishCommand(new MoveCommand(moveable, round(x), round(y)));
     }
   }
 }
