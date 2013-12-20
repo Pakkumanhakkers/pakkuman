@@ -59,6 +59,7 @@ private:
   void lifeLost();
   void gameOver();
   void nextLife();
+  void nextLevel();
 
   int currentTime_;
   GameState gameState_;

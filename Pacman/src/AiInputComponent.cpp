@@ -23,7 +23,7 @@
 #include "Direction.h"
 #include <iostream>
 #include <cmath>
-//konstruktor
+
 AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder, AiType inputAi)
 {
   internalMap = map;
@@ -31,31 +31,50 @@ AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder, AiType in
   CurrentAi = inputAi;
 }
 
-
 void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
-	//std::cout << moveable->getX() << std::endl;
-	if (round(gameEngine->getGame()->pacman->getX()) == round(moveable->getX()) &&
-			round(gameEngine->getGame()->pacman->getY()) == round(moveable->getY()))
-	{
-		gameEngine->getGame()->pacman->die(gameEngine);
-	}
+  Settings* settings = gameEngine->getSettings();
+  double speed;
+
+  switch (moveable->getState())
+  {
+  case Ghost::EATABLE:
+  case Ghost::EATABLE_BLINK:
+    speed = settings->ghostSickSpeed / settings->fps;
+    break;
+  default:
+    speed = settings->ghostSpeed / settings->fps;
+    break;
+  }
+
+  if (speed != moveable->getSpeed())
+  {
+    gameEngine->publishCommand(new SpeedCommand(moveable, speed));
+  }
+
   if (moveable->isCentered())
   {
+    if (moveable->getState() == Ghost::EATEN &&
+        round(moveable->getX()) == gameEngine->getMap()->getGhostX() &&
+        round(moveable->getY()) == gameEngine->getMap()->getGhostY())
+    {
+      gameEngine->publishCommand(new StateCommand(moveable, Ghost::NORMAL));
+    }
+
     AiInputComponent::AiType nextAi;
 
     switch (moveable->getState())
     {
-      case Ghost::EATABLE:
-      case Ghost::EATABLE_BLINK:
-        nextAi = AiInputComponent::SCATTER;
-        break;
-      case Ghost::EATEN:
-        nextAi = AiInputComponent::HOME;
-        break;
-      default:
-        nextAi = AiInputComponent::CHASE;
-        break;
+    case Ghost::EATABLE:
+    case Ghost::EATABLE_BLINK:
+      nextAi = AiInputComponent::SCATTER;
+      break;
+    case Ghost::EATEN:
+      nextAi = AiInputComponent::HOME;
+      break;
+    default:
+      nextAi = AiInputComponent::CHASE;
+      break;
     }
 
     if (nextAi != getAi())
@@ -115,8 +134,7 @@ Direction AiInputComponent::updateDirection(Moveable* ghost,
     {
       target_x = 5*gameengine->getGame()->pacman->getX();
       target_y = 5*gameengine->getGame()->pacman->getY();
-      return (pathfinder->getDirection(ghost,target_x,
-          target_y));
+      return (pathfinder->getDirection(ghost, target_x, target_y));
     }
   }
 }
@@ -125,12 +143,37 @@ Direction AiInputComponent::getRandom(Moveable* moveable)
 {
   Direction direction;
   srand (time(NULL));
+
+  int count = 0;
+  bool opposite = false;
+
+  for (int i{0}; i < 4; ++i)
+  {
+    if (DefaultPhysicsComponent::canMove(internalMap, moveable, Direction(i)))
+    {
+      ++count;
+      if (Direction(i) == getOppositeDirection(moveable->getDirection()))
+      {
+        opposite = true;
+      }
+    }
+  }
+
+  if (count == 0)
+  {
+    return Direction::LEFT;
+  }
+  else if (count == 1 && opposite)
+  {
+    return getOppositeDirection(moveable->getDirection());
+  }
+
   do
   {
     direction = Direction(rand() % 4);
   }
-  while (!DefaultPhysicsComponent::canTurn(internalMap, moveable, direction) ||
-		  getOppositeDirection(direction) == moveable->getDirection());
+  while (!DefaultPhysicsComponent::canMove(internalMap, moveable, direction) ||
+      direction == getOppositeDirection(moveable->getDirection()));
 
   return direction;
 }

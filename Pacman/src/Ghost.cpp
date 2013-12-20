@@ -49,7 +49,11 @@ Ghost::changeSickness(int sick)
   sickness_ += sick;
   if (getState() != Ghost::Health::EATEN)
   {
-    if (sickness_ == 1)
+    if (sickness_ > 1)
+    {
+      setState(Ghost::Health::EATABLE);
+    }
+    else if (sickness_ == 1 && getState() != Ghost::Health::NORMAL)
     {
       setState(Ghost::Health::EATABLE_BLINK);
     }

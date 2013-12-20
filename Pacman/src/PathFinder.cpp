@@ -29,7 +29,7 @@ Direction PathFinder::getDirection(Moveable* gh, int target_x, int target_y)
 Direction prevDirection = gh->getDirection();
 int direction_x;
 int direction_y;
-if (abs((gh->getX() - round(gh->getX()))) >0.05 || abs((gh->getY() - round(gh->getY()))) >0.05 )
+if (fabs((gh->getX() - round(gh->getX()))) >0.05 || fabs((gh->getY() - round(gh->getY()))) >0.05 )
 	return prevDirection;
 int ghost_x = round(gh->getX());
 int ghost_y = round(gh->getY());

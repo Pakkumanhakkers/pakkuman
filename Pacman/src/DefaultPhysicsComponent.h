@@ -26,8 +26,11 @@ public:
   static bool
   isWallAhead(Map*, GameObject*, Direction);
   static bool
-  canTurn(Map*, Moveable*, Direction);
-
+  isWallAhead(Map*, double, double, Direction);
+  static bool
+  isAvailable(Map*, double, double);
+  static bool
+  canMove(Map*, Moveable*, Direction);
 };
 
 #endif /* DEFAULTPHYSICSCOMPONENT_H_ */

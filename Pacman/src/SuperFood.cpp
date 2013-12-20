@@ -13,7 +13,7 @@
 #include "Timer.h"
 
 SuperFood::SuperFood(double x, double y, Sprite* sprite, int score) :
-  Food{x, y, sprite, score}
+Food{x, y, sprite, score}
 {
 }
 
@@ -28,7 +28,7 @@ SuperFood::eat(GameEngine* gameEngine)
 
 
     gameEngine->publishCommand(new GhostEatenCommand(gameEngine->getGame(),
-    		- gameEngine->getGame()->ghostsEaten));
+        - gameEngine->getGame()->ghostsEaten));
 
     gameEngine->publishCommand(new SickGhostCommand(gameEngine->getGame(), 2));
 

@@ -39,15 +39,15 @@ GameEngine::GameEngine() :
   gameInstance_{},
 
   // init sprites for shared use
-  spritePacman{"img/Pacman.png"},
-  spriteGhost{"img/Ghost.png"},
-  spriteSickGhost{"img/sickGhost.png"},
-  spriteBlinkGhost{"img/blinkGhost.png"},
-  spriteEyes{"img/eyes.png"},
-  spriteWall{"img/Wall.png"},
-  spriteFloor{"img/Floor.png"},
-  spriteDot{"img/Dot.png"},
-  spriteCherry{"img/Cherry.png"},
+  spritePacman{"R/Pacman.png"},
+  spriteGhost{"R/Ghost.png"},
+  spriteSickGhost{"R/sickGhost.png"},
+  spriteBlinkGhost{"R/blinkGhost.png"},
+  spriteEyes{"R/eyes.png"},
+  spriteWall{"R/Wall.png"},
+  spriteFloor{"R/Floor.png"},
+  spriteDot{"R/Dot.png"},
+  spriteCherry{"R/Cherry.png"},
 
   // init components for shared use
   keyboardInputComponent{},
@@ -61,55 +61,48 @@ GameEngine::GameEngine() :
   map_{&spriteWall, &spriteFloor},
   pathFinder_{&map_}
 {
-  map_.loadFile("img/Map.txt");
-}
+  map_.loadFile("R/Map.txt");
 
-void GameEngine::initGame()
-{
-  // kan ta hand om tidigare gameInstance och rensa ghostAi
+
+  gameInstance_.lives = settings_.initLives;
+
   int px = map_.getPacmanX();
-  int py = 12;
-  int gx = 4;
-  int gy = 8;
+  int py = map_.getPacmanY();
+  int gx = map_.getGhostX();
+  int gy = map_.getGhostY();
 
-  // init game objects
   Pacman* pacman = new Pacman{double(px), double(py), &spritePacman};
   pacman->addComponent(&keyboardInputComponent);
   pacman->addComponent(&defaultPhysicsComponent);
   pacman->addComponent(&eaterPhysicsComponent);
-  pacman->setSpeed(2.0 / settings_.fps);
+  pacman->setSpeed(settings_.pacmanSpeed / settings_.fps);
 
   gameInstance_.pacman = pacman;
 
-  for (int i = 0; i <2; ++i)
+  for (int i{0}; i < settings_.ghostCount; ++i)
   {
+    AiInputComponent::AiType aiType;
+
     if (i == 0)
     {
-      AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder(), AiInputComponent::CHASE);
-      ghostAi.push_back(ai);
-
-      Ghost* ghost = new Ghost{double(gx), double(gy), &spriteDot};
-      ghost->addComponent(ai);
-      ghost->addComponent(&defaultPhysicsComponent);
-      ghost->addComponent(&ghostGraphicComponent);
-      ghost->setSpeed(1.6 / settings_.fps);
-
-      gameInstance_.ghosts.push_back(ghost);
+      aiType = AiInputComponent::RANDOM;
     }
     else
     {
-      AiInputComponent* ai = new AiInputComponent(getMap(),getPathFinder(), AiInputComponent::RANDOM);
-      ghostAi.push_back(ai);
-
-
-      Ghost* ghost = new Ghost{double(7), double(8), &spriteDot};
-      ghost->addComponent(ai);
-      ghost->addComponent(&defaultPhysicsComponent);
-      ghost->addComponent(&ghostGraphicComponent);
-      ghost->setSpeed(1.6 / settings_.fps);
-
-      gameInstance_.ghosts.push_back(ghost);
+      aiType = AiInputComponent::CHASE;
     }
+
+    AiInputComponent* ai = new AiInputComponent(getMap(), getPathFinder(),
+        aiType);
+    ghostAi.push_back(ai);
+
+    Ghost* ghost = new Ghost{double(gx), double(gy), &spriteDot};
+    ghost->addComponent(ai);
+    ghost->addComponent(&defaultPhysicsComponent);
+    ghost->addComponent(&ghostGraphicComponent);
+    ghost->setSpeed(settings_.ghostSpeed / settings_.fps);
+
+    gameInstance_.ghosts.push_back(ghost);
   }
 
   for (Map::FoodInfo& food : *(map_.getFoodInfo()))
@@ -135,8 +128,16 @@ void GameEngine::initGame()
       gameInstance_.food.push_back(f);
     }
   }
+}
 
+GameEngine::~GameEngine()
+{
+}
+
+void GameEngine::initGame()
+{
   currentTime_ = SDL_GetTicks();
+  nextLevel();
 }
 
 void
@@ -144,8 +145,7 @@ GameEngine::gameLoop()
 {
   int newTime = SDL_GetTicks();
   int oldTime = currentTime_;
-  if ( gameInstance_.pacman->getState() == 1)
-  {std::cout << "han e död den lille fan" << std::endl;}
+
   while (currentTime_ < newTime)
   {
     commandManager_.setCurrentTime(currentTime_);
@@ -165,8 +165,7 @@ GameEngine::gameLoop()
 void
 GameEngine::updateGame()
 {
-  //	if()
-  // int preLives = gameInstance_.lives;
+  int preLives = gameInstance_.lives;
 
   gameInstance_.pacman->update(this);
 
@@ -175,13 +174,24 @@ GameEngine::updateGame()
     moveable->update(this);
   }
 
-  //gameInstance_.score contains the current score, correct? If so we just setScore
-  points_.setScore(gameInstance_.score);
+  int foodLeft{0};
+  for (Food* food : gameInstance_.food)
+  {
+    if (food->getState() == Food::NORMAL)
+    {
+      ++foodLeft;
+    }
+  }
 
-  // if (gameInstance_.lives < preLives)
-  // {
-  //  lifeLost();
-  // }
+  if (!foodLeft)
+  {
+    nextLevel();
+  }
+
+  if (gameInstance_.lives < preLives)
+  {
+    lifeLost();
+  }
 }
 
 void
@@ -206,17 +216,14 @@ GameEngine::drawGame()
     object->draw(&graphics_);
   }
 
-  //Points should be drawn, I put it here.
-  points_.draw(&graphics_);
   gameInstance_.pacman->draw(&graphics_);
+
+  //Points should be drawn, I put it here.
+  points_.setScore(gameInstance_.score);
+  points_.draw(&graphics_);
 
   graphics_.show();
 }
-
-GameEngine::~GameEngine()
-{
-}
-
 
 void
 GameEngine::lifeLost()
@@ -235,6 +242,8 @@ void
 GameEngine::gameOver()
 {
   gameState_ = GAME_OVER;
+  gameInstance_.score = 0;
+  nextLevel();
 }
 
 void
@@ -243,10 +252,7 @@ GameEngine::nextLife()
   commandManager_.clearFutureTimers();
 
   gameInstance_.pacman->spawn(this, map_.getPacmanX(), map_.getPacmanY());
-/*
-  int sleepMultiplier{0};
-  int sleepTime{settings_.ghostSleep};
-*/
+
   Ghost* first{nullptr};
 
   for (Ghost* ghost : gameInstance_.ghosts)
@@ -257,21 +263,38 @@ GameEngine::nextLife()
     }
 
     ghost->spawn(this, map_.getGhostX(), map_.getGhostY());
-    /*
-  if (sleepMultiplier > 0)
-  {
-    publishCommand(new StateCommand(ghost, Ghost::SLEEP));
-    publishTimer(new Timer(
-      new StateCommand(ghost, Ghost::NORMAL), sleepMultiplier * sleepTime));
-  }
-  ++sleepMultiplier;
-     */
   }
 
   if (first != nullptr)
   {
     publishCommand(new SickGhostCommand(&gameInstance_,
         - first->getSickness()));
+  }
+}
+
+void
+GameEngine::nextLevel()
+{
+  nextLife();
+
+  for (Food* food : gameInstance_.food)
+  {
+    food->setState(int(Food::NORMAL));
+  }
+
+  int sleepMultiplier{0};
+  int sleepTime{settings_.ghostSleep};
+
+  for (Ghost* ghost : gameInstance_.ghosts)
+  {
+    if (sleepMultiplier > 0)
+    {
+      publishCommand(new StateCommand(ghost, Ghost::SLEEP));
+      publishTimer(new Timer(
+          new StateCommand(ghost, Ghost::NORMAL), sleepMultiplier * sleepTime));
+    }
+
+    ++sleepMultiplier;
   }
 }
 

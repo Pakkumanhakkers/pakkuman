@@ -20,7 +20,7 @@ GraphicEngine::GraphicEngine() :
 rect{0,0,0,0},
 offset_map{272},
 globalFont{nullptr},
-textColor{ 0, 0, 0 },
+textColor{ 255, 255, 255 },
 sdlSetup{1024, 640},
 ticks{0},
 scaleX_{1.0},
@@ -32,7 +32,7 @@ scaleY_{1.0}
   }
   else
   {
-    globalFont = TTF_OpenFont("PAC-FONT.TTF", 28);
+    globalFont = TTF_OpenFont("R/PAC-FONT.TTF", 28);
   }
   Sprite::SetRenderer(getRenderer());
 }
@@ -141,6 +141,6 @@ void GraphicEngine::update()
 
 void GraphicEngine::show(){
 
-	sdlSetup.End();
+  sdlSetup.End();
 
 }

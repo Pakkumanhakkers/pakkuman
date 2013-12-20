@@ -13,8 +13,8 @@
 #include "GameEngine.h"
 #include "GameInstance.h"
 #include "Ghost.h"
-#include "Pacman.h"
 #include "Moveable.h"
+#include "Pacman.h"
 
 using namespace std;
 
@@ -45,8 +45,8 @@ void
 EaterPhysicsComponent::processEatable(GameEngine* gameEngine,
     Moveable* moveable, GameObject* pos, Eatable* eat)
 {
-  if (abs(moveable->getX() - pos->getX()) < 0.5 &&
-      abs(moveable->getY() - pos->getY()) < 0.5)
+  if (fabs(moveable->getX() - pos->getX()) < 0.5 &&
+      fabs(moveable->getY() - pos->getY()) < 0.5)
   {
     eat->eat(gameEngine);
   }

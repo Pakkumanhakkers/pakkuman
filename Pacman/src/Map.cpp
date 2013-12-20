@@ -145,7 +145,7 @@ int Map::getPacmanX()
 
 int Map::getPacmanY()
 {
-  return pacmanX_;
+  return pacmanY_;
 }
 
 int Map::getGhostX()
@@ -155,7 +155,7 @@ int Map::getGhostX()
 
 int Map::getGhostY()
 {
-  return ghostX_;
+  return ghostY_;
 }
 
 std::vector<Map::FoodInfo>* Map::getFoodInfo()

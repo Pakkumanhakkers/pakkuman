@@ -18,6 +18,7 @@ struct Settings
   int soundLevel;
   bool soundMute;
 
+  int initLives;
   int scoreDot;
   int scoreFruit;
   int scoreGhost;
@@ -30,6 +31,10 @@ struct Settings
 
   int ghostCount;
   int ghostSleep;
+  double ghostSpeed;
+  double ghostSickSpeed;
+
+  double pacmanSpeed;
 };
 
 

@@ -8,7 +8,6 @@
 #include "Moveable.h"
 
 #include <cmath>
-#include <cstdlib>
 
 #include "Direction.h"
 #include "GraphicEngine.h"
@@ -98,8 +97,6 @@ Moveable::setSpeed(double speed)
 bool
 Moveable::isCentered()
 {
-  double h = double(isHorizontalDirection(direction_));
-
-  return (abs(getX() - round(getX()))*(1.0 - h) < speed_ * 0.75 &&
-      abs(getY() - round(getY()))*h < speed_ * 0.75);
+  return (fabs(getX() - round(getX())) < speed_ * 0.75) &&
+      (fabs(getY() - round(getY())) < speed_ * 0.75);
 }
