@@ -33,6 +33,7 @@ AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder, AiType in
 
 void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
 {
+  // could make up some other Ghost component
   Settings* settings = gameEngine->getSettings();
   double speed;
 
@@ -52,15 +53,16 @@ void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
     gameEngine->publishCommand(new SpeedCommand(moveable, speed));
   }
 
+  if (moveable->isCentered() && moveable->getState() == Ghost::EATEN &&
+          round(moveable->getX()) == gameEngine->getMap()->getGhostX() &&
+          round(moveable->getY()) == gameEngine->getMap()->getGhostY())
+      {
+        gameEngine->publishCommand(new StateCommand(moveable, Ghost::NORMAL));
+      }
+
+  // AI starts here
   if (moveable->isCentered())
   {
-    if (moveable->getState() == Ghost::EATEN &&
-        round(moveable->getX()) == gameEngine->getMap()->getGhostX() &&
-        round(moveable->getY()) == gameEngine->getMap()->getGhostY())
-    {
-      gameEngine->publishCommand(new StateCommand(moveable, Ghost::NORMAL));
-    }
-
     AiInputComponent::AiType nextAi;
 
     switch (moveable->getState())
@@ -106,7 +108,6 @@ Direction AiInputComponent::updateDirection(Moveable* ghost,
 {
   int target_x{0};
   int target_y{0};
-  int slump;
 
   if (CurrentAi == AiInputComponent::CHASE)
   {
@@ -123,19 +124,9 @@ Direction AiInputComponent::updateDirection(Moveable* ghost,
     target_y = internalMap->getGhostY();
     return (pathfinder->getDirection(ghost,target_x,target_y));
   }
-  else //if (Ai == AiInputComponent::AiType::SCATTER)
-    //slumpar mellan RANDOM och 5*(pacmans position)
+  else
   {
-    srand (time(NULL));
-    slump = rand() % 1;
-    if (slump == 0)
-      return getRandom(ghost);
-    else
-    {
-      target_x = 5*gameengine->getGame()->pacman->getX();
-      target_y = 5*gameengine->getGame()->pacman->getY();
-      return (pathfinder->getDirection(ghost, target_x, target_y));
-    }
+    return getRandom(ghost);
   }
 }
 

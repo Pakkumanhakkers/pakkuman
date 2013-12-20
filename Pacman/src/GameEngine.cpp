@@ -96,7 +96,7 @@ GameEngine::GameEngine() :
         aiType);
     ghostAi.push_back(ai);
 
-    Ghost* ghost = new Ghost{double(gx), double(gy), &spriteDot};
+    Ghost* ghost = new Ghost{double(gx), double(gy), &spriteGhost};
     ghost->addComponent(ai);
     ghost->addComponent(&defaultPhysicsComponent);
     ghost->addComponent(&ghostGraphicComponent);
@@ -175,6 +175,7 @@ GameEngine::updateGame()
   }
 
   int foodLeft{0};
+
   for (Food* food : gameInstance_.food)
   {
     if (food->getState() == Food::NORMAL)
@@ -242,7 +243,7 @@ void
 GameEngine::gameOver()
 {
   gameState_ = GAME_OVER;
-  gameInstance_.score = 0;
+  publishCommand(new ScoreCommand(getGame(), - getGame()->score));
   nextLevel();
 }
 
@@ -279,7 +280,7 @@ GameEngine::nextLevel()
 
   for (Food* food : gameInstance_.food)
   {
-    food->setState(int(Food::NORMAL));
+    publishCommand(new StateCommand(food, int(Food::NORMAL)));
   }
 
   int sleepMultiplier{0};

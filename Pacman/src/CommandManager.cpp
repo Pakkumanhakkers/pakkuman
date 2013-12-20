@@ -68,7 +68,10 @@ void CommandManager::checkTimer()
   {
     if ((*itr)->hasElapsed(currentTime_))
     {
-      add((*itr)->getCommand());
+      Command* command{(*itr)->getCommand()};
+      add(command);
+      command->execute();
+
       pastTimers_.push_back((*itr));
       itr = futureTimers_.erase(itr);
     }

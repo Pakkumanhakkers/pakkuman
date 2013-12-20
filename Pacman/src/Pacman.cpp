@@ -43,6 +43,7 @@ void
 Pacman::die(GameEngine* gameEngine)
 {
   gameEngine->publishCommand(new StateCommand(this, Pacman::DEAD));
+  gameEngine->publishCommand(new LifeCommand(gameEngine->getGame(), -1));
 }
 
 void
