@@ -115,14 +115,16 @@ Direction AiInputComponent::updateDirection(Moveable* ghost,
     target_x = gameengine->getGame()->pacman->getX();
     target_y = gameengine->getGame()->pacman->getY();
     return (pathfinder->getDirection(ghost,target_x,target_y));
-
   }
+
   if (CurrentAi == AiInputComponent::CHASE2)
   {
 	  return (pathfinder->getDirection2(ghost,gameengine));
   }
+
   else if (CurrentAi == AiInputComponent::RANDOM)
     return getRandom(ghost);
+
   else if (CurrentAi == AiInputComponent::HOME)
   {
     target_x = internalMap->getGhostX();
