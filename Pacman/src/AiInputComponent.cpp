@@ -29,6 +29,7 @@ AiInputComponent::AiInputComponent(Map* map, PathFinder* inpathfinder, AiType in
   internalMap = map;
   pathfinder = inpathfinder;
   CurrentAi = inputAi;
+  ghostSpecAi = inputAi;
 }
 
 void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
@@ -75,7 +76,7 @@ void AiInputComponent::update(GameEngine* gameEngine, Moveable* moveable)
       nextAi = AiInputComponent::HOME;
       break;
     default:
-      nextAi = AiInputComponent::CHASE;
+      nextAi = AiInputComponent::ghostSpecAi;
       break;
     }
 
@@ -115,6 +116,10 @@ Direction AiInputComponent::updateDirection(Moveable* ghost,
     target_y = gameengine->getGame()->pacman->getY();
     return (pathfinder->getDirection(ghost,target_x,target_y));
 
+  }
+  if (CurrentAi == AiInputComponent::CHASE2)
+  {
+	  return (pathfinder->getDirection2(ghost,gameengine));
   }
   else if (CurrentAi == AiInputComponent::RANDOM)
     return getRandom(ghost);

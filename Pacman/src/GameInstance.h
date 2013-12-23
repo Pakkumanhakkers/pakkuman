@@ -13,8 +13,8 @@
 #include "Food.h"
 #include "Ghost.h"
 //#include "Moveable.h"
-//#include "Pacman.h"
-class Pacman;
+#include "Pacman.h"
+//class Pacman;
 
 /**
  * Representerar data för en spelomgång

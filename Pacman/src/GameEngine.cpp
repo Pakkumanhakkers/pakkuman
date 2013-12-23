@@ -85,13 +85,16 @@ GameEngine::GameEngine() :
 
     if (i == 0)
     {
-      aiType = AiInputComponent::RANDOM;
+      aiType = AiInputComponent::CHASE2;
     }
-    else
+    else if (i == 1)
     {
       aiType = AiInputComponent::CHASE;
     }
-
+    else
+    {
+    	aiType = AiInputComponent::RANDOM;
+    }
     AiInputComponent* ai = new AiInputComponent(getMap(), getPathFinder(),
         aiType);
     ghostAi.push_back(ai);

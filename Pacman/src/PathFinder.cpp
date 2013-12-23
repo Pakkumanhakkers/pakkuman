@@ -15,6 +15,7 @@
 #include "Map.h"
 #include <cmath>
 #include "Moveable.h"
+#include "GameEngine.h"
 
 
 using namespace std;
@@ -22,6 +23,22 @@ using namespace std;
 PathFinder::PathFinder(Map* map): internalMap{map}
 {
 }
+
+Direction PathFinder::getDirection2(Moveable* gh, GameEngine* gameengine)
+{
+	int pacx = gameengine->getGame()->pacman->getX();
+	int pacy = gameengine->getGame()->pacman->getY();
+	Direction pacmanDirection = gameengine->getGame()->pacman->getDirection();
+	if (pacmanDirection == RIGHT)
+		return getDirection(gh, pacx + 10, pacy - 5);
+		else if (pacmanDirection == LEFT)
+			return getDirection(gh, pacx - 10, pacy + 5);
+		else if (pacmanDirection == UP)
+			return getDirection(gh, pacx - 5, pacy - 10);
+		else
+			return getDirection(gh, pacx + 5, pacy + 10);
+}
+
 
 //PathFinder tar in en ghost och en target-position och retunerar en giltlig direction
 Direction PathFinder::getDirection(Moveable* gh, int target_x, int target_y)
@@ -33,7 +50,6 @@ if (fabs((gh->getX() - round(gh->getX()))) >0.05 || fabs((gh->getY() - round(gh-
 	return prevDirection;
 int ghost_x = round(gh->getX());
 int ghost_y = round(gh->getY());
-
 direction_x = ghost_x - target_x;
 direction_y = ghost_y - target_y;
 
@@ -72,9 +88,7 @@ if (abs(direction_x) > abs(direction_y) && direction_x <= 0)
 		{
 		return (Direction::LEFT);
 		}
-
 	}
-	
 if (abs(direction_x) <= abs(direction_y) && direction_y >= 0)
 	{
 		if(prevDirection != Direction::DOWN && !internalMap->isWall(ghost_x, ghost_y - 1))
@@ -123,10 +137,5 @@ if (abs(direction_x) <= abs(direction_y) && direction_y >= 0)
 			return (Direction::RIGHT);
 		}
 		else return (Direction::LEFT);
-
 		}
-	//}
- // return Direction::UP;
-
-	
 }

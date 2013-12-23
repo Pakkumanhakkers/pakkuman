@@ -33,7 +33,7 @@ class AiInputComponent : public Component
 public:
 	enum AiType
 	{
-		CHASE, RANDOM, SCATTER, HOME
+		CHASE, RANDOM, SCATTER, HOME, CHASE2
 	};
 
         AiInputComponent(Map*, PathFinder*, AiType);
@@ -50,6 +50,7 @@ private:
   Direction getRandom(Moveable*);
   PathFinder* pathfinder;
   AiType CurrentAi;
+  AiType ghostSpecAi;
   Map* internalMap;
 };
 
