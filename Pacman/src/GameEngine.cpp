@@ -37,6 +37,7 @@ GameEngine::GameEngine() :
   graphics_{},
   commandManager_{},
   gameInstance_{},
+  points_{},
 
   // init sprites for shared use
   spritePacman{"R/Pacman.png"},
@@ -155,6 +156,7 @@ GameEngine::gameLoop()
     commandManager_.checkTimer();
     updateGame();
     currentTime_ += settings_.frameTime;
+    std::cout << points_.score << std::endl;
   }
 
   if (oldTime < currentTime_)
@@ -171,6 +173,8 @@ GameEngine::updateGame()
   int preLives = gameInstance_.lives;
 
   gameInstance_.pacman->update(this);
+
+  points_.setScore(gameInstance_.score);
 
   for (Moveable* moveable : gameInstance_.ghosts)
   {
@@ -196,6 +200,7 @@ GameEngine::updateGame()
   {
     lifeLost();
   }
+
 }
 
 void
@@ -223,9 +228,8 @@ GameEngine::drawGame()
   gameInstance_.pacman->draw(&graphics_);
 
   //Points should be drawn, I put it here.
-  points_.setScore(gameInstance_.score);
-  points_.draw(&graphics_);
 
+  points_.draw(&graphics_);
   graphics_.show();
 }
 

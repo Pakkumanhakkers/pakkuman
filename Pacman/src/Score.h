@@ -15,11 +15,12 @@ class Score : public Drawable
 public:
 	Score();
 
-	void setScore(int score);
+	void setScore(int newScore);
 	void draw(GraphicEngine* graphic);
+	int score;
 
 private:
-	int score_;
+
 	double xpos_;
 	double ypos_;
 };

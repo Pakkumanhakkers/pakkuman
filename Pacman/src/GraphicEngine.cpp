@@ -11,7 +11,7 @@
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_surface.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL/SDL_ttf.h>
 #include <iostream>
 
 #include "Sprite.h"
@@ -19,20 +19,27 @@
 GraphicEngine::GraphicEngine() :
 rect{0,0,0,0},
 offset_map{272},
-globalFont{nullptr},
 textColor{ 255, 255, 255 },
 sdlSetup{1024, 640},
 ticks{0},
 scaleX_{1.0},
 scaleY_{1.0}
 {
+
   if (TTF_Init() == -1)
   {
     std::cerr << "Failed to do TTF_Init()" << std::endl;
   }
   else
   {
-    globalFont = TTF_OpenFont("R/PAC-FONT.TTF", 28);
+	  std::cout << "loading font" << std::endl;
+	  globalFont = TTF_OpenFont("R/PACFONT.ttf", 28);
+	    if (globalFont == nullptr)
+	    {
+	    	std::cout << "NULLPTR" << std::endl;
+
+	    }
+
   }
   Sprite::SetRenderer(getRenderer());
 }
