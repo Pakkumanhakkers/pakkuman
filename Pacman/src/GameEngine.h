@@ -23,6 +23,7 @@
 #include "Score.h"
 #include "Settings.h"
 #include "Sprite.h"
+#include "Highscore.h"
 
 class AiInputComponent;
 
@@ -65,6 +66,7 @@ private:
   GameState gameState_;
 
   Score points_;
+  Highscore highscore_;
 
   Settings settings_;
   GraphicEngine graphics_;

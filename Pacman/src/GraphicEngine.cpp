@@ -19,7 +19,7 @@
 GraphicEngine::GraphicEngine() :
 rect{0,0,0,0},
 offset_map{272},
-textColor{ 255, 255, 255 },
+textColor{ 0, 0, 0 },
 sdlSetup{1024, 640},
 ticks{0},
 scaleX_{1.0},
@@ -33,12 +33,7 @@ scaleY_{1.0}
   else
   {
 	  std::cout << "loading font" << std::endl;
-	  globalFont = TTF_OpenFont("R/PACFONT.ttf", 28);
-	    if (globalFont == nullptr)
-	    {
-	    	std::cout << "NULLPTR" << std::endl;
-
-	    }
+	  globalFont = TTF_OpenFont("R/lazy.ttf", 28);
 
   }
   Sprite::SetRenderer(getRenderer());

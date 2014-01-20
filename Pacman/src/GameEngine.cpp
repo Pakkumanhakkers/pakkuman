@@ -38,6 +38,7 @@ GameEngine::GameEngine() :
   commandManager_{},
   gameInstance_{},
   points_{},
+  highscore_{},
 
   // init sprites for shared use
   spritePacman{"R/Pacman.png"},
@@ -132,7 +133,13 @@ GameEngine::GameEngine() :
       gameInstance_.food.push_back(f);
     }
   }
+
+  //Load highscore
+  highscore_.loadHighscore();
+
 }
+
+
 
 GameEngine::~GameEngine()
 {
@@ -156,7 +163,6 @@ GameEngine::gameLoop()
     commandManager_.checkTimer();
     updateGame();
     currentTime_ += settings_.frameTime;
-    std::cout << points_.score << std::endl;
   }
 
   if (oldTime < currentTime_)
@@ -227,9 +233,9 @@ GameEngine::drawGame()
 
   gameInstance_.pacman->draw(&graphics_);
 
-  //Points should be drawn, I put it here.
+  //Points should be drawn, I put it here. Now printing in terminal instead.
 
-  points_.draw(&graphics_);
+  points_.print();
   graphics_.show();
 }
 
@@ -249,8 +255,13 @@ GameEngine::lifeLost()
 void
 GameEngine::gameOver()
 {
+	//Added highscore stuff
+  highscore_.saveHighscore(gameInstance_.score);
+  highscore_.print();
+
   gameState_ = GAME_OVER;
   publishCommand(new ScoreCommand(getGame(), - getGame()->score));
+  points_.resetScore();
   nextLevel();
 }
 

@@ -6,17 +6,22 @@
 
 #include <sstream>
 #include <string>
+#include <iostream>
 
 #include "GraphicEngine.h"
 
 Score::Score() :
-score{0}, xpos_{40}, ypos_{80}
+score{0}, xpos_{40}, ypos_{80}, update{false}
 {
 }
 
 void Score::setScore(int newScore)
 {
-  score =  newScore;
+	if(newScore > score)
+	{
+		score =  newScore;
+		update = true;
+	}
 }
 
 void Score::draw(GraphicEngine* graphic)
@@ -28,3 +33,18 @@ void Score::draw(GraphicEngine* graphic)
   Result = convert.str(); // set 'Result' to the contents of the stream
   graphic->draw(Result, xpos_, ypos_);
 }
+
+void Score::print()
+{
+	if (update)
+	{
+		std::cout << score << std::endl;
+		update = false;
+	}
+}
+
+void Score::resetScore()
+{
+	score = 0;
+}
+

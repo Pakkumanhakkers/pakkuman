@@ -16,11 +16,13 @@ public:
 	Score();
 
 	void setScore(int newScore);
+	void resetScore();
 	void draw(GraphicEngine* graphic);
 	int score;
+	void print();
 
 private:
-
+	bool update;
 	double xpos_;
 	double ypos_;
 };
