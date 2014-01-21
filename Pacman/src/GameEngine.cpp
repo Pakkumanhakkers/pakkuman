@@ -33,12 +33,13 @@ GameEngine::GameEngine() :
   currentTime_{0},
   gameState_{PLAY},
 
+  points_{},
+  highscore_{},
+
   settings_{},
   graphics_{},
   commandManager_{},
   gameInstance_{},
-  points_{},
-  highscore_{},
 
   // init sprites for shared use
   spritePacman{"R/Pacman.png"},

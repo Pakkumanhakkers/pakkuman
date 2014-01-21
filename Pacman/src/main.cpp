@@ -56,7 +56,7 @@ void test()
 }
 
 int main(int argc, char* argv[]) {
-  test();
+  //test();
   //return 0;
 
   GameEngine gameEngine = GameEngine();

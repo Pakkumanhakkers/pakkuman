@@ -11,7 +11,7 @@
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_surface.h>
-#include <SDL/SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 
 #include "Sprite.h"
@@ -33,7 +33,11 @@ scaleY_{1.0}
   else
   {
 	  std::cout << "loading font" << std::endl;
-	  globalFont = TTF_OpenFont("R/lazy.ttf", 28);
+	  globalFont = TTF_OpenFont("R/PACFONT.ttf", 28);
+	  if (globalFont == nullptr)
+	  {
+	    std::cout << "error parsing font" << std::endl;
+	  }
 
   }
   Sprite::SetRenderer(getRenderer());

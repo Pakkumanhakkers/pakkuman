@@ -22,9 +22,9 @@ public:
 	void print();
 
 private:
-	bool update;
 	double xpos_;
 	double ypos_;
+        bool update;
 };
 
 #endif
