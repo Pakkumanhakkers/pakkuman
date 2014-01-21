@@ -11,7 +11,7 @@
 #include "GraphicEngine.h"
 
 Score::Score() :
-score{0}, xpos_{40}, ypos_{80}, update{false}
+score{0}, xpos_{40}, ypos_{80}, update{true}
 {
 }
 
@@ -26,12 +26,20 @@ void Score::setScore(int newScore)
 
 void Score::draw(GraphicEngine* graphic)
 {
+  if (!update)
+  {
+    return;
+  }
+  print();
+
   // convert score_ to a string
   std::string Result;
   std::ostringstream convert;
   convert << score;      // insert the textual representation of score_ in the characters in the stream
   Result = convert.str(); // set 'Result' to the contents of the stream
   graphic->draw(Result, xpos_, ypos_);
+
+  update = false;
 }
 
 void Score::print()

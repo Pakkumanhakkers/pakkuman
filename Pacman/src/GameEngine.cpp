@@ -235,8 +235,8 @@ GameEngine::drawGame()
   gameInstance_.pacman->draw(&graphics_);
 
   //Points should be drawn, I put it here. Now printing in terminal instead.
+  points_.draw(&graphics_);
 
-  points_.print();
   graphics_.show();
 }
 
