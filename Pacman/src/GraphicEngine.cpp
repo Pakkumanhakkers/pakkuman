@@ -19,7 +19,7 @@
 GraphicEngine::GraphicEngine() :
 rect{0,0,0,0},
 offset_map{272},
-textColor{ 0, 0, 0 },
+textColor{255, 255, 255 },
 sdlSetup{1024, 640},
 ticks{0},
 scaleX_{1.0},
