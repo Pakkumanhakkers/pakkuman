@@ -20,7 +20,7 @@ class Ghost : public Moveable, public Eatable
 public:
   enum Health
   {
-        NORMAL, SCATTER, EATABLE, EATABLE_BLINK, EATEN, SLEEP
+        NORMAL, EATABLE, EATABLE_BLINK, EATEN, SLEEP
   };
 
   virtual ~Ghost();

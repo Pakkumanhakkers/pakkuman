@@ -11,13 +11,13 @@
 #include "GraphicEngine.h"
 
 Score::Score() :
-score{0}, xpos_{1}, ypos_{1}, update{true}
+score{0}, xpos_{0}, ypos_{2}, update{true}
 {
 }
 
 void Score::setScore(int newScore)
 {
-	if(newScore > score)
+	if(newScore != score)
 	{
 		score =  newScore;
 		update = true;
@@ -26,11 +26,11 @@ void Score::setScore(int newScore)
 
 void Score::draw(GraphicEngine* graphic)
 {
-  if (!update)
+  if (update)
   {
-    return;
+    //print();
+    update = false;
   }
-  print();
 
   // convert score_ to a string
   std::string result;
@@ -38,8 +38,6 @@ void Score::draw(GraphicEngine* graphic)
   convert << score;      // insert the textual representation of score_ in the characters in the stream
   result = convert.str(); // set 'Result' to the contents of the stream
   graphic->draw(result, xpos_, ypos_);
-
-  update = false;
 }
 
 void Score::print()

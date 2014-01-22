@@ -65,9 +65,7 @@ GameEngine::GameEngine() :
   pathFinder_{&map_}
 {
   map_.loadFile("R/Map.txt");
-
-
-  gameInstance_.lives = settings_.initLives;
+  highscore_.loadHighscore();
 
   int px = map_.getPacmanX();
   int py = map_.getPacmanY();
@@ -134,10 +132,6 @@ GameEngine::GameEngine() :
       gameInstance_.food.push_back(f);
     }
   }
-
-  //Load highscore
-  highscore_.loadHighscore();
-
 }
 
 
@@ -148,10 +142,15 @@ GameEngine::~GameEngine()
 
 void GameEngine::initGame()
 {
+  gameState_ = GameEngine::PLAY;
   currentTime_ = SDL_GetTicks();
+  gameInstance_.lives = settings_.initLives;
   nextLevel();
 }
 
+/**
+ * Loop game updates and draw game.
+ */
 void
 GameEngine::gameLoop()
 {
@@ -174,6 +173,9 @@ GameEngine::gameLoop()
   SDL_Delay(1);
 }
 
+/**
+ * Update game objects and test for life loss.
+ */
 void
 GameEngine::updateGame()
 {
@@ -234,12 +236,15 @@ GameEngine::drawGame()
 
   gameInstance_.pacman->draw(&graphics_);
 
-  //Points should be drawn, I put it here. Now printing in terminal instead.
   points_.draw(&graphics_);
+  highscore_.draw(&graphics_);
 
   graphics_.show();
 }
 
+/**
+ * Determine the followup on life loss.
+ */
 void
 GameEngine::lifeLost()
 {
@@ -253,6 +258,9 @@ GameEngine::lifeLost()
   }
 }
 
+/**
+ * Save score to highscore and reset score and start new game.
+ */
 void
 GameEngine::gameOver()
 {
@@ -262,10 +270,14 @@ GameEngine::gameOver()
 
   gameState_ = GAME_OVER;
   publishCommand(new ScoreCommand(getGame(), - getGame()->score));
-  points_.resetScore();
-  nextLevel();
+  points_.setScore(getGame()->score);
+
+  initGame();
 }
 
+/**
+ * Spawn pacman and ghosts with fresh states and cancel future events.
+ */
 void
 GameEngine::nextLife()
 {
@@ -292,6 +304,9 @@ GameEngine::nextLife()
   }
 }
 
+/**
+ * Populate level with food and sleep ghosts.
+ */
 void
 GameEngine::nextLevel()
 {
@@ -312,6 +327,10 @@ GameEngine::nextLevel()
       publishCommand(new StateCommand(ghost, Ghost::SLEEP));
       publishTimer(new Timer(
           new StateCommand(ghost, Ghost::NORMAL), sleepMultiplier * sleepTime));
+    }
+    else
+    {
+      publishCommand(new StateCommand(ghost, Ghost::Health::NORMAL));
     }
 
     ++sleepMultiplier;

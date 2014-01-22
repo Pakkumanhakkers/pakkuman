@@ -48,7 +48,8 @@ public:
 private:
 
 	SDL_Rect rect;
-	int offset_map;
+        int offset_map_x_;
+        int offset_map_y_;
 	TTF_Font *globalFont = NULL;
 	SDL_Color textColor;
 	cSDL_Setup sdlSetup;

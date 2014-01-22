@@ -18,9 +18,10 @@
 
 GraphicEngine::GraphicEngine() :
 rect{0,0,0,0},
-offset_map{272},
+offset_map_x_{5},
+offset_map_y_{2},
 textColor{255, 255, 255 },
-sdlSetup{1024, 640},
+sdlSetup{(15 + 5)*32, (20 + 2)*32},
 ticks{0},
 scaleX_{1.0},
 scaleY_{1.0}
@@ -33,12 +34,11 @@ scaleY_{1.0}
   else
   {
 	  std::cout << "loading font" << std::endl;
-	  globalFont = TTF_OpenFont("R/PACFONT.ttf", 28);
+	  globalFont = TTF_OpenFont("R/8bitlim.ttf", 28);
 	  if (globalFont == nullptr)
 	  {
 	    std::cout << "error parsing font" << std::endl;
 	  }
-
   }
   Sprite::SetRenderer(getRenderer());
 }
@@ -52,8 +52,8 @@ void GraphicEngine::DrawSprite(Sprite* sprite_, double xpos_, double ypos_,
 {
   SDL_RenderCopy(sdlSetup.GetRenderer(), sprite_->GetImage(),
       sprite_->GetCrop(ticks, direction),
-      OutputRectangle(scaleX_*xpos_,
-          scaleY_*ypos_,
+      OutputRectangle(xpos_ + offset_map_x_,
+          ypos_ + offset_map_y_,
           sprite_->GetSize(), sprite_->GetSize()));
 }
 
@@ -61,7 +61,9 @@ void GraphicEngine::Draw(Sprite* Sprite_, double xpos_, double ypos_)
 {
   SDL_RenderCopy(sdlSetup.GetRenderer(),
       Sprite_->GetImage(), NULL,
-      OutputRectangle(xpos_, ypos_, Sprite_->GetSize(), Sprite_->GetSize()));
+      OutputRectangle(xpos_ + offset_map_x_,
+          ypos_ + offset_map_y_,
+          Sprite_->GetSize(), Sprite_->GetSize()));
 }
 
 void GraphicEngine::draw(std::string output_, double xpos_, double ypos_)
@@ -106,7 +108,7 @@ void GraphicEngine::draw(std::string output_, double xpos_, double ypos_)
       //Render to screen
       SDL_RenderCopyEx( sdlSetup.GetRenderer(), mTexture,
           NULL/* eller ska detta vara sdlSetup->GetWindow()? */,
-          OutputRectangle(xpos_ - offset_map, ypos_, mWidth, mHeight),
+          OutputRectangle(xpos_, ypos_, mWidth, mHeight),
           0.0 /* The angel on which the text is drawn in degrees */,
           NULL /* Punkten rendering-rutan snurras runt (w/2, h/2 nu) */,
           flip);
@@ -121,10 +123,10 @@ void GraphicEngine::draw(std::string output_, double xpos_, double ypos_)
 SDL_Rect* GraphicEngine::OutputRectangle(double Xpos, double Ypos,
     int SpriteWidth, int SpriteHeight)
 {
-  rect.x = Xpos*32 + offset_map;
-  rect.y = Ypos*32;
-  rect.w = SpriteWidth;
-  rect.h = SpriteHeight;
+  rect.x = scaleX_*Xpos*32;
+  rect.y = scaleY_*Ypos*32;
+  rect.w = scaleX_*SpriteWidth;
+  rect.h = scaleY_*SpriteHeight;
 
   return &rect;
 }

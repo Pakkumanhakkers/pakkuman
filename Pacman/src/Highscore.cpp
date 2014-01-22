@@ -13,7 +13,7 @@
 using namespace std;
 
 Highscore::Highscore()  :
-score{0}, xpos_{500}, ypos_{80}
+score{0}, xpos_{0}, ypos_{4}
 {
 
 

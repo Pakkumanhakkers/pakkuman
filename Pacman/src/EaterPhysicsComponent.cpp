@@ -8,6 +8,7 @@
 #include "EaterPhysicsComponent.h"
 
 #include <cmath>
+#include <iostream>
 
 #include "Food.h"
 #include "GameEngine.h"

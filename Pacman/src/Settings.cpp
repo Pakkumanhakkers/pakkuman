@@ -24,7 +24,7 @@ Settings::Settings() :
   blinkTime{2 * 1000},
 
   ghostCount{4},
-  ghostSleep{10 * 1000},
+  ghostSleep{0},
   ghostSpeed{1.5},
   ghostSickSpeed{1.0},
 

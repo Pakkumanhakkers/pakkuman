@@ -57,7 +57,7 @@ Ghost::changeSickness(int sick)
     {
       setState(Ghost::Health::EATABLE_BLINK);
     }
-    else if (sickness_ == 0 )
+    else
     {
       setState(Ghost::Health::NORMAL);
     }
@@ -74,12 +74,13 @@ void Ghost::eat(GameEngine* gameEngine)
 {
   switch (health_)
   {
-    case Ghost::NORMAL:
-      gameEngine->getGame()->pacman->die(gameEngine);
-      break;
     case Ghost::EATABLE:
     case Ghost::EATABLE_BLINK:
       die(gameEngine);
+      break;
+    case Ghost::NORMAL:
+    case Ghost::SLEEP:
+      gameEngine->getGame()->pacman->die(gameEngine);
       break;
     default:
       break;
@@ -100,4 +101,5 @@ void
 Ghost::spawn(GameEngine* gameEngine, int x, int y)
 {
   gameEngine->publishCommand(new MoveCommand(this, x, y));
+  gameEngine->publishCommand(new StateCommand(this, Ghost::NORMAL));
 }
